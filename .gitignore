@@ -1,0 +1,6 @@
+data/*
+model/*
+references/*
+descartes-venv/*
+lightning_log/*
+/src/NL2SQL-Guo/data_and_model/*
