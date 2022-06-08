@@ -8,4 +8,5 @@ lightning_log/*
 *.bin
 *.json
 *.jsonl
-!**/.json
+*.db
+src/NL2SQL-RULE/data_and_model/spider/*
