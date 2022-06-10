@@ -543,7 +543,7 @@ def generate_inputs(tokenizer, nlu1_tok, hds1):
     segment_ids.append(1)
     ed = len(tokens)
 
-    i_hds.append(st, ed)
+    i_hds.append((st, ed))
 
     tokens.append("[SEP]")
     segment_ids.append(0)
@@ -743,7 +743,7 @@ def get_bert_output(model_bert, tokenizer, nlu_t, hds, max_seq_length):
     for b, nlu_t1 in enumerate(nlu_t):
 
         hds1 = hds[b]
-        l_hs.append(len(hds1))
+        l_hs.append(len(hds1)+1)
 
 
         # 1. 2nd tokenization using WordPiece
