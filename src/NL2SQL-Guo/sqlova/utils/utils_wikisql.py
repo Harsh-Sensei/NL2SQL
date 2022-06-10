@@ -535,7 +535,18 @@ def generate_inputs(tokenizer, nlu1_tok, hds1):
     tokens.append("[SEP]")
     segment_ids.append(0)
 
+
     i_hds = []
+
+    st = len(tokens)
+    tokens.append("*")
+    segment_ids.append(1)
+    ed = len(tokens)
+
+    i_hds.append(st, ed)
+
+    tokens.append("[SEP]")
+    segment_ids.append(0)
     # for doc
     for i, hds11 in enumerate(hds1):
         i_st_hd = len(tokens)
@@ -554,7 +565,6 @@ def generate_inputs(tokenizer, nlu1_tok, hds1):
             raise EnvironmentError
 
     i_nlu = (i_st_nlu, i_ed_nlu)
-
     return tokens, segment_ids, i_nlu, i_hds
 
 def gen_l_hpu(i_hds):

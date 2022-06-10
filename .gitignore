@@ -9,4 +9,4 @@ lightning_log/*
 *.json
 *.jsonl
 *.db
-src/NL2SQL-RULE/data_and_model/spider/*
+src/NL2SQL-Guo/data_and_model/spider/*
