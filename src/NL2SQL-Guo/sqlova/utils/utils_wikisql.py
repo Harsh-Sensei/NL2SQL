@@ -348,13 +348,12 @@ def get_g(sql_i):
         g_sa.append(psql_i1["agg"])
 
         conds = psql_i1['conds']
-        if not psql_i1["agg"] < 0:
-            g_wn.append( len( conds ) )
-            g_wc.append( get_wc1(conds) )
-            g_wo.append( get_wo1(conds) )
-            g_wv.append( get_wv1(conds) )
-        else:
-            raise EnvironmentError
+
+        g_wn.append( len( conds ) )
+        g_wc.append( get_wc1(conds) )
+        g_wo.append( get_wo1(conds) )
+        g_wv.append( get_wv1(conds) )
+
     return g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv
 
 def get_g_wvi_corenlp(t):
@@ -538,15 +537,15 @@ def generate_inputs(tokenizer, nlu1_tok, hds1):
 
     i_hds = []
 
-    st = len(tokens)
-    tokens.append("*")
-    segment_ids.append(1)
-    ed = len(tokens)
-
-    i_hds.append((st, ed))
-
-    tokens.append("[SEP]")
-    segment_ids.append(0)
+    # st = len(tokens)
+    # tokens.append("*")
+    # segment_ids.append(1)
+    # ed = len(tokens)
+    #
+    # i_hds.append((st, ed))
+    #
+    # tokens.append("[SEP]")
+    # segment_ids.append(0)
     # for doc
     for i, hds11 in enumerate(hds1):
         i_st_hd = len(tokens)
@@ -743,7 +742,7 @@ def get_bert_output(model_bert, tokenizer, nlu_t, hds, max_seq_length):
     for b, nlu_t1 in enumerate(nlu_t):
 
         hds1 = hds[b]
-        l_hs.append(len(hds1)+1)
+        l_hs.append(len(hds1))
 
 
         # 1. 2nd tokenization using WordPiece

@@ -135,6 +135,7 @@ def get_bert(BERT_PT_PATH, bert_type, do_lower_case, no_pretraining):
 
 def get_opt(model, model_bert, fine_tune):
     if fine_tune:
+        print("Bert fine-tuning")
         opt = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()),
                                lr=args.lr, weight_decay=0)
 
@@ -859,7 +860,7 @@ if __name__ == '__main__':
                                                                path_model_bert=path_model_bert, path_model=path_model,
                                                                spider_data=True)
 
-    model.freeze_wiki_model(req_grad=False)
+    # model.freeze_wiki_model(req_grad=False)
     ## 5. Get optimizers
     if args.do_train:
         opt, opt_bert = get_opt(model, model_bert, args.fine_tune)

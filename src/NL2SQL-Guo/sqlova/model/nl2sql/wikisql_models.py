@@ -1828,7 +1828,7 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
         super(Seq2SQL_v1_ext, self).__init__(iS, hS, lS, dr, n_cond_ops, n_agg_ops, old=False)
         self.sel_num = SNC_ext(iS, hS, lS, dr) # select number columns
         self.sel_col = SCP_ext(iS, hS, lS, dr) # select columns
-        self.sel_agg = SAP_ext(iS, hS, lS, dr, n_agg_ops, old=old)
+        self.sel_agg = SAP_ext(iS, hS, lS, dr, n_agg_ops)
 
 
     def forward(self, wemb_n, l_n, wemb_h, l_hpu, l_hs,
@@ -1840,8 +1840,8 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
         """self, wemb_n, l_n, wemb_hpu, l_hpu, l_hs, show_p_wn=False,
         knowledge=None,
         knowledge_header=None"""
-        # sc
-        s_sn = self.sel_num(wemb_n, l_n, wemb_h, l_hpu, l_hs, show_p_sc=show_p_sc,
+        # sc hve to fix show_p_sc
+        s_sn = self.sel_num(wemb_n, l_n, wemb_h, l_hpu, l_hs, show_p_wn=show_p_sc,
                         knowledge=knowledge, knowledge_header=knowledge_header)
 
         if g_sn:
@@ -1849,7 +1849,8 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
         else:
             pr_sn = pred_sn_ext(s_sn)
 
-        s_sc = self.sel_col(wemb_n, l_n, wemb_h, l_hpu, l_hs, show_p_sc=show_p_sc,
+        # fix show_p_wc
+        s_sc = self.sel_col(wemb_n, l_n, wemb_h, l_hpu, l_hs, show_p_wc=show_p_sc,
                         knowledge=knowledge, knowledge_header=knowledge_header)
 
         if g_sc:
@@ -1906,7 +1907,7 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
 
     def load_wiki_model(self, path_model='./model_best.pt'):
         res = torch.load(path_model, map_location='cpu') # added htg
-        super().load_state_dict(res['model'])
+        super().load_state_dict(res['model'], strict=False)
 
     def freeze_wiki_model(self, req_grad=False):
         for param in super().parameters():
@@ -1914,7 +1915,7 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
 
 
 class SAP_ext(nn.Module):
-    def __init__(self, iS=300, hS=100, lS=2, dr=0.3, n_agg_ops=4):
+    def __init__(self, iS=300, hS=100, lS=2, dr=0.3, n_agg_ops=6):
         super(SAP_ext, self).__init__()
         self.iS = iS
         self.hS = hS
@@ -2065,7 +2066,7 @@ class SCP_ext(nn.Module):
         self.softmax_dim1 = nn.Softmax(dim=1)
         self.softmax_dim2 = nn.Softmax(dim=2)
 
-    def forward(self, wemb_n, l_n, wemb_hpu, l_hpu, l_hs, show_p_wc, penalty=True,
+    def forward(self, wemb_n, l_n, wemb_hpu, l_hpu, l_hs, show_p_wc=False, penalty=True,
                 knowledge=None,
                 knowledge_header=None):
         # Encode
@@ -2155,7 +2156,7 @@ class SCP_ext(nn.Module):
 
 
 class SNC_ext(nn.Module):
-    def __init__(self, iS=300, hS=100, lS=2, dr=0.3, ):
+    def __init__(self, iS=300, hS=100, lS=2, dr=0.3):
         super(SNC_ext, self).__init__()
         self.iS = iS
         self.hS = hS
