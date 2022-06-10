@@ -366,10 +366,10 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
         pr_sql_i = generate_sql_i(pr_sn, pr_sc, pr_sa, pr_wn, pr_wc_sorted, pr_wo, pr_wv_str, nlu)
 
         # Cacluate accuracy
-        cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, \
+        cnt_sn1_list, cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, \
         cnt_wc1_list, cnt_wo1_list, \
-        cnt_wvi1_list, cnt_wv1_list = get_cnt_sw_list(g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
-                                                      pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi,
+        cnt_wvi1_list, cnt_wv1_list = get_cnt_sw_list(g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
+                                                      pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi,
                                                       sql_i, pr_sql_i,
                                                       mode='train')
 
@@ -378,12 +378,14 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
         # lx stands for logical form accuracy
 
         # Execution accuracy test.
-        cnt_x1_list, g_ans, pr_ans = get_cnt_x_list(engine, tb, g_sc, g_sa, sql_i, pr_sc, pr_sa, pr_sql_i)
+
+        # cnt_x1_list, g_ans, pr_ans = get_cnt_x_list(engine, tb, g_sc, g_sa, sql_i, pr_sc, pr_sa, pr_sql_i)
 
         # statistics
         ave_loss += loss.item()
 
         # count
+        cnt_sn += sum(cnt_sn1_list)
         cnt_sc += sum(cnt_sc1_list)
         cnt_sa += sum(cnt_sa1_list)
         cnt_wn += sum(cnt_wn1_list)
@@ -392,9 +394,10 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
         cnt_wvi += sum(cnt_wvi1_list)
         cnt_wv += sum(cnt_wv1_list)
         cnt_lx += sum(cnt_lx1_list)
-        cnt_x += sum(cnt_x1_list)
+        # cnt_x += sum(cnt_x1_list)
 
     ave_loss /= cnt
+    acc_sn = cnt_sn / cnt
     acc_sc = cnt_sc / cnt
     acc_sa = cnt_sa / cnt
     acc_wn = cnt_wn / cnt
@@ -403,9 +406,9 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
     acc_wvi = cnt_wvi / cnt
     acc_wv = cnt_wv / cnt
     acc_lx = cnt_lx / cnt
-    acc_x = cnt_x / cnt
+    # acc_x = cnt_x / cnt
 
-    acc = [ave_loss, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x]
+    acc = [ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx] #acc_x]
 
     aux_out = 1
 

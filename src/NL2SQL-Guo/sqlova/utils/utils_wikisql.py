@@ -1852,14 +1852,15 @@ def get_cnt_sw_list_agg(g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
 
     return None, cnt_sa, None, None, None, None, None
 
-def get_cnt_sw_list(g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
-                    pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi,
+def get_cnt_sw_list(g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
+                    pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi,
                     g_sql_i, pr_sql_i,
                     mode):
     """ usalbe only when g_wc was used to find pr_wv
     """
-    cnt_sc = get_cnt_sc_list(g_sc, pr_sc)
-    cnt_sa = get_cnt_sc_list(g_sa, pr_sa)
+    cnt_sn = get_cnt_sc_list(g_sn, pr_sn)
+    cnt_sc = get_cnt_wc_list(g_sc, pr_sc)
+    cnt_sa = get_cnt_wo_list(g_sn, g_sc, g_sa, pr_sc, pr_sa, mode)
     cnt_wn = get_cnt_sc_list(g_wn, pr_wn)
     cnt_wc = get_cnt_wc_list(g_wc, pr_wc)
     cnt_wo = get_cnt_wo_list(g_wn, g_wc, g_wo, pr_wc, pr_wo, mode)
@@ -1869,8 +1870,7 @@ def get_cnt_sw_list(g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
         cnt_wvi = [0]*len(cnt_sc)
     cnt_wv = get_cnt_wv_list(g_wn, g_wc, g_sql_i, pr_sql_i, mode) # compare using wv-str which presented in original data.
 
-
-    return cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wvi, cnt_wv
+    return cnt_sn, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wvi, cnt_wv
 
 
 def get_cnt_lx_list(cnt_sc1, cnt_sa1, cnt_wn1, cnt_wc1, cnt_wo1, cnt_wv1):
