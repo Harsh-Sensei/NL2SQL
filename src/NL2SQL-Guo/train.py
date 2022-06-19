@@ -221,7 +221,7 @@ def Identity(x):
 
 def get_combined_data(path_combined_tables="./data_and_model/train_wiki_and_spider_tables.jsonl",
                       path_combined_queries="./data_and_model/train_wiki_and_spider_knowledge.jsonl",
-                      path_small_combined_queries="./data_and_model/small_wiki_and_spider_knowledge.jsonl",
+                      path_small_combined_queries="./data_and_model/train_small_wiki_and_spider_knowledge.jsonl",
                       small_data=True,
                       bS=8):
     if small_data:
@@ -509,8 +509,7 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
         print("Test batch number: ", iB)
         if cnt < st_pos:
             continue
-        if cnt > 100:
-            break
+
         # Get fields
         nlu, nlu_t, sql_i, sql_q, sql_t, tb, hs_t, hds = get_fields(t, data_table, no_hs_t=True, no_sql_t=True)
 
