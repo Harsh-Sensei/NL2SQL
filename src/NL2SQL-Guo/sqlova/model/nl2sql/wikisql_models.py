@@ -11,7 +11,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 
 from sqlova.utils.utils import topk_multi_dim
 from sqlova.utils.utils_wikisql import *
@@ -1344,7 +1345,7 @@ def Loss_sw_se_agg(s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sc, g_sa, g_wn, g_wc, g
     return loss
 
 
-def Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi):
+def Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi, count_star_prob):
     """
 
     :param s_wv: score  [ B, n_conds, T, score]
@@ -1355,14 +1356,26 @@ def Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn,
     loss = 0
     loss += Loss_sn_ext(s_sn, g_sn)
     loss += Loss_sc_ext(s_sc, g_sc)
-    loss += Loss_sa_ext(s_sa, g_sa)
+    loss += Loss_sa_ext(s_sa, g_sn, g_sa)
     loss += Loss_wn(s_wn, g_wn)
     loss += Loss_wc(s_wc, g_wc)
     loss += Loss_wo(s_wo, g_wn, g_wo)
     loss += Loss_wv_se(s_wv, g_wn, g_wvi)
+    loss += Loss_cnt_star_ext(count_star_prob, g_sc)
 
     return loss
 
+
+def Loss_cnt_star_ext(count_star_prob, g_sc):
+    gt = []
+    for iB, g_sc1 in enumerate(g_sc):
+        if 0 in g_sc1:
+            gt.append(1)
+        else:
+            gt.append(0)
+    loss = F.binary_cross_entropy(F.sigmoid(count_star_prob.squeeze(dim=1)), torch.tensor(gt).to(device).to(torch.float32))
+
+    return loss
 
 def Loss_sc(s_sc, g_sc):
     loss = F.cross_entropy(s_sc, torch.tensor(g_sc).to(device))
@@ -1412,8 +1425,8 @@ def Loss_sn_ext(s_sn, g_sn):
     loss = F.cross_entropy(s_sn, torch.tensor(g_sn).to(device))
     return loss
 
-def Loss_sa_ext(s_sa, g_sn, g_sa):
     # Construct index matrix
+def Loss_sa_ext(s_sa, g_sn, g_sa):
     loss = 0
     for b, g_sn1 in enumerate(g_sn):
         if g_sn1 == 0:
@@ -1824,11 +1837,13 @@ class Decoder_s2s(nn.Module):
 
 
 class Seq2SQL_v1_ext(Seq2SQL_v1):
-    def __init__(self, iS, hS, lS, dr, n_cond_ops, n_agg_ops, old=False):
+    def __init__(self, iS, hS, lS, dr, n_cond_ops, n_agg_ops, pool_dim=768, old=False):
         super(Seq2SQL_v1_ext, self).__init__(iS, hS, lS, dr, n_cond_ops, n_agg_ops, old=False)
+        self.pool_dim = pool_dim
         self.sel_num = SNC_ext(iS, hS, lS, dr) # select number columns
         self.sel_col = SCP_ext(iS, hS, lS, dr) # select columns
         self.sel_agg = SAP_ext(iS, hS, lS, dr, n_agg_ops)
+        self.sel_cnt_star = nn.Linear(pool_dim, 1)
 
 
     def forward(self, wemb_n, l_n, wemb_h, l_hpu, l_hs,
@@ -1836,12 +1851,12 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
                 show_p_sc=False, show_p_sa=False,
                 show_p_wn=False, show_p_wc=False, show_p_wo=False, show_p_wv=False,
                 knowledge=None,
-                knowledge_header=None):
+                knowledge_header=None, pooled_output=None):
         """self, wemb_n, l_n, wemb_hpu, l_hpu, l_hs, show_p_wn=False,
         knowledge=None,
         knowledge_header=None"""
         # sc hve to fix show_p_sc
-        s_sn = self.sel_num(wemb_n, l_n, wemb_h, l_hpu, l_hs, show_p_wn=show_p_sc,
+        s_sn = self.sel_num(wemb_n, l_n, wemb_h, l_hpu, l_hs,
                         knowledge=knowledge, knowledge_header=knowledge_header)
 
         if g_sn:
@@ -1850,16 +1865,16 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
             pr_sn = pred_sn_ext(s_sn)
 
         # fix show_p_wc
-        s_sc = self.sel_col(wemb_n, l_n, wemb_h, l_hpu, l_hs, show_p_wc=show_p_sc,
+        s_sc = self.sel_col(wemb_n, l_n, wemb_h, l_hpu, l_hs,
                         knowledge=knowledge, knowledge_header=knowledge_header)
 
         if g_sc:
             pr_sc = g_sc
         else:
-            pr_sc = pred_sc_ext(s_sc)
+            pr_sc = pred_sc_ext(pr_sn, s_sc)
 
         # sa
-        s_sa = self.sel_agg(wemb_n, l_n, wemb_h, l_hpu, l_hs, pr_sn, pr_sc, show_p_wo=show_p_sa,
+        s_sa = self.sel_agg(wemb_n, l_n, wemb_h, l_hpu, l_hs, pr_sn, pr_sc,
                         knowledge=knowledge, knowledge_header=knowledge_header)
         # (self, wemb_n, l_n, wemb_hpu, l_hpu, l_hs, wn, wc, wenc_n=None, show_p_wo=False,
         #                 knowledge=None,
@@ -1869,7 +1884,7 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
             # it's not necessary though.
             pr_sa = g_sa
         else:
-            pr_sa = pred_sa_ext(s_sa)
+            pr_sa = pred_sa_ext(pr_sn, s_sa)
 
         # wn
         s_wn = self.wnp(wemb_n, l_n, wemb_h, l_hpu, l_hs, show_p_wn=show_p_wn,
@@ -1903,14 +1918,16 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
         s_wv = self.wvp(wemb_n, l_n, wemb_h, l_hpu, l_hs, wn=pr_wn, wc=pr_wc, wo=pr_wo, show_p_wv=show_p_wv,
                         knowledge=knowledge, knowledge_header=knowledge_header)
 
-        return s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv
+        count_star_prob = self.sel_cnt_star(pooled_output)
+
+        return s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, count_star_prob
 
     def load_wiki_model(self, path_model='./model_best.pt'):
         res = torch.load(path_model, map_location='cpu') # added htg
         super().load_state_dict(res['model'], strict=False)
 
     def freeze_wiki_model(self, req_grad=False):
-        for param in super().parameters():
+        for param in super().parameters(recurse=False):
             param.requires_grad = req_grad
 
 
@@ -1933,10 +1950,10 @@ class SAP_ext(nn.Module):
                              num_layers=lS, batch_first=True,
                              dropout=dr, bidirectional=True)
 
-        self.W_att = nn.Linear(hS + self.question_knowledge_dim, hS + self.header_knowledge_dim)
-        self.W_c = nn.Linear(hS + self.question_knowledge_dim, hS)
-        self.W_hs = nn.Linear(hS + self.header_knowledge_dim, hS)
-        self.wo_out = nn.Sequential(
+        self.Sel_att = nn.Linear(hS + self.question_knowledge_dim, hS + self.header_knowledge_dim)
+        self.Sel_c = nn.Linear(hS + self.question_knowledge_dim, hS)
+        self.Sel_hs = nn.Linear(hS + self.header_knowledge_dim, hS)
+        self.sel_agg_out = nn.Sequential(
             nn.Linear(2 * hS, hS),
             nn.Tanh(),
             nn.Linear(hS, n_agg_ops)
@@ -1981,7 +1998,12 @@ class SAP_ext(nn.Module):
         for b in range(bS):
             # [[...], [...]]
             # Pad list to maximum number of selections
-            real = [wenc_hs[b, col] for col in wc[b]]
+            try:
+                real = [wenc_hs[b, col] for col in wc[b]]
+            except IndexError as I:
+                print("htg and mikasa")
+                print(I)
+
             pad = (self.mL_w - wn[b]) * [wenc_hs[b, 0]]  # this padding could be wrong. Test with zero padding later.
             wenc_hs_ob1 = torch.stack(real + pad)  # It is not used in the loss function.
             wenc_hs_ob.append(wenc_hs_ob1)
@@ -1993,7 +2015,7 @@ class SAP_ext(nn.Module):
         # [B, 1, mL_n, dim] * [B, 4, dim, 1]
         #  -> [B, 4, mL_n, 1] -> [B, 4, mL_n]
         # multiplication bewteen NLq-tokens and  selected column
-        att = torch.matmul(self.W_att(wenc_n).unsqueeze(1),
+        att = torch.matmul(self.Sel_att(wenc_n).unsqueeze(1),
                            wenc_hs_ob.unsqueeze(3)
                            ).squeeze(3)
 
@@ -2004,25 +2026,6 @@ class SAP_ext(nn.Module):
                 att[b, :, l_n1:] = -10000000000
 
         p = self.softmax_dim2(att)  # p( n| selected_col )
-        if show_p_wo:
-            # p = [b, hs, n]
-            if p.shape[0] != 1:
-                raise Exception("Batch size should be 1.")
-            fig = figure(2001)
-            # subplot(6,2,7)
-            subplot2grid((7, 2), (5, 0), rowspan=2)
-            cla()
-            _color = 'rgbkcm'
-            _symbol = '.......'
-            for i_wn in range(self.mL_w):
-                color_idx = i_wn % len(_color)
-                plot(p[0][i_wn][:].data.numpy() - i_wn, '--' + _symbol[color_idx] + _color[color_idx], ms=7)
-
-            title('wo: p_n for selected h')
-            grid(True)
-            fig.tight_layout()
-            fig.canvas.draw()
-            show()
 
         # [B, 1, mL_n, dim] * [B, 4, mL_n, 1]
         #  --> [B, 4, mL_n, dim]
@@ -2031,8 +2034,8 @@ class SAP_ext(nn.Module):
 
         # [bS, 5-1, dim] -> [bS, 5-1, 3]
 
-        vec = torch.cat([self.W_c(c_n), self.W_hs(wenc_hs_ob)], dim=2)
-        s_wo = self.wo_out(vec)
+        vec = torch.cat([self.Sel_c(c_n), self.Sel_hs(wenc_hs_ob)], dim=2)
+        s_wo = self.sel_agg_out(vec)
 
         return s_wo
 
@@ -2066,7 +2069,7 @@ class SCP_ext(nn.Module):
         self.softmax_dim1 = nn.Softmax(dim=1)
         self.softmax_dim2 = nn.Softmax(dim=2)
 
-    def forward(self, wemb_n, l_n, wemb_hpu, l_hpu, l_hs, show_p_wc=False, penalty=True,
+    def forward(self, wemb_n, l_n, wemb_hpu, l_hpu, l_hs, penalty=True,
                 knowledge=None,
                 knowledge_header=None):
         # Encode
@@ -2109,25 +2112,6 @@ class SCP_ext(nn.Module):
         # make p(j_n | i_h)
         p = self.softmax_dim2(att)
 
-        if show_p_wc:
-            # p = [b, hs, n]
-            if p.shape[0] != 1:
-                raise Exception("Batch size should be 1.")
-            fig = figure(2001);
-            # subplot(6,2,7)
-            subplot2grid((7, 2), (3, 1), rowspan=2)
-            cla()
-            _color = 'rgbkcm'
-            _symbol = '.......'
-            for i_h in range(l_hs[0]):
-                color_idx = i_h % len(_color)
-                plot(p[0][i_h][:].data.numpy() - i_h, '--' + _symbol[color_idx] + _color[color_idx], ms=7)
-
-            title('wc: p_n for each h')
-            grid(True)
-            fig.tight_layout()
-            fig.canvas.draw()
-            show()
         # max nlu context vectors
         # [bS, mL_hs, mL_n]*[bS, mL_hs, mL_n]
         wenc_n = wenc_n.unsqueeze(1)  # [ b, n, dim] -> [b, 1, n, dim]
@@ -2186,7 +2170,7 @@ class SNC_ext(nn.Module):
         self.softmax_dim1 = nn.Softmax(dim=1)
         self.softmax_dim2 = nn.Softmax(dim=2)
 
-    def forward(self, wemb_n, l_n, wemb_hpu, l_hpu, l_hs, show_p_wn=False,
+    def forward(self, wemb_n, l_n, wemb_hpu, l_hpu, l_hs,
                 knowledge=None,
                 knowledge_header=None):
         # Encode
@@ -2214,19 +2198,6 @@ class SNC_ext(nn.Module):
             if l_hs1 < mL_hs:
                 att_h[b, l_hs1:] = -10000000000
         p_h = self.softmax_dim1(att_h)
-
-        if show_p_wn:
-            if p_h.shape[0] != 1:
-                raise Exception("Batch size should be 1.")
-            fig = figure(2001);
-            subplot(7, 2, 5)
-            cla()
-            plot(p_h[0].data.numpy(), '--rs', ms=7)
-            title('wn: header_weight')
-            grid(True)
-            fig.canvas.draw()
-            show()
-            # input('Type Eenter to continue.')
 
         #   [B, mL_hs, 100] * [ B, mL_hs, 1] -> [B, mL_hs, 100] -> [B, 100]
         c_hs = torch.mul(wenc_hs, p_h.unsqueeze(2)).sum(1)
@@ -2262,19 +2233,6 @@ class SNC_ext(nn.Module):
                 att_n[b, l_n1:] = -10000000000
         p_n = self.softmax_dim1(att_n)
 
-        if show_p_wn:
-            if p_n.shape[0] != 1:
-                raise Exception("Batch size should be 1.")
-            fig = figure(2001);
-            subplot(7, 2, 6)
-            cla()
-            plot(p_n[0].data.numpy(), '--rs', ms=7)
-            title('wn: nlu_weight')
-            grid(True)
-            fig.canvas.draw()
-
-            show()
-            # input('Type Enter to continue.')
 
         #    [B, mL_n, 100] *([B, mL_n] -> [B, mL_n, 1] -> [B, mL_n, 100] ) -> [B, 100]
         c_n = torch.mul(wenc_n, p_n.unsqueeze(2).expand_as(wenc_n)).sum(dim=1)

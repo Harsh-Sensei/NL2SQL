@@ -11,6 +11,7 @@ import torch.nn as nn
 import torch
 import torch.nn.functional as F
 import random as python_random
+import dill as pickle
 # import torchvision.datasets as dsets
 
 # BERT
@@ -23,7 +24,9 @@ from sqlova.model.nl2sql.wikisql_models import *
 from sqlnet.dbengine import DBEngine
 from colorama import Fore, Back, Style
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+torch.manual_seed(73)
+
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 device = torch.device("cpu")
 
 def construct_hyper_param(parser):
@@ -74,7 +77,7 @@ def construct_hyper_param(parser):
 
     # 1.4 Execution-guided decoding beam-size. It is used only in test.py
     parser.add_argument('--EG',
-                        default=True,
+                        default=False,
                         help="If present, Execution guided decoding is used in test.") # toggle
     parser.add_argument('--beam_size',
                         type=int,
@@ -213,6 +216,9 @@ def get_data(path_wikisql, args):
     return train_data, train_table, dev_data, dev_table, train_loader, dev_loader
 
 
+def Identity(x):
+    return x
+
 def get_combined_data(path_combined_tables="./data_and_model/train_wiki_and_spider_tables.jsonl",
                       path_combined_queries="./data_and_model/train_wiki_and_spider_knowledge.jsonl",
                       path_small_combined_queries="./data_and_model/small_wiki_and_spider_knowledge.jsonl",
@@ -240,8 +246,8 @@ def get_combined_data(path_combined_tables="./data_and_model/train_wiki_and_spid
         batch_size=bS,
         dataset=data,
         shuffle=True,
-        # num_workers=0, # 4--> 0 htg
-        collate_fn=lambda x: x
+        num_workers=0, # 4--> 0 htg
+        collate_fn=Identity
     )
 
     return data, table, data_loader
@@ -252,6 +258,8 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
           st_pos=0, opt_bert=None, path_db=None, dset_name='train', is_spider=False):
     model.train()
     model_bert.train()
+
+    num_loss_exception_batches = 0
 
     ave_loss = 0
     cnt = 0  # count the # of examples
@@ -273,7 +281,8 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
         engine = DBEngine(os.path.join(path_db, f"{dset_name}.db"))
 
     for iB, t in enumerate(train_loader):
-        cnt += len(t)
+        print("Batch Index: ", iB)
+
 
         if cnt < st_pos:
             continue
@@ -293,7 +302,7 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
         g_wvi_corenlp = get_g_wvi_corenlp(t)
 
         wemb_n, wemb_h, l_n, l_hpu, l_hs, \
-        nlu_tt, t_to_tt_idx, tt_to_t_idx \
+        nlu_tt, t_to_tt_idx, tt_to_t_idx, pooled_output \
             = get_wemb_bert(bert_config, model_bert, tokenizer, nlu_t, hds, max_seq_length,
                             num_out_layers_n=num_target_layers, num_out_layers_h=num_target_layers)
 
@@ -305,7 +314,9 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
         try:
             #
             g_wvi = get_g_wvi_bert_from_g_wvi_corenlp(t_to_tt_idx, g_wvi_corenlp)
-        except:
+        except Exception as e:
+            print("Where value not found in bert")
+            print(e)
             # Exception happens when where-condition is not found in nlu_tt.
             # In this case, that train example is not used.
             # During test, that example considered as wrongly answered.
@@ -327,13 +338,19 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
                 knowledge_header.append(max(l_hs) * [0])
 
         # score
-        s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv = model(wemb_n, l_n, wemb_h, l_hpu, l_hs,
-                                                   g_sc=g_sc, g_sa=g_sa, g_wn=g_wn, g_wc=g_wc, g_wvi=g_wvi,
+        s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, count_star_prob = model(wemb_n, l_n, wemb_h, l_hpu, l_hs,
+                                                   g_sn=g_sn, g_sc=g_sc, g_sa=g_sa, g_wn=g_wn, g_wc=g_wc, g_wvi=g_wvi,
                                                    knowledge=knowledge,
-                                                   knowledge_header=knowledge_header)
+                                                   knowledge_header=knowledge_header, pooled_output=pooled_output)
 
         # Calculate loss & step
-        loss = Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi)
+        #try:
+        loss = Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
+                              count_star_prob)
+        # except:
+        #     print("Loss exception")
+        #     num_loss_exception_batches += 1
+        #     continue
 
         # Calculate gradient
         if iB % accumulate_gradients == 0:  # mode
@@ -384,7 +401,7 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
 
         # statistics
         ave_loss += loss.item()
-
+        cnt += len(t)
         # count
         cnt_sn += sum(cnt_sn1_list)
         cnt_sc += sum(cnt_sc1_list)
@@ -396,7 +413,7 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
         cnt_wv += sum(cnt_wv1_list)
         cnt_lx += sum(cnt_lx1_list)
         # cnt_x += sum(cnt_x1_list)
-
+        print(cnt_lx)
     ave_loss /= cnt
     acc_sn = cnt_sn / cnt
     acc_sc = cnt_sc / cnt
@@ -407,20 +424,20 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
     acc_wvi = cnt_wvi / cnt
     acc_wv = cnt_wv / cnt
     acc_lx = cnt_lx / cnt
-    # acc_x = cnt_x / cnt
+    acc_x = cnt_x / cnt
 
-    acc = [ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx] #acc_x]
+    acc = [ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x]
 
     aux_out = 1
-
+    print(num_loss_exception_batches)
     return acc, aux_out
 
 
 def report_detail(hds, nlu,
-                  g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_wv_str, g_sql_q, g_ans,
-                  pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_sql_q, pr_ans,
+                  g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_wv_str, g_sql_q, g_ans,
+                  pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_sql_q, pr_ans,
                   cnt_list, current_cnt):
-    cnt_tot, cnt, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wv, cnt_wvi, cnt_lx, cnt_x = current_cnt
+    cnt_tot, cnt, cnt_sn, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wv, cnt_wvi, cnt_lx, cnt_x = current_cnt
 
     print(f'cnt = {cnt} / {cnt_tot} ===============================')
 
@@ -434,6 +451,8 @@ def report_detail(hds, nlu,
     # print(f's_wo: {s_wo[0]}')
     # print(f's_wv: {s_wv[0][0]}')
     print(f'===============================')
+    print(f'g_sn : {g_sn}')
+    print(f'pr_sn : {pr_sn}')
     print(f'g_sc : {g_sc}')
     print(f'pr_sc: {pr_sc}')
     print(f'g_sa : {g_sa}')
@@ -457,7 +476,7 @@ def report_detail(hds, nlu,
     print(cnt_list)
 
     print(f'acc_lx = {cnt_lx / cnt:.3f}, acc_x = {cnt_x / cnt:.3f}\n',
-          f'acc_sc = {cnt_sc / cnt:.3f}, acc_sa = {cnt_sa / cnt:.3f}, acc_wn = {cnt_wn / cnt:.3f}\n',
+          f'acc_sn = {cnt_sn / cnt}, acc_sc = {cnt_sc / cnt:.3f}, acc_sa = {cnt_sa / cnt:.3f}, acc_wn = {cnt_wn / cnt:.3f}\n',
           f'acc_wc = {cnt_wc / cnt:.3f}, acc_wo = {cnt_wo / cnt:.3f}, acc_wv = {cnt_wv / cnt:.3f}')
     print(f'===============================')
 
@@ -471,6 +490,7 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
 
     ave_loss = 0
     cnt = 0
+    cnt_sn = 0
     cnt_sc = 0
     cnt_sa = 0
     cnt_wn = 0
@@ -483,21 +503,22 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
 
     cnt_list = []
 
-    engine = DBEngine(os.path.join(path_db, f"{dset_name}.db"))
+    engine = DBEngine("./dev_wiki_and_spider.db")
     results = []
     for iB, t in enumerate(data_loader):
-
-        cnt += len(t)
+        print("Test batch number: ", iB)
         if cnt < st_pos:
             continue
+        if cnt > 100:
+            break
         # Get fields
         nlu, nlu_t, sql_i, sql_q, sql_t, tb, hs_t, hds = get_fields(t, data_table, no_hs_t=True, no_sql_t=True)
 
-        g_sc, g_sa, g_wn, g_wc, g_wo, g_wv = get_g(sql_i)
+        g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv = get_g(sql_i)
         g_wvi_corenlp = get_g_wvi_corenlp(t)
 
         wemb_n, wemb_h, l_n, l_hpu, l_hs, \
-        nlu_tt, t_to_tt_idx, tt_to_t_idx \
+        nlu_tt, t_to_tt_idx, tt_to_t_idx, pooled_output \
             = get_wemb_bert(bert_config, model_bert, tokenizer, nlu_t, hds, max_seq_length,
                             num_out_layers_n=num_target_layers, num_out_layers_h=num_target_layers)
         try:
@@ -508,6 +529,7 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
             # Exception happens when where-condition is not found in nlu_tt.
             # In this case, that train example is not used.
             # During test, that example considered as wrongly answered.
+            print("where-condition is not found in nlu_tt")
             for b in range(len(nlu)):
                 results1 = {}
                 results1["error"] = "Skip happened"
@@ -534,20 +556,21 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
         # score
         if not EG:
             # No Execution guided decoding
-            s_sc, s_sa, s_wn, s_wc, s_wo, s_wv = model(wemb_n, l_n, wemb_h, l_hpu, l_hs,
+            s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, count_star_prob = model(wemb_n, l_n, wemb_h, l_hpu, l_hs,
                                                        knowledge=knowledge,
-                                                       knowledge_header=knowledge_header)
+                                                       knowledge_header=knowledge_header, pooled_output=pooled_output)
 
             # get loss & step
-            loss = Loss_sw_se(s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi)
+            loss = Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi, count_star_prob)
 
             # prediction
-            pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi = pred_sw_se(s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, )
+            pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi = pred_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, )
             pr_wv_str, pr_wv_str_wp = convert_pr_wvi_to_string(pr_wvi, nlu_t, nlu_tt, tt_to_t_idx, nlu)
             # g_sql_i = generate_sql_i(g_sc, g_sa, g_wn, g_wc, g_wo, g_wv_str, nlu)
-            pr_sql_i = generate_sql_i(pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, nlu)
+            pr_sql_i = generate_sql_i(pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, nlu)
         else:
             # Execution guided decoding
+            raise Exception("Execution-Guided Decoding not implemented yet")
             prob_sca, prob_w, prob_wn_w, pr_sc, pr_sa, pr_wn, pr_sql_i = model.beam_forward(wemb_n, l_n, wemb_h, l_hpu,
                                                                                             l_hs, engine, tb,
                                                                                             nlu_t, nlu_tt,
@@ -575,27 +598,29 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
             results1["nlu"] = nlu[b]
             results.append(results1)
 
-        cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, \
+        cnt_sn1_list, cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, \
         cnt_wc1_list, cnt_wo1_list, \
-        cnt_wvi1_list, cnt_wv1_list = get_cnt_sw_list(g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
-                                                      pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi,
+        cnt_wvi1_list, cnt_wv1_list = get_cnt_sw_list(g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
+                                                      pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi,
                                                       sql_i, pr_sql_i,
                                                       mode='test')
 
         cnt_lx1_list = get_cnt_lx_list(cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, cnt_wc1_list,
                                        cnt_wo1_list, cnt_wv1_list)
 
-        # Execution accura y test
+        # Execution accuracy test
         cnt_x1_list = []
         # lx stands for logical form accuracy
 
         # Execution accuracy test.
-        cnt_x1_list, g_ans, pr_ans = get_cnt_x_list(engine, tb, g_sc, g_sa, sql_i, pr_sc, pr_sa, pr_sql_i)
+        # cnt_x1_list, g_ans, pr_ans = get_cnt_x_list(engine, tb, g_sc, g_sa, sql_i, pr_sc, pr_sa, pr_sql_i)
 
         # stat
         ave_loss += loss.item()
 
         # count
+        cnt += len(t)
+        cnt_sn += sum(cnt_sn1_list)
         cnt_sc += sum(cnt_sc1_list)
         cnt_sa += sum(cnt_sa1_list)
         cnt_wn += sum(cnt_wn1_list)
@@ -604,20 +629,23 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
         cnt_wv += sum(cnt_wv1_list)
         cnt_wvi += sum(cnt_wvi1_list)
         cnt_lx += sum(cnt_lx1_list)
-        cnt_x += sum(cnt_x1_list)
+        # cnt_x += sum(cnt_x1_list)
 
-        current_cnt = [cnt_tot, cnt, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wv, cnt_wvi, cnt_lx, cnt_x]
-        cnt_list1 = [cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, cnt_wc1_list, cnt_wo1_list, cnt_wv1_list, cnt_lx1_list,
+        current_cnt = [cnt_tot, cnt, cnt_sn, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wv, cnt_wvi, cnt_lx, cnt_x]
+        cnt_list1 = [cnt_sn1_list, cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, cnt_wc1_list, cnt_wo1_list, cnt_wv1_list, cnt_lx1_list,
                      cnt_x1_list]
         cnt_list.append(cnt_list1)
         # report
+        g_ans = 0 # htg
+        pr_ans = 0 # htg
         if detail:
             report_detail(hds, nlu,
-                          g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_wv_str, g_sql_q, g_ans,
-                          pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_sql_q, pr_ans,
+                          g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_wv_str, g_sql_q, g_ans,
+                          pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_sql_q, pr_ans,
                           cnt_list1, current_cnt)
 
     ave_loss /= cnt
+    acc_sn = cnt_sn / cnt
     acc_sc = cnt_sc / cnt
     acc_sa = cnt_sa / cnt
     acc_wn = cnt_wn / cnt
@@ -628,7 +656,7 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
     acc_lx = cnt_lx / cnt
     acc_x = cnt_x / cnt
 
-    acc = [ave_loss, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x]
+    acc = [ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x]
     return acc, results, cnt_list
 
 
@@ -815,11 +843,11 @@ def infer(nlu1,
 
 
 def print_result(epoch, acc, dname):
-    ave_loss, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x = acc
+    ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x = acc
 
     print(f'{dname} results ------------')
     print(
-        f" Epoch: {epoch}, ave loss: {ave_loss}, acc_sc: {acc_sc:.3f}, acc_sa: {acc_sa:.3f}, acc_wn: {acc_wn:.3f}, \
+        f" Epoch: {epoch}, ave loss: {ave_loss}, acc_sn: {acc_sn:.3f}, acc_sc: {acc_sc:.3f}, acc_sa: {acc_sa:.3f}, acc_wn: {acc_wn:.3f}, \
         acc_wc: {acc_wc:.3f}, acc_wo: {acc_wo:.3f}, acc_wvi: {acc_wvi:.3f}, acc_wv: {acc_wv:.3f}, acc_lx: {acc_lx:.3f}, acc_x: {acc_x:.3f}"
     )
 
@@ -841,6 +869,10 @@ if __name__ == '__main__':
     # train_data, train_table, dev_data, dev_table, train_loader, \
     # dev_loader = get_data(path_wikisql, args)
     train_data, train_tables, train_loader = get_combined_data()
+    dev_data, dev_tables, dev_loader = get_combined_data(
+        path_combined_tables="./data_and_model/dev_wiki_and_spider_tables.jsonl",
+        path_combined_queries="./data_and_model/dev_small_wiki_and_spider_knowledge.jsonl",
+        small_data=False)
     # test_data, test_table = load_wikisql_data(path_wikisql, mode='test', toy_model=args.toy_model, toy_size=args.toy_size, no_hs_tok=True)
     # test_loader = torch.utils.data.DataLoader(
     #     batch_size=args.bS,
@@ -870,6 +902,7 @@ if __name__ == '__main__':
         epoch_best = -1
         for epoch in range(1): # args.tepoch):
             # train
+
             acc_train = None
             acc_train, aux_out_train = train(train_loader,
                                              train_tables,
@@ -881,29 +914,32 @@ if __name__ == '__main__':
                                              args.max_seq_length,
                                              args.num_target_layers,
                                              args.accumulate_gradients,
+                                             is_spider=True,
                                              opt_bert=opt_bert,
                                              st_pos=0,
                                              path_db=path_wikisql,
                                              dset_name='train')
 
             # check DEV
-            # with torch.no_grad():
-            #     acc_dev, results_dev, cnt_list = test(dev_loader,
-            #                                           dev_table,
-            #                                           model,
-            #                                           model_bert,
-            #                                           bert_config,
-            #                                           tokenizer,
-            #                                           args.max_seq_length,
-            #                                           args.num_target_layers,
-            #                                           detail=False,
-            #                                           path_db=path_wikisql,
-            #                                           st_pos=0,
-            #                                           dset_name='dev', EG=args.EG)
-            if acc_train != None:
-                print_result(epoch, acc_train, 'train')
-        state = {'model': model.state_dict()}
-        torch.save(state, "./saved_models/easy_spider_debug.pt")
+            with torch.no_grad():
+                acc_dev, results_dev, cnt_list = test(dev_loader,
+                                                      dev_tables,
+                                                      model,
+                                                      model_bert,
+                                                      bert_config,
+                                                      tokenizer,
+                                                      args.max_seq_length,
+                                                      args.num_target_layers,
+                                                      detail=True,
+                                                      path_db=path_wikisql,
+                                                      st_pos=0,
+                                                      dset_name='dev', EG=args.EG)
+            if acc_dev != None:
+                print_result(epoch, acc_dev, 'dev')
+        import os
+        print(os.getcwd())
+        # state = {'model': model.state_dict()}
+        # torch.save(state, "./saved_models/easy_spider_debug.pt")
             # print_result(epoch, acc_dev, 'dev')
 
             # save results for the official evaluation

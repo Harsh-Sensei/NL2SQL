@@ -21,7 +21,7 @@ from .utils import json_default_type_checker
 from .wikisql_formatter import get_squad_style_ans
 
 
-
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 device = torch.device("cpu")
 
 # Load data -----------------------------------------------------------------------------------------------
@@ -120,7 +120,7 @@ def get_fields_1(t1, tables, no_hs_t=False, no_sql_t=False):
     else:
         sql_t1 = t1['query_tok']
 
-    tb1 = tables[tid1]
+    tb1 = tables[tid1.lower()]
     if not no_hs_t:
         hs_t1 = tb1['header_tok']
     else:
@@ -799,6 +799,7 @@ def get_bert_output(model_bert, tokenizer, nlu_t, hds, max_seq_length):
     all_segment_ids = torch.tensor(segment_ids, dtype=torch.long).to(device)
 
     # 4. Generate BERT output.
+
     all_encoder_layer, pooled_output = model_bert(all_input_ids, all_segment_ids, all_input_mask)
 
     # 5. generate l_hpu from i_hds
@@ -1008,7 +1009,7 @@ def get_wemb_bert(bert_config, model_bert, tokenizer, nlu_t, hds, max_seq_length
                         num_out_layers_h)
 
     return wemb_n, wemb_h, l_n, l_hpu, l_hs, \
-           nlu_tt, t_to_tt_idx, tt_to_t_idx
+           nlu_tt, t_to_tt_idx, tt_to_t_idx, pooled_output
 
 
 def gen_pnt_n(g_wvi, mL_w, mL_nt):
@@ -2074,11 +2075,13 @@ def generate_sql_q1(sql_i1, tb1):
     # except:
     #     print(f"No table name while headers are {headers}")
     select_table = tb1["id"]
+    sql_query_part1 = f'SELECT '
+    for i in range(len(sql_i1['agg'])):
+        select_agg = agg_ops[sql_i1['agg'][i]]
+        select_header = headers[sql_i1['sel'][i]]
+        sql_query_part1 = f'{sql_query_part1} {select_agg}({select_header}) ,'
 
-    select_agg = agg_ops[sql_i1['agg']]
-    select_header = headers[sql_i1['sel']]
-    sql_query_part1 = f'SELECT {select_agg}({select_header}) '
-
+    sql_query_part1 = sql_query_part1[:-1]
 
     where_num = len(sql_i1['conds'])
     if where_num == 0:
