@@ -1345,7 +1345,7 @@ def Loss_sw_se_agg(s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sc, g_sa, g_wn, g_wc, g
     return loss
 
 
-def Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi, count_star_prob):
+def Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi, count_star_prob):#, g_gb):
     """
 
     :param s_wv: score  [ B, n_conds, T, score]
@@ -1362,9 +1362,22 @@ def Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn,
     loss += Loss_wo(s_wo, g_wn, g_wo)
     loss += Loss_wv_se(s_wv, g_wn, g_wvi)
     loss += Loss_cnt_star_ext(count_star_prob, g_sc)
+    #loss += Loss_gb_ext(s_gb, g_gb)
 
     return loss
 
+def Loss_gb_ext(s_gb, g_gb):
+    # Construct index matrix
+    bS, max_h_len = s_gb.shape
+    im = torch.zeros([bS, max_h_len]).to(device)
+    for b, g_gb1 in enumerate(g_gb):
+        for g_gb11 in g_gb1:
+            im[b, g_gb11] = 1.0
+    # Construct prob.
+    p = F.sigmoid(s_gb)
+    loss = F.binary_cross_entropy(p, im)
+
+    return loss
 
 def Loss_cnt_star_ext(count_star_prob, g_sc):
     gt = []
@@ -1843,11 +1856,12 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
         self.sel_num = SNC_ext(iS, hS, lS, dr) # select number columns
         self.sel_col = SCP_ext(iS, hS, lS, dr) # select columns
         self.sel_agg = SAP_ext(iS, hS, lS, dr, n_agg_ops)
+        # self.grpby_col = SGC_ext(iS, hS, lS, dr)
         self.sel_cnt_star = nn.Linear(pool_dim, 1)
 
 
     def forward(self, wemb_n, l_n, wemb_h, l_hpu, l_hs,
-                g_sn=None, g_sc=None, g_sa=None, g_wn=None, g_wc=None, g_wo=None, g_wvi=None,
+                g_sn=None, g_sc=None, g_sa=None, g_wn=None, g_wc=None, g_wo=None, g_wvi=None, g_gb=None,
                 show_p_sc=False, show_p_sa=False,
                 show_p_wn=False, show_p_wc=False, show_p_wo=False, show_p_wv=False,
                 knowledge=None,
@@ -1918,9 +1932,12 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
         s_wv = self.wvp(wemb_n, l_n, wemb_h, l_hpu, l_hs, wn=pr_wn, wc=pr_wc, wo=pr_wo, show_p_wv=show_p_wv,
                         knowledge=knowledge, knowledge_header=knowledge_header)
 
+        # s_gb = self.grpby_col(wemb_n, l_n, wemb_h, l_hpu, l_hs,
+        #                 knowledge=knowledge, knowledge_header=knowledge_header)
+
         count_star_prob = self.sel_cnt_star(pooled_output)
 
-        return s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, count_star_prob
+        return s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, count_star_prob# , s_gb
 
     def load_wiki_model(self, path_model='./model_best.pt'):
         res = torch.load(path_model, map_location='cpu') # added htg
@@ -1929,6 +1946,101 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
     def freeze_wiki_model(self, req_grad=False):
         for param in super().parameters(recurse=False):
             param.requires_grad = req_grad
+
+class SGC_ext(nn.Module):
+    def __init__(self, iS=300, hS=100, lS=2, dr=0.3):
+        super(SGC_ext, self).__init__()
+        self.iS = iS
+        self.hS = hS
+        self.lS = lS
+        self.dr = dr
+        self.question_knowledge_dim = 5
+        self.header_knowledge_dim = 3
+        self.enc_h = nn.LSTM(input_size=iS, hidden_size=int(hS / 2),
+                             num_layers=lS, batch_first=True,
+                             dropout=dr, bidirectional=True)
+
+        self.enc_n = nn.LSTM(input_size=iS, hidden_size=int(hS / 2),
+                             num_layers=lS, batch_first=True,
+                             dropout=dr, bidirectional=True)
+
+        self.GB_att = nn.Linear(hS + self.question_knowledge_dim, hS + self.header_knowledge_dim)
+        self.GB_c = nn.Linear(hS + self.question_knowledge_dim, hS)
+        self.GB_hs = nn.Linear(hS + self.header_knowledge_dim, hS)
+        self.GB_out = nn.Sequential(
+            nn.Tanh(), nn.Linear(2 * hS, 1)
+        )
+
+        self.softmax_dim1 = nn.Softmax(dim=1)
+        self.softmax_dim2 = nn.Softmax(dim=2)
+
+    def forward(self, wemb_n, l_n, wemb_hpu, l_hpu, l_hs, penalty=True,
+                knowledge=None,
+                knowledge_header=None):
+        # Encode
+        mL_n = max(l_n)
+        bS = len(l_hs)
+        wenc_n = encode(self.enc_n, wemb_n, l_n,
+                        return_hidden=False,
+                        hc0=None,
+                        last_only=False)  # [b, n, dim]
+        knowledge = [k + (mL_n - len(k)) * [0] for k in knowledge]
+        knowledge = torch.tensor(knowledge).unsqueeze(-1)
+
+        feature = torch.zeros(bS, mL_n, self.question_knowledge_dim).scatter_(dim=-1,
+                                                                              index=knowledge,
+                                                                              value=1).to(device)
+        wenc_n = torch.cat([wenc_n, feature], -1)
+
+        wenc_hs = encode_hpu(self.enc_h, wemb_hpu, l_hpu, l_hs)  # [b, hs, dim]
+        knowledge_header = [k + (max(l_hs) - len(k)) * [0] for k in knowledge_header]
+        knowledge_header = torch.tensor(knowledge_header).unsqueeze(-1)
+        feature2 = torch.zeros(bS, max(l_hs), self.header_knowledge_dim).scatter_(dim=-1,
+                                                                                  index=knowledge_header,
+                                                                                  value=1).to(device)
+        wenc_hs = torch.cat([wenc_hs, feature2], -1)
+        # attention
+        # wenc = [bS, mL, hS]
+        # att = [bS, mL_hs, mL_n]
+        # att[b, i_h, j_n] = p(j_n| i_h)
+        att = torch.bmm(wenc_hs, self.GB_att(wenc_n).transpose(1, 2))
+
+        # penalty to blank part.
+        mL_n = max(l_n)
+        for b_n, l_n1 in enumerate(l_n):
+            if l_n1 < mL_n:
+                att[b_n, :, l_n1:] = -10000000000
+
+        # for b, c in enumerate(predict_select_column):
+        #      att[b, c, :] = -10000000000
+
+        # make p(j_n | i_h)
+        p = self.softmax_dim2(att)
+
+        # max nlu context vectors
+        # [bS, mL_hs, mL_n]*[bS, mL_hs, mL_n]
+        wenc_n = wenc_n.unsqueeze(1)  # [ b, n, dim] -> [b, 1, n, dim]
+        p = p.unsqueeze(3)  # [b, hs, n] -> [b, hs, n, 1]
+        c_n = torch.mul(wenc_n, p).sum(2)  # -> [b, hs, dim], c_n for each header.
+
+        # bS = len(l_hs)
+        # index = torch.tensor(predict_select_column).unsqueeze(-1)
+        # feature = torch.zeros(bS, max(l_hs)).scatter_(dim=-1,
+        #                                                  index=index,
+        #                                                  value=1).to(device)
+        # c_n = torch.cat([c_n, feature.unsqueeze(-1)],dim=-1)
+
+        y = torch.cat([self.GB_c(c_n), self.GB_hs(wenc_hs)], dim=2)  # [b, hs, 2*dim]
+        score = self.GB_out(y).squeeze(2)  # [b, hs]
+
+        if penalty:
+            for b, l_hs1 in enumerate(l_hs):
+                score[b, l_hs1:] = -1e+10
+
+            # for b, c in enumerate(predict_select_column):
+            #     score[b, c] = -1e+10
+
+        return score
 
 
 class SAP_ext(nn.Module):

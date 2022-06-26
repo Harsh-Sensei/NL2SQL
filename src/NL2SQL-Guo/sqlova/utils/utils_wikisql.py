@@ -342,11 +342,12 @@ def get_g(sql_i):
     g_wc = []
     g_wo = []
     g_wv = []
+    g_gb = []
     for b, psql_i1 in enumerate(sql_i):
         g_sn.append(psql_i1["sel_num"])
         g_sc.append(psql_i1["sel"])
         g_sa.append(psql_i1["agg"])
-
+        # g_gb.append(psql_i1["grp_by"])
         conds = psql_i1['conds']
 
         g_wn.append( len( conds ) )
@@ -354,7 +355,8 @@ def get_g(sql_i):
         g_wo.append( get_wo1(conds) )
         g_wv.append( get_wv1(conds) )
 
-    return g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv
+
+    return g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv# , g_gb
 
 def get_g_wvi_corenlp(t):
     g_wvi_corenlp = []
@@ -1339,7 +1341,18 @@ def pred_sw_se_agg(s_sc, s_sa, s_wn, s_wc, s_wo, s_wv):
 
     return None, pr_sa, None, None, None, None
 
-def pred_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv):
+def pred_gb_ext(s_gb, threshold=0.6):
+    pr_gb = []
+    for b, sn1 in enumerate(s_gb):
+        s_gb1 = s_gb[b]
+
+        pr_gb1 = list(filter(lambda x: x > threshold, s_gb1))
+        pr_gb1.sort()
+
+        pr_gb.append(pr_gb1)
+    return pr_gb
+
+def pred_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv,):# s_gb):
     pr_sn = pred_sn_ext(s_sn)
     pr_sc = pred_sc_ext(pr_sn, s_sc)
     pr_sa = pred_sa_ext(pr_sn, s_sa)
@@ -1347,8 +1360,9 @@ def pred_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv):
     pr_wc = pred_wc(pr_wn, s_wc)
     pr_wo = pred_wo(pr_wn, s_wo)
     pr_wvi = pred_wvi_se(pr_wn, s_wv)
+    #pr_gb = pred_gb_ext(s_gb)
 
-    return pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi
+    return pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi#, pr_gb
 
 
 

@@ -297,7 +297,7 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
         # tb   : table
         # hs_t : tokenized headers. Not used.
 
-        g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv = get_g(sql_i)
+        g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_gb = get_g(sql_i)
         # get ground truth where-value index under CoreNLP tokenization scheme. It's done already on trainset.
         g_wvi_corenlp = get_g_wvi_corenlp(t)
 
@@ -338,15 +338,15 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
                 knowledge_header.append(max(l_hs) * [0])
 
         # score
-        s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, count_star_prob = model(wemb_n, l_n, wemb_h, l_hpu, l_hs,
+        s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, count_star_prob, s_gb = model(wemb_n, l_n, wemb_h, l_hpu, l_hs,
                                                    g_sn=g_sn, g_sc=g_sc, g_sa=g_sa, g_wn=g_wn, g_wc=g_wc, g_wvi=g_wvi,
                                                    knowledge=knowledge,
                                                    knowledge_header=knowledge_header, pooled_output=pooled_output)
 
         # Calculate loss & step
         #try:
-        loss = Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
-                              count_star_prob)
+        loss = Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, s_gb, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
+                              count_star_prob, g_gb)
         # except:
         #     print("Loss exception")
         #     num_loss_exception_batches += 1
@@ -374,7 +374,8 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
             loss.backward()
 
         # Prediction
-        pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi = pred_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, )
+        # TODO: check if s_gb already has sigmoid applied
+        pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi, pr_gb = pred_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, s_gb)
         pr_wv_str, pr_wv_str_wp = convert_pr_wvi_to_string(pr_wvi, nlu_t, nlu_tt, tt_to_t_idx, nlu)
 
         # Sort pr_wc:
@@ -436,7 +437,7 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
 def report_detail(hds, nlu,
                   g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_wv_str, g_sql_q, g_ans,
                   pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_sql_q, pr_ans,
-                  cnt_list, current_cnt):
+                  cnt_list, current_cnt, count_star_header=None, count_star_pooled=None):
     cnt_tot, cnt, cnt_sn, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wv, cnt_wvi, cnt_lx, cnt_x = current_cnt
 
     print(f'cnt = {cnt} / {cnt_tot} ===============================')
@@ -474,11 +475,45 @@ def report_detail(hds, nlu,
     print(f'--------------------------------')
 
     print(cnt_list)
-
-    print(f'acc_lx = {cnt_lx / cnt:.3f}, acc_x = {cnt_x / cnt:.3f}\n',
-          f'acc_sn = {cnt_sn / cnt}, acc_sc = {cnt_sc / cnt:.3f}, acc_sa = {cnt_sa / cnt:.3f}, acc_wn = {cnt_wn / cnt:.3f}\n',
-          f'acc_wc = {cnt_wc / cnt:.3f}, acc_wo = {cnt_wo / cnt:.3f}, acc_wv = {cnt_wv / cnt:.3f}')
+    if count_star_header is not None and count_star_pooled is not None:
+        print(f'acc_lx = {cnt_lx / cnt:.3f}, acc_x = {cnt_x / cnt:.3f}\n',
+              f'acc_sn = {cnt_sn / cnt}, acc_sc = {cnt_sc / cnt:.3f}, acc_sa = {cnt_sa / cnt:.3f}, acc_wn = {cnt_wn / cnt:.3f}\n',
+              f'acc_wc = {cnt_wc / cnt:.3f}, acc_wo = {cnt_wo / cnt:.3f}, acc_wv = {cnt_wv / cnt:.3f}'
+              f'acc_cnt_star_header = {count_star_header / cnt:.3f}, '
+              f'acc_count_star_pooled = {count_star_pooled / cnt:.3f}')
+    else:
+        print(f'acc_lx = {cnt_lx / cnt:.3f}, acc_x = {cnt_x / cnt:.3f}\n',
+              f'acc_sn = {cnt_sn / cnt}, acc_sc = {cnt_sc / cnt:.3f}, acc_sa = {cnt_sa / cnt:.3f}, acc_wn = {cnt_wn / cnt:.3f}\n',
+              f'acc_wc = {cnt_wc / cnt:.3f}, acc_wo = {cnt_wo / cnt:.3f}, acc_wv = {cnt_wv / cnt:.3f}')
     print(f'===============================')
+
+
+def eval_count_star(g_sc, pr_sc, pr_sa, prob_count_star, threshold=0.6):
+    cnt_star_header_list = []
+    cnt_star_pool_list = []
+    for idx, g_sc1 in enumerate(g_sc):
+        if 0 in g_sc1:
+            if 0 in pr_sc[idx] and pr_sa[idx][pr_sc[idx].index(0)] == 3:
+                cnt_star_header_list.append(1)
+            else:
+                cnt_star_header_list.append(0)
+            if prob_count_star[idx] > threshold:
+                cnt_star_pool_list.append(1)
+            else:
+                cnt_star_pool_list.append(0)
+        else:
+            if 0 in pr_sc[idx] and pr_sa[idx][pr_sc[idx].index(0)] == 3:
+                cnt_star_header_list.append(0)
+            else:
+                cnt_star_header_list.append(1)
+            if prob_count_star[idx] > threshold:
+                cnt_star_pool_list.append(0)
+            else:
+                cnt_star_pool_list.append(1)
+
+    return cnt_star_header_list, cnt_star_pool_list
+
+
 
 
 def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
@@ -500,6 +535,9 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
     cnt_wvi = 0
     cnt_lx = 0
     cnt_x = 0
+
+    cnt_star_headers = 0
+    cnt_star_pooled = 0
 
     cnt_list = []
 
@@ -604,6 +642,7 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
                                                       sql_i, pr_sql_i,
                                                       mode='test')
 
+
         cnt_lx1_list = get_cnt_lx_list(cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, cnt_wc1_list,
                                        cnt_wo1_list, cnt_wv1_list)
 
@@ -613,6 +652,8 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
 
         # Execution accuracy test.
         # cnt_x1_list, g_ans, pr_ans = get_cnt_x_list(engine, tb, g_sc, g_sa, sql_i, pr_sc, pr_sa, pr_sql_i)
+
+        cnt_star_headers_list, cnt_star_pooled_list = eval_count_star(g_sc, pr_sc, pr_sa, count_star_prob)
 
         # stat
         ave_loss += loss.item()
@@ -630,6 +671,9 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
         cnt_lx += sum(cnt_lx1_list)
         # cnt_x += sum(cnt_x1_list)
 
+        cnt_star_pooled += sum(cnt_star_pooled_list)
+        cnt_star_headers += sum(cnt_star_headers_list)
+
         current_cnt = [cnt_tot, cnt, cnt_sn, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wv, cnt_wvi, cnt_lx, cnt_x]
         cnt_list1 = [cnt_sn1_list, cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, cnt_wc1_list, cnt_wo1_list, cnt_wv1_list, cnt_lx1_list,
                      cnt_x1_list]
@@ -641,7 +685,7 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
             report_detail(hds, nlu,
                           g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_wv_str, g_sql_q, g_ans,
                           pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_sql_q, pr_ans,
-                          cnt_list1, current_cnt)
+                          cnt_list1, current_cnt, cnt_star_headers, cnt_star_pooled)
 
     ave_loss /= cnt
     acc_sn = cnt_sn / cnt
@@ -655,7 +699,10 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
     acc_lx = cnt_lx / cnt
     acc_x = cnt_x / cnt
 
-    acc = [ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x]
+    acc_cnt_star_header = cnt_star_headers/cnt
+    acc_cnt_star_pooled = cnt_star_pooled/cnt
+
+    acc = [ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x, acc_cnt_star_header, acc_cnt_star_pooled]
     return acc, results, cnt_list
 
 
@@ -863,7 +910,7 @@ if __name__ == '__main__':
     BERT_PT_PATH = path_wikisql
 
     path_save_for_evaluation = './'
-
+    eval_bool = True
     ## 3. Load data
     # train_data, train_table, dev_data, dev_table, train_loader, \
     # dev_loader = get_data(path_wikisql, args)
@@ -890,10 +937,11 @@ if __name__ == '__main__':
         model, model_bert, tokenizer, bert_config = get_models(args, BERT_PT_PATH, trained=True,
                                                                path_model_bert=path_model_bert, path_model=path_model,
                                                                spider_data=True)
-
+    res = torch.load('./saved_models/easy_spider_debug.pt', map_location='cpu')
+    model.load_state_dict(res['model'])
     # model.freeze_wiki_model(req_grad=False)
     ## 5. Get optimizers
-    if args.do_train:
+    if args.do_train and not eval_bool:
         opt, opt_bert = get_opt(model, model_bert, args.fine_tune)
 
         ## 6. Train
@@ -971,6 +1019,21 @@ if __name__ == '__main__':
     #                          path_db=path_wikisql,
     #                          st_pos=0,
     #                          dset_name='dev', EG=args.EG)
+
+    if eval_bool:
+        with torch.no_grad():
+            acc_dev, results_dev, cnt_list = test(dev_loader,
+                                                  dev_tables,
+                                                  model,
+                                                  model_bert,
+                                                  bert_config,
+                                                  tokenizer,
+                                                  args.max_seq_length,
+                                                  args.num_target_layers,
+                                                  detail=True,
+                                                  path_db=path_wikisql,
+                                                  st_pos=0,
+                                                  dset_name='dev', EG=args.EG)
     if args.do_infer:
         # To use recent corenlp: https://github.com/stanfordnlp/python-stanford-corenlp
         # 1. pip install stanford-corenlp
