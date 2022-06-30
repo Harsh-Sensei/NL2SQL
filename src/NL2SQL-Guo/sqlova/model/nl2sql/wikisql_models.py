@@ -1345,7 +1345,7 @@ def Loss_sw_se_agg(s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sc, g_sa, g_wn, g_wc, g
     return loss
 
 
-def Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi, count_star_prob):#, g_gb):
+def Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, s_gb, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi, count_star_prob, g_gb):
     """
 
     :param s_wv: score  [ B, n_conds, T, score]
@@ -1362,7 +1362,7 @@ def Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn,
     loss += Loss_wo(s_wo, g_wn, g_wo)
     loss += Loss_wv_se(s_wv, g_wn, g_wvi)
     loss += Loss_cnt_star_ext(count_star_prob, g_sc)
-    #loss += Loss_gb_ext(s_gb, g_gb)
+    loss += Loss_gb_ext(s_gb, g_gb)
 
     return loss
 
@@ -1850,14 +1850,21 @@ class Decoder_s2s(nn.Module):
 
 
 class Seq2SQL_v1_ext(Seq2SQL_v1):
-    def __init__(self, iS, hS, lS, dr, n_cond_ops, n_agg_ops, pool_dim=768, old=False):
+    def __init__(self, iS, hS, lS, dr, n_cond_ops, n_agg_ops, pool_dim=768, old=False, p=0.5):
         super(Seq2SQL_v1_ext, self).__init__(iS, hS, lS, dr, n_cond_ops, n_agg_ops, old=False)
         self.pool_dim = pool_dim
+        self.p = p
         self.sel_num = SNC_ext(iS, hS, lS, dr) # select number columns
         self.sel_col = SCP_ext(iS, hS, lS, dr) # select columns
         self.sel_agg = SAP_ext(iS, hS, lS, dr, n_agg_ops)
-        # self.grpby_col = SGC_ext(iS, hS, lS, dr)
-        self.sel_cnt_star = nn.Linear(pool_dim, 1)
+        self.grpby_col = SGC_ext(iS, hS, lS, dr)
+        self.sel_cnt_star = nn.Sequential(
+                                    nn.Linear(pool_dim, 2*pool_dim),
+                                    nn.Dropout(p=self.p),
+                                    nn.ReLU(),
+                                    nn.Linear(2*pool_dim, 1)
+                                    )
+
 
 
     def forward(self, wemb_n, l_n, wemb_h, l_hpu, l_hs,
@@ -1932,12 +1939,12 @@ class Seq2SQL_v1_ext(Seq2SQL_v1):
         s_wv = self.wvp(wemb_n, l_n, wemb_h, l_hpu, l_hs, wn=pr_wn, wc=pr_wc, wo=pr_wo, show_p_wv=show_p_wv,
                         knowledge=knowledge, knowledge_header=knowledge_header)
 
-        # s_gb = self.grpby_col(wemb_n, l_n, wemb_h, l_hpu, l_hs,
-        #                 knowledge=knowledge, knowledge_header=knowledge_header)
+        s_gb = self.grpby_col(wemb_n, l_n, wemb_h, l_hpu, l_hs,
+                        knowledge=knowledge, knowledge_header=knowledge_header)
 
         count_star_prob = self.sel_cnt_star(pooled_output)
 
-        return s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, count_star_prob# , s_gb
+        return s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, count_star_prob, s_gb
 
     def load_wiki_model(self, path_model='./model_best.pt'):
         res = torch.load(path_model, map_location='cpu') # added htg
@@ -2052,7 +2059,7 @@ class SAP_ext(nn.Module):
         self.dr = dr
         self.question_knowledge_dim = 0
         self.header_knowledge_dim = 0
-        self.mL_w = 4  # maximum number of select columns
+        self.mL_w = 5  # maximum number of select columns
 
         self.enc_h = nn.LSTM(input_size=iS, hidden_size=int(hS / 2),
                              num_layers=lS, batch_first=True,

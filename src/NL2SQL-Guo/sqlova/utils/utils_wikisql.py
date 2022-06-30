@@ -347,7 +347,7 @@ def get_g(sql_i):
         g_sn.append(psql_i1["sel_num"])
         g_sc.append(psql_i1["sel"])
         g_sa.append(psql_i1["agg"])
-        # g_gb.append(psql_i1["grp_by"])
+        g_gb.append(psql_i1["groupBy"])
         conds = psql_i1['conds']
 
         g_wn.append( len( conds ) )
@@ -356,7 +356,7 @@ def get_g(sql_i):
         g_wv.append( get_wv1(conds) )
 
 
-    return g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv# , g_gb
+    return g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_gb
 
 def get_g_wvi_corenlp(t):
     g_wvi_corenlp = []
@@ -1344,15 +1344,15 @@ def pred_sw_se_agg(s_sc, s_sa, s_wn, s_wc, s_wo, s_wv):
 def pred_gb_ext(s_gb, threshold=0.6):
     pr_gb = []
     for b, sn1 in enumerate(s_gb):
-        s_gb1 = s_gb[b]
-
-        pr_gb1 = list(filter(lambda x: x > threshold, s_gb1))
+        s_gb1 = torch.sigmoid(s_gb[b])
+        # pr_gb1 = list(filter(lambda x: x > threshold, s_gb1))
+        pr_gb1 = [idx for idx, elem in enumerate(s_gb1) if elem > threshold]
         pr_gb1.sort()
 
         pr_gb.append(pr_gb1)
     return pr_gb
 
-def pred_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv,):# s_gb):
+def pred_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, s_gb):
     pr_sn = pred_sn_ext(s_sn)
     pr_sc = pred_sc_ext(pr_sn, s_sc)
     pr_sa = pred_sa_ext(pr_sn, s_sa)
@@ -1360,9 +1360,9 @@ def pred_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv,):# s_gb):
     pr_wc = pred_wc(pr_wn, s_wc)
     pr_wo = pred_wo(pr_wn, s_wo)
     pr_wvi = pred_wvi_se(pr_wn, s_wv)
-    #pr_gb = pred_gb_ext(s_gb)
+    pr_gb = pred_gb_ext(s_gb)
 
-    return pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi#, pr_gb
+    return pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi, pr_gb
 
 
 
@@ -1866,8 +1866,8 @@ def get_cnt_sw_list_agg(g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
 
     return None, cnt_sa, None, None, None, None, None
 
-def get_cnt_sw_list(g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
-                    pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi,
+def get_cnt_sw_list(g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi, g_gb,
+                    pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi, pr_gb,
                     g_sql_i, pr_sql_i,
                     mode):
     """ usalbe only when g_wc was used to find pr_wv
@@ -1878,21 +1878,22 @@ def get_cnt_sw_list(g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
     cnt_wn = get_cnt_sc_list(g_wn, pr_wn)
     cnt_wc = get_cnt_wc_list(g_wc, pr_wc)
     cnt_wo = get_cnt_wo_list(g_wn, g_wc, g_wo, pr_wc, pr_wo, mode)
+    cnt_gb = get_cnt_wc_list(g_gb, pr_gb)
     if pr_wvi:
         cnt_wvi = get_cnt_wvi_list(g_wn, g_wc, g_wvi, pr_wvi, mode)
     else:
         cnt_wvi = [0]*len(cnt_sc)
     cnt_wv = get_cnt_wv_list(g_wn, g_wc, g_sql_i, pr_sql_i, mode) # compare using wv-str which presented in original data.
 
-    return cnt_sn, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wvi, cnt_wv
+    return cnt_sn, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wvi, cnt_wv, cnt_gb
 
 
-def get_cnt_lx_list(cnt_sc1, cnt_sa1, cnt_wn1, cnt_wc1, cnt_wo1, cnt_wv1):
+def get_cnt_lx_list(cnt_sc1, cnt_sa1, cnt_wn1, cnt_wc1, cnt_wo1, cnt_wv1, cnt_gb1):
     # all cnt are list here.
     cnt_list = []
     cnt_lx = 0
-    for csc, csa, cwn, cwc, cwo, cwv in zip(cnt_sc1, cnt_sa1, cnt_wn1, cnt_wc1, cnt_wo1, cnt_wv1):
-        if csc and csa and cwn and cwc and cwo and cwv:
+    for csc, csa, cwn, cwc, cwo, cwv, cgb in zip(cnt_sc1, cnt_sa1, cnt_wn1, cnt_wc1, cnt_wo1, cnt_wv1, cnt_gb1):
+        if csc and csa and cwn and cwc and cwo and cwv and cgb:
             cnt_list.append(1)
         else:
             cnt_list.append(0)
@@ -1951,7 +1952,7 @@ def get_mean_grad(named_parameters):
     return mu_list, sig_list
 
 
-def generate_sql_i(pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, nlu):
+def generate_sql_i(pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_gb, nlu):
     pr_sql_i = []
     for b, nlu1 in enumerate(nlu):
         conds = []
@@ -1963,7 +1964,7 @@ def generate_sql_i(pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, nlu):
             conds1.append(merged_wv11)
             conds.append(conds1)
 
-        pr_sql_i1 = {'agg': pr_sa[b], 'sel': pr_sc[b], 'conds': conds}
+        pr_sql_i1 = {'agg': pr_sa[b], 'sel': pr_sc[b], 'conds': conds, 'groupBy':pr_gb[b]}
         pr_sql_i.append(pr_sql_i1)
     return pr_sql_i
 
@@ -2118,7 +2119,21 @@ def generate_sql_q1(sql_i1, tb1):
 
             sql_query_part2 += f" {where_header} {where_op} {where_str}"
 
-    sql_query = sql_query_part1 + sql_query_part2
+    if len(sql_i1['groupBy']) == 0:
+        sql_query_part3 = ''
+    else:
+        sql_query_part3 = ' GROUPBY '
+        for i in range(len(sql_i1['groupBy'])):
+            gb_temp = headers[sql_i1['groupBy'][i]]
+            sql_query_part3 += gb_temp
+            sql_query_part3 += ' '
+
+        sql_query_part3 = sql_query_part3[:-1]
+
+
+
+
+    sql_query = sql_query_part1 + sql_query_part2 + sql_query_part3
     # sql_plus_query = sql_plus_query_part1 + sql_plus_query_part2
 
     return sql_query

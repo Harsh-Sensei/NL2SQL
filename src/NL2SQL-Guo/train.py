@@ -220,8 +220,8 @@ def Identity(x):
     return x
 
 def get_combined_data(path_combined_tables="./data_and_model/train_wiki_and_spider_tables.jsonl",
-                      path_combined_queries="./data_and_model/train_wiki_and_spider_knowledge.jsonl",
-                      path_small_combined_queries="./data_and_model/train_small_wiki_and_spider_knowledge.jsonl",
+                      path_combined_queries="./data_and_model/train_wiki_and_spider_groupby_knowledge.jsonl",
+                      path_small_combined_queries="./data_and_model/train_small_wiki_and_spider_groupby_knowledge.jsonl",
                       small_data=True,
                       bS=8):
     if small_data:
@@ -265,12 +265,15 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
     cnt = 0  # count the # of examples
     cnt_sn = 0
     cnt_sc = 0  # count the # of correct predictions of select column
-    cnt_sa = 0  # of selectd aggregation
+    cnt_sa = 0  # of selected aggregation
     cnt_wn = 0  # of where number
     cnt_wc = 0  # of where column
     cnt_wo = 0  # of where operator
     cnt_wv = 0  # of where-value
     cnt_wvi = 0  # of where-value index (on question tokens)
+
+    cnt_gb = 0
+
     cnt_lx = 0  # of logical form acc
     cnt_x = 0  # of execution acc
 
@@ -344,13 +347,12 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
                                                    knowledge_header=knowledge_header, pooled_output=pooled_output)
 
         # Calculate loss & step
-        #try:
-        loss = Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, s_gb, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
+        try:
+            loss = Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, s_gb, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
                               count_star_prob, g_gb)
-        # except:
-        #     print("Loss exception")
-        #     num_loss_exception_batches += 1
-        #     continue
+        except:
+            print("Loss exception:", nlu)
+            num_loss_exception_batches += 1
 
         # Calculate gradient
         if iB % accumulate_gradients == 0:  # mode
@@ -387,13 +389,14 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
         # Cacluate accuracy
         cnt_sn1_list, cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, \
         cnt_wc1_list, cnt_wo1_list, \
-        cnt_wvi1_list, cnt_wv1_list = get_cnt_sw_list(g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
-                                                      pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi,
+        cnt_wvi1_list, cnt_wv1_list, \
+            cnt_gb1_list = get_cnt_sw_list(g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi, g_gb,
+                                                      pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi, pr_gb,
                                                       sql_i, pr_sql_i,
                                                       mode='train')
 
         cnt_lx1_list = get_cnt_lx_list(cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, cnt_wc1_list,
-                                       cnt_wo1_list, cnt_wv1_list)
+                                       cnt_wo1_list, cnt_wv1_list, cnt_gb1_list)
         # lx stands for logical form accuracy
 
         # Execution accuracy test.
@@ -412,6 +415,9 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
         cnt_wo += sum(cnt_wo1_list)
         cnt_wvi += sum(cnt_wvi1_list)
         cnt_wv += sum(cnt_wv1_list)
+
+        cnt_gb += sum(cnt_gb1_list)
+
         cnt_lx += sum(cnt_lx1_list)
         # cnt_x += sum(cnt_x1_list)
         print(cnt_lx)
@@ -424,21 +430,23 @@ def train(train_loader, train_table, model, model_bert, opt, bert_config, tokeni
     acc_wo = cnt_wo / cnt
     acc_wvi = cnt_wvi / cnt
     acc_wv = cnt_wv / cnt
+
+    acc_gb = cnt_gb / cnt
+
     acc_lx = cnt_lx / cnt
     acc_x = cnt_x / cnt
 
-    acc = [ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x]
+    acc = [ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_gb, acc_lx, acc_x]
 
     aux_out = 1
-    print(num_loss_exception_batches)
     return acc, aux_out
 
 
 def report_detail(hds, nlu,
-                  g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_wv_str, g_sql_q, g_ans,
-                  pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_sql_q, pr_ans,
+                  g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_wv_str, g_gb, g_sql_q, g_ans,
+                  pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_gb, pr_sql_q, pr_ans,
                   cnt_list, current_cnt, count_star_header=None, count_star_pooled=None):
-    cnt_tot, cnt, cnt_sn, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wv, cnt_wvi, cnt_lx, cnt_x = current_cnt
+    cnt_tot, cnt, cnt_sn, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wv, cnt_wvi, cnt_gb, cnt_lx, cnt_x = current_cnt
 
     print(f'cnt = {cnt} / {cnt_tot} ===============================')
 
@@ -466,6 +474,8 @@ def report_detail(hds, nlu,
     print(f'pr_wo: {pr_wo}')
     print(f'g_wv : {g_wv}')
     # print(f'pr_wvi: {pr_wvi}')
+    print('g_gb:', g_gb)
+    print('pr_gb', pr_gb)
     print('g_wv_str:', g_wv_str)
     print('p_wv_str:', pr_wv_str)
     print(f'g_sql_q:  {g_sql_q}')
@@ -478,21 +488,25 @@ def report_detail(hds, nlu,
     if count_star_header is not None and count_star_pooled is not None:
         print(f'acc_lx = {cnt_lx / cnt:.3f}, acc_x = {cnt_x / cnt:.3f}\n',
               f'acc_sn = {cnt_sn / cnt}, acc_sc = {cnt_sc / cnt:.3f}, acc_sa = {cnt_sa / cnt:.3f}, acc_wn = {cnt_wn / cnt:.3f}\n',
-              f'acc_wc = {cnt_wc / cnt:.3f}, acc_wo = {cnt_wo / cnt:.3f}, acc_wv = {cnt_wv / cnt:.3f}'
+              f'acc_wc = {cnt_wc / cnt:.3f}, acc_wo = {cnt_wo / cnt:.3f}, acc_wv = {cnt_wv / cnt:.3f}, acc_gb = {cnt_gb / cnt:.3f}'
               f'acc_cnt_star_header = {count_star_header / cnt:.3f}, '
               f'acc_count_star_pooled = {count_star_pooled / cnt:.3f}')
     else:
         print(f'acc_lx = {cnt_lx / cnt:.3f}, acc_x = {cnt_x / cnt:.3f}\n',
               f'acc_sn = {cnt_sn / cnt}, acc_sc = {cnt_sc / cnt:.3f}, acc_sa = {cnt_sa / cnt:.3f}, acc_wn = {cnt_wn / cnt:.3f}\n',
-              f'acc_wc = {cnt_wc / cnt:.3f}, acc_wo = {cnt_wo / cnt:.3f}, acc_wv = {cnt_wv / cnt:.3f}')
+              f'acc_wc = {cnt_wc / cnt:.3f}, acc_wo = {cnt_wo / cnt:.3f}, acc_wv = {cnt_wv / cnt:.3f}, '
+              f'acc_gb = {cnt_gb / cnt:.3f}')
     print(f'===============================')
 
 
 def eval_count_star(g_sc, pr_sc, pr_sa, prob_count_star, threshold=0.6):
     cnt_star_header_list = []
     cnt_star_pool_list = []
+    cnt_star_num = 0
+    prob_count_star = torch.sigmoid(prob_count_star)
     for idx, g_sc1 in enumerate(g_sc):
         if 0 in g_sc1:
+            cnt_star_num += 1
             if 0 in pr_sc[idx] and pr_sa[idx][pr_sc[idx].index(0)] == 3:
                 cnt_star_header_list.append(1)
             else:
@@ -511,10 +525,16 @@ def eval_count_star(g_sc, pr_sc, pr_sa, prob_count_star, threshold=0.6):
             else:
                 cnt_star_pool_list.append(1)
 
-    return cnt_star_header_list, cnt_star_pool_list
+    return cnt_star_header_list, cnt_star_pool_list, cnt_star_num
 
 
-
+def pretty_print_queries(nlu, g_sql, pred_sql):
+    for ques, g_sql1, pred_sql1 in zip(nlu, g_sql, pred_sql):
+        print("NL Question:", ques)
+        print("Ground Truth Query:", g_sql1)
+        print("Predicted Query:", pred_sql1)
+        print("")
+    return None
 
 def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
          max_seq_length,
@@ -533,11 +553,15 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
     cnt_wo = 0  
     cnt_wv = 0
     cnt_wvi = 0
+
+    cnt_gb = 0
+
     cnt_lx = 0
     cnt_x = 0
 
     cnt_star_headers = 0
     cnt_star_pooled = 0
+    cnt_star_num = 0
 
     cnt_list = []
 
@@ -551,7 +575,7 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
         # Get fields
         nlu, nlu_t, sql_i, sql_q, sql_t, tb, hs_t, hds = get_fields(t, data_table, no_hs_t=True, no_sql_t=True)
 
-        g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv = get_g(sql_i)
+        g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_gb = get_g(sql_i)
         g_wvi_corenlp = get_g_wvi_corenlp(t)
 
         wemb_n, wemb_h, l_n, l_hpu, l_hs, \
@@ -593,18 +617,19 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
         # score
         if not EG:
             # No Execution guided decoding
-            s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, count_star_prob = model(wemb_n, l_n, wemb_h, l_hpu, l_hs,
+            s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, count_star_prob, s_gb = model(wemb_n, l_n, wemb_h, l_hpu, l_hs,
                                                        knowledge=knowledge,
                                                        knowledge_header=knowledge_header, pooled_output=pooled_output)
 
             # get loss & step
-            loss = Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi, count_star_prob)
+            loss = Loss_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, s_gb, g_sn, g_sc, g_sa, g_wn, g_wc, g_wo,
+                              g_wvi, count_star_prob, g_gb)
 
             # prediction
-            pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi = pred_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, )
+            pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi, pr_gb = pred_sw_se(s_sn, s_sc, s_sa, s_wn, s_wc, s_wo, s_wv, s_gb)
             pr_wv_str, pr_wv_str_wp = convert_pr_wvi_to_string(pr_wvi, nlu_t, nlu_tt, tt_to_t_idx, nlu)
             # g_sql_i = generate_sql_i(g_sc, g_sa, g_wn, g_wc, g_wo, g_wv_str, nlu)
-            pr_sql_i = generate_sql_i(pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, nlu)
+            pr_sql_i = generate_sql_i(pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_gb, nlu)
         else:
             # Execution guided decoding
             raise Exception("Execution-Guided Decoding not implemented yet")
@@ -637,14 +662,15 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
 
         cnt_sn1_list, cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, \
         cnt_wc1_list, cnt_wo1_list, \
-        cnt_wvi1_list, cnt_wv1_list = get_cnt_sw_list(g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi,
-                                                      pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi,
-                                                      sql_i, pr_sql_i,
-                                                      mode='test')
+        cnt_wvi1_list, cnt_wv1_list,\
+        cnt_gb1_list = get_cnt_sw_list(g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wvi, g_gb,
+                                      pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wvi, pr_gb,
+                                      sql_i, pr_sql_i,
+                                      mode='test')
 
 
         cnt_lx1_list = get_cnt_lx_list(cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, cnt_wc1_list,
-                                       cnt_wo1_list, cnt_wv1_list)
+                                       cnt_wo1_list, cnt_wv1_list, cnt_gb1_list)
 
         # Execution accuracy test
         cnt_x1_list = []
@@ -653,7 +679,7 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
         # Execution accuracy test.
         # cnt_x1_list, g_ans, pr_ans = get_cnt_x_list(engine, tb, g_sc, g_sa, sql_i, pr_sc, pr_sa, pr_sql_i)
 
-        cnt_star_headers_list, cnt_star_pooled_list = eval_count_star(g_sc, pr_sc, pr_sa, count_star_prob)
+        cnt_star_headers_list, cnt_star_pooled_list, cnt_star_num_1 = eval_count_star(g_sc, pr_sc, pr_sa, count_star_prob)
 
         # stat
         ave_loss += loss.item()
@@ -668,24 +694,30 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
         cnt_wo += sum(cnt_wo1_list)
         cnt_wv += sum(cnt_wv1_list)
         cnt_wvi += sum(cnt_wvi1_list)
+
+        cnt_gb += sum(cnt_gb1_list)
+
         cnt_lx += sum(cnt_lx1_list)
         # cnt_x += sum(cnt_x1_list)
 
         cnt_star_pooled += sum(cnt_star_pooled_list)
         cnt_star_headers += sum(cnt_star_headers_list)
+        cnt_star_num += cnt_star_num_1
 
-        current_cnt = [cnt_tot, cnt, cnt_sn, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wv, cnt_wvi, cnt_lx, cnt_x]
-        cnt_list1 = [cnt_sn1_list, cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, cnt_wc1_list, cnt_wo1_list, cnt_wv1_list, cnt_lx1_list,
-                     cnt_x1_list]
+        current_cnt = [cnt_tot, cnt, cnt_sn, cnt_sc, cnt_sa, cnt_wn, cnt_wc, cnt_wo, cnt_wv, cnt_wvi, cnt_gb, cnt_lx, cnt_x]
+        cnt_list1 = [cnt_sn1_list, cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, cnt_wc1_list, cnt_wo1_list, cnt_wv1_list,
+                     cnt_gb1_list, cnt_lx1_list, cnt_x1_list]
         cnt_list.append(cnt_list1)
         # report
         g_ans = 0 # htg
         pr_ans = 0 # htg
         if detail:
-            report_detail(hds, nlu,
-                          g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_wv_str, g_sql_q, g_ans,
-                          pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_sql_q, pr_ans,
-                          cnt_list1, current_cnt, cnt_star_headers, cnt_star_pooled)
+            # report_detail(hds, nlu,
+            #               g_sn, g_sc, g_sa, g_wn, g_wc, g_wo, g_wv, g_wv_str, g_gb, g_sql_q, g_ans,
+            #               pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_gb, pr_sql_q, pr_ans,
+            #               cnt_list1, current_cnt, cnt_star_headers, cnt_star_pooled)
+
+            pretty_print_queries(nlu, g_sql_q, pr_sql_q)
 
     ave_loss /= cnt
     acc_sn = cnt_sn / cnt
@@ -696,13 +728,20 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
     acc_wo = cnt_wo / cnt
     acc_wvi = cnt_wvi / cnt
     acc_wv = cnt_wv / cnt
+
+    acc_gb = cnt_gb / cnt
+
     acc_lx = cnt_lx / cnt
     acc_x = cnt_x / cnt
 
     acc_cnt_star_header = cnt_star_headers/cnt
     acc_cnt_star_pooled = cnt_star_pooled/cnt
 
-    acc = [ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x, acc_cnt_star_header, acc_cnt_star_pooled]
+    print("Number of count(*) examples:", cnt_star_num)
+
+    acc = [ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x, acc_cnt_star_header, acc_cnt_star_pooled, acc_gb]
+
+    print(acc)
     return acc, results, cnt_list
 
 
@@ -917,7 +956,7 @@ if __name__ == '__main__':
     train_data, train_tables, train_loader = get_combined_data()
     dev_data, dev_tables, dev_loader = get_combined_data(
         path_combined_tables="./data_and_model/dev_wiki_and_spider_tables.jsonl",
-        path_combined_queries="./data_and_model/dev_small_wiki_and_spider_knowledge.jsonl",
+        path_combined_queries="./data_and_model/dev_small_wiki_and_spider_groupby_knowledge.jsonl",
         small_data=False)
     # test_data, test_table = load_wikisql_data(path_wikisql, mode='test', toy_model=args.toy_model, toy_size=args.toy_size, no_hs_tok=True)
     # test_loader = torch.utils.data.DataLoader(
@@ -937,7 +976,7 @@ if __name__ == '__main__':
         model, model_bert, tokenizer, bert_config = get_models(args, BERT_PT_PATH, trained=True,
                                                                path_model_bert=path_model_bert, path_model=path_model,
                                                                spider_data=True)
-    res = torch.load('./saved_models/easy_spider_debug.pt', map_location='cpu')
+    res = torch.load('./saved_models/spider_multsel_cntstar_grpby.pt', map_location='cpu')
     model.load_state_dict(res['model'])
     # model.freeze_wiki_model(req_grad=False)
     ## 5. Get optimizers
@@ -986,7 +1025,7 @@ if __name__ == '__main__':
         import os
         print(os.getcwd())
         # state = {'model': model.state_dict()}
-        # torch.save(state, "./saved_models/easy_spider_debug.pt")
+        # torch.save(state, "./saved_models/spider_multsel_cntstar_grpby.pt")
             # print_result(epoch, acc_dev, 'dev')
 
             # save results for the official evaluation
