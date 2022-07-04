@@ -1,3 +1,10 @@
+C:\Users\htg_sensei\.conda\envs\imageCaptioning\python.exe "C:\Program Files\JetBrains\PyCharm Community Edition 2020.2.3\plugins\python-ce\helpers\pydev\pydevconsole.py" --mode=client --port=62027
+import sys; print('Python %s on %s' % (sys.version, sys.platform))
+sys.path.extend(['C:\\Users\\htg_sensei\\OneDrive\\Documents\\Projects\\NL2SQL', 'C:/Users/htg_sensei/OneDrive/Documents/Projects/NL2SQL'])
+PyDev console: starting.
+Python 3.6.13 (default, Sep 23 2021, 07:38:49) [MSC v.1916 64 bit (AMD64)] on win32
+runfile('C:/Users/htg_sensei/OneDrive/Documents/Projects/NL2SQL/src/NL2SQL-Guo/train.py', wdir='C:/Users/htg_sensei/OneDrive/Documents/Projects/NL2SQL/src/NL2SQL-Guo')
+Backend Qt5Agg is interactive backend. Turning interactive mode on.
 BERT-type: uncased_L-12_H-768_A-12
 Batch_size = 8
 BERT parameters:
@@ -21,2061 +28,2473 @@ Seq-to-SQL: LSTM encoding layer size = 2
 Seq-to-SQL: dropout rate = 0.3
 Seq-to-SQL: learning rate = 0.001
 Test batch number:  0
-
 C:\Users\htg_sensei\.conda\envs\imageCaptioning\lib\site-packages\torch\nn\functional.py:1709: UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
   warnings.warn("nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.")
 NL Question: How many templates do we have?
 Ground Truth Query: SELECT  count(*) FROM cre_doc_template_mgt__templates
 Predicted Query: SELECT  count(*) FROM cre_doc_template_mgt__templates
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are airport names at City 'Aberdeen'?
 Ground Truth Query: SELECT  (AirportName) FROM flight_2__airports WHERE City = Aberdeen
 Predicted Query: SELECT  (AirportName) FROM flight_2__airports WHERE City = 'aberdeen
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which country had an interview score of 9.40 and average of 9.44?
 Ground Truth Query: SELECT  (Country) FROM 1-11884814-3 WHERE Interview = 9.40 AND Average = 9.44
 Predicted Query: SELECT  (Country) FROM 1-11884814-3 WHERE Interview = 9.40 AND Average = 9.44
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
-NL Question: In what district was the incumbent Steve Chabot?
+NL Question: In what district was the incumbent Steve Chabot? 
 Ground Truth Query: SELECT  (District) FROM 1-1341395-36 WHERE Incumbent = Steve Chabot
 Predicted Query: SELECT  (District) FROM 1-1341395-36 WHERE Incumbent = steve chabot
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the total number of round where opponents is haugar
 Ground Truth Query: SELECT  count(Round) FROM 1-1061075-1 WHERE Opponents = Haugar
 Predicted Query: SELECT  count(Round) FROM 1-1061075-1 WHERE Opponents = haugar
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who was sent to the third island in week 1?
 Ground Truth Query: SELECT  (Member) FROM 1-11764007-2 WHERE Week Sent To Third Island = 1
 Predicted Query: SELECT  (Member) FROM 1-11764007-2 WHERE Week Sent To Third Island = 1
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average miles per gallon(mpg) of the cars with 4 cylinders?
 Ground Truth Query: SELECT  avg(MPG) FROM car_1__cars_data WHERE Cylinders = 4.0
 Predicted Query: SELECT  avg(MPG) FROM car_1__cars_data WHERE Cylinders = 4
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which population areas have "replaced by us 83" listed in their remarks section?
 Ground Truth Query: SELECT  (Population Area) FROM 1-11336756-6 WHERE Remarks = Replaced by US 83
 Predicted Query: SELECT  (Population Area) FROM 1-11336756-6 WHERE Remarks = replaced by us 83
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  1
-
 NL Question: what's the character with fate being deceased: knife wound
 Ground Truth Query: SELECT  (Character) FROM 1-11210576-4 WHERE Fate = Deceased: Knife Wound
 Predicted Query: SELECT  (Character) FROM 1-11210576-4 WHERE Fate = deceased: knife wound
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the original air dates for the title "firestorm"?
 Ground Truth Query: SELECT  (Original air date) FROM 1-11630008-8 WHERE Title = "Firestorm"
 Predicted Query: SELECT  (Original air date) FROM 1-11630008-8 WHERE Title = "firestorm"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Find the number of cartoons directed by each of the listed directors.
 Ground Truth Query: SELECT  count(*) , (Directed_by) FROM tvshow__cartoon GROUPBY Directed_by
 Predicted Query: SELECT  count(*) , (Directed_by) FROM tvshow__cartoon GROUPBY Directed_by
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average horsepower of the cars before 1980?
 Ground Truth Query: SELECT  avg(Horsepower) FROM car_1__cars_data WHERE Year < 1980.0
 Predicted Query: SELECT  avg(Horsepower) FROM car_1__cars_data WHERE Year < 1980
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many available features are there in total?
 Ground Truth Query: SELECT  count(*) FROM real_estate_properties__other_available_features
 Predicted Query: SELECT  count(*) FROM real_estate_properties__other_available_features
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average attendance of shows?
 Ground Truth Query: SELECT  avg(Attendance) FROM orchestra__show
 Predicted Query: SELECT  avg(Attendance) FROM orchestra__show
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: how many division  did not qualify for u.s. open cup in 2003
 Ground Truth Query: SELECT  (Division) FROM 1-1046170-5 WHERE U.S. Open Cup = Did Not Qualify AND Year = 2003
-Predicted Query: SELECT  count(Division) FROM 1-1046170-5 WHERE Year = 2003 AND U.S. Open Cup = did not qualify for u.s. open cup in 2003
+Predicted Query: SELECT  count(Division) FROM 1-1046170-5 WHERE U.S. Open Cup = did not qualify
+sn:1; sc:1; sa:0;wn:0; wc:0; wo:0;wv:0; gb:1; lx:0
 
 NL Question:  what's the margin where runner(s)-up is phil mickelson
 Ground Truth Query: SELECT  (Margin) FROM 1-11570261-1 WHERE Runner(s)-up = Phil Mickelson
 Predicted Query: SELECT  (Margin) FROM 1-11570261-1 WHERE Runner(s)-up = phil mickelson
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  2
-
 NL Question: what's the species in the world with peruvian amazon vs. peru (percent)  of 63
 Ground Truth Query: SELECT  (Species in the world) FROM 1-11727969-1 WHERE Peruvian Amazon Vs. Peru (Percent) = 63
 Predicted Query: SELECT  (Species in the world) FROM 1-11727969-1 WHERE Peruvian Amazon Vs. Peru (Percent) = 63
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What report was there for the porsche north america?
 Ground Truth Query: SELECT  (Report) FROM 1-10707176-2 WHERE Winning team = Porsche North America
 Predicted Query: SELECT  (Report) FROM 1-10707176-2 WHERE Winning team = porsche north america
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many pets have a greater weight than 10?
 Ground Truth Query: SELECT  count(*) FROM pets_1__pets WHERE weight > 10.0
 Predicted Query: SELECT  count(*) FROM pets_1__pets WHERE weight > 10
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Count the number of high schoolers.
 Ground Truth Query: SELECT  count(*) FROM network_1__highschooler
 Predicted Query: SELECT  count(*) FROM network_1__highschooler
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What football stadium has a school enrollment of 43579?
 Ground Truth Query: SELECT  (Football stadium) FROM 1-12896884-1 WHERE Enrollment = 43579
 Predicted Query: SELECT  (Football stadium) FROM 1-12896884-1 WHERE Enrollment = 43579
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many foreigners in percentage terms had a population of 4.911?
 Ground Truth Query: SELECT  count(Foreign nationals in %) FROM 1-10992-3 WHERE Population = 4.911
 Predicted Query: SELECT  count(Foreign nationals in %) FROM 1-10992-3 WHERE Population = 4.911
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the age and hometown of every teacher?
 Ground Truth Query: SELECT  (Age) , (Hometown) FROM course_teach__teacher
 Predicted Query: SELECT  (Age) , (Hometown) FROM course_teach__teacher
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average horsepower for all cars produced before 1980 ?
 Ground Truth Query: SELECT  avg(Horsepower) FROM car_1__cars_data WHERE Year < 1980.0
 Predicted Query: SELECT  avg(Horsepower) FROM car_1__cars_data WHERE Year < 1980
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  3
-
 NL Question: What is the average, minimum, and maximum age of all singers from France?
 Ground Truth Query: SELECT  avg(Age) , min(Age) , max(Age) FROM concert_singer__singer WHERE Country = France
 Predicted Query: SELECT  count(*) , (Name) , max(Age) FROM concert_singer__singer WHERE Country = france
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What are the final tables made and best finishes for all poker players?
 Ground Truth Query: SELECT  (Final_Table_Made) , (Best_Finish) FROM poker_player__poker_player
 Predicted Query: SELECT  (Final_Table_Made) , (Best_Finish) FROM poker_player__poker_player
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the city where the number is 47?
 Ground Truth Query: SELECT  (City district (Stadtteil)) FROM 1-10992-3 WHERE No = 47
 Predicted Query: SELECT  (City district (Stadtteil)) FROM 1-10992-3 WHERE No = 47
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What school/club team is Amir Johnson on?
 Ground Truth Query: SELECT  (School/Club Team) FROM 1-10015132-9 WHERE Player = Amir Johnson
 Predicted Query: SELECT  (School/Club Team) FROM 1-10015132-9 WHERE Player = amir johnson
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Name the number of teams at the philips arena 19,335?
 Ground Truth Query: SELECT  count(Team) FROM 1-11961582-6 WHERE Location Attendance = Philips Arena 19,335
 Predicted Query: SELECT  count(Team) FROM 1-11961582-6 WHERE Location Attendance = philips arena 19,335
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Count the number of templates.
 Ground Truth Query: SELECT  count(*) FROM cre_doc_template_mgt__templates
 Predicted Query: SELECT  count(*) FROM cre_doc_template_mgt__templates
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what's the maximum peru vs. world (percent) with 9672 species in the world 
 Ground Truth Query: SELECT  max(Peru Vs. world (Percent)) FROM 1-11727969-1 WHERE Species in the world = 9672
 Predicted Query: SELECT  max(Peruvian Amazon Vs. Peru (Percent)) FROM 1-11727969-1 WHERE Species in the world = 9672
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Where was the game on November 20?
 Ground Truth Query: SELECT  (Location Attendance) FROM 1-10812293-3 WHERE Date = November 20
 Predicted Query: SELECT  (Location Attendance) FROM 1-10812293-3 WHERE Date = november 20
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  4
-
 NL Question: When was the successor seated when the district was California 10th?
 Ground Truth Query: SELECT  (Date successor seated) FROM 1-1134091-4 WHERE District = California 10th
 Predicted Query: SELECT  (Date successor seated) FROM 1-1134091-4 WHERE District = california 10th
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Return the document id, template id, and description for the document with the name Robbin CV.
 Ground Truth Query: SELECT  (Document_ID) , (Template_ID) , (Document_Description) FROM cre_doc_template_mgt__documents WHERE Document_Name = Robbin CV
 Predicted Query: SELECT  (Document_ID) , (Template_ID) , (Document_Description) FROM cre_doc_template_mgt__documents WHERE Document_Name = robbin cv
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the count of singers?
 Ground Truth Query: SELECT  count(*) FROM singer__singer
 Predicted Query: SELECT  count(*) FROM singer__singer
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Count the number of documents.
 Ground Truth Query: SELECT  count(*) FROM cre_doc_template_mgt__documents
 Predicted Query: SELECT  count(*) FROM cre_doc_template_mgt__documents
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Name the tries against for drawn
 Ground Truth Query: SELECT  count(Tries against) FROM 1-12792876-4 WHERE Drawn = Drawn
 Predicted Query: SELECT  (Tries against) FROM 1-12792876-4
+sn:1; sc:1; sa:0;wn:0; wc:0; wo:0;wv:0; gb:1; lx:0
 
 NL Question: What is the pick number for Northwestern college?
 Ground Truth Query: SELECT  max(Pick #) FROM 1-10975034-2 WHERE College = Northwestern
 Predicted Query: SELECT  (Pick #) FROM 1-10975034-2 WHERE College = northwestern
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What party does William J. Jefferson?
 Ground Truth Query: SELECT  (Party) FROM 1-1341453-20 WHERE Incumbent = William J. Jefferson
 Predicted Query: SELECT  (Party) FROM 1-1341453-20 WHERE Incumbent = william j. jefferson
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What was the result in Illinois 7?
 Ground Truth Query: SELECT  (Results) FROM 1-1341453-15 WHERE District = Illinois 7
 Predicted Query: SELECT  (Results) FROM 1-1341453-15 WHERE District = illinois 7
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  5
-
 NL Question: What are the different template type codes, and how many templates correspond to each?
 Ground Truth Query: SELECT  (Template_Type_Code) , count(*) FROM cre_doc_template_mgt__templates GROUPBY Template_Type_Code
 Predicted Query: SELECT  count(*) , (Template_Type_Code) FROM cre_doc_template_mgt__templates GROUPBY Template_Type_Code
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
-NL Question: Incumbent Deborah Pryce was a member of what party?
+NL Question: Incumbent Deborah Pryce was a member of what party? 
 Ground Truth Query: SELECT  (Party) FROM 1-1341395-36 WHERE Incumbent = Deborah Pryce
 Predicted Query: SELECT  (Party) FROM 1-1341395-36 WHERE Incumbent = deborah pryce
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  what's the home team where streak is l3 and leading scorer is roy : 23
 Ground Truth Query: SELECT  (Home) FROM 1-11964047-5 WHERE Streak = L3 AND Leading scorer = Roy : 23
-Predicted Query: SELECT  (Home) FROM 1-11964047-5 WHERE Leading scorer = roy AND Streak = l3
+Predicted Query: SELECT  (Home) FROM 1-11964047-5 WHERE Leading scorer = roy : 23 AND Streak = l3
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
-NL Question: How many millions of U.S. viewers watched the episode "Buzzkill"?
+NL Question: How many millions of U.S. viewers watched the episode "Buzzkill"? 
 Ground Truth Query: SELECT  count(U.S. viewers (millions)) FROM 1-12570759-2 WHERE Title = "Buzzkill"
 Predicted Query: SELECT  (U.S. viewers (millions)) FROM 1-12570759-2 WHERE Title = "buzzkill"
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many courses are there?
 Ground Truth Query: SELECT  count(*) FROM student_transcripts_tracking__courses
 Predicted Query: SELECT  count(*) FROM student_transcripts_tracking__courses
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: When the value of "since beginning of big 12" is synonymous with its' category, what are the in Ames values?
 Ground Truth Query: SELECT  (in Ames) FROM 1-10429820-13 WHERE Since Beginning of Big 12 = Since Beginning of Big 12
-Predicted Query: SELECT  (in Ames) FROM 1-10429820-13 WHERE Since Beginning of Big 12 = in ames
+Predicted Query: SELECT  (in Ames) FROM 1-10429820-13
+sn:1; sc:1; sa:1;wn:0; wc:0; wo:0;wv:0; gb:1; lx:0
 
 NL Question: What are different nationalities of people and the corresponding number of people from each nation?
 Ground Truth Query: SELECT  (Nationality) , count(*) FROM poker_player__people GROUPBY Nationality
 Predicted Query: SELECT  count(*) , (Nationality) FROM poker_player__people GROUPBY Nationality
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What was the vote on the episode where the finish was "10th voted out 3rd jury member day 30"?
 Ground Truth Query: SELECT  (Vote) FROM 1-1272844-2 WHERE Finish = 10th Voted Out 3rd Jury Member Day 30
 Predicted Query: SELECT  (Vote) FROM 1-1272844-2 WHERE Finish = 10th voted out 3rd jury member day 30
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  6
-
 NL Question: What is the maximum capacity and the average of all stadiums ?
 Ground Truth Query: SELECT  max(Capacity) , (Average) FROM concert_singer__stadium
 Predicted Query: SELECT  max(Capacity) , max(Average) FROM concert_singer__stadium
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: what is the bristol & n. som where the somerset is ashcott and shapwick?
 Ground Truth Query: SELECT  (Bristol & N. Som) FROM 1-12043148-2 WHERE Somerset = Ashcott and Shapwick
 Predicted Query: SELECT  (Bristol & N. Som) FROM 1-12043148-2 WHERE Somerset = ashcott and shapwick
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what's the minimum species in the peruvian amazon with species in peru of 1000
 Ground Truth Query: SELECT  min(Species in the Peruvian Amazon) FROM 1-11727969-1 WHERE Species in Peru = 1000
 Predicted Query: SELECT  min(Species in the Peruvian Amazon) FROM 1-11727969-1 WHERE Species in Peru = 1000
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many cities have an enrollment of 19082?
 Ground Truth Query: SELECT  count(City) FROM 1-12896884-1 WHERE Enrollment = 19082
 Predicted Query: SELECT  count(City) FROM 1-12896884-1 WHERE Enrollment = 19082
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the vault score for the total of 56.635?
 Ground Truth Query: SELECT  (Vault) FROM 1-11542215-3 WHERE Total = 56.635
 Predicted Query: SELECT  (Vault) FROM 1-11542215-3 WHERE Total = 56.635
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who scored the most points in game 4?
 Ground Truth Query: SELECT  (High points) FROM 1-10812293-3 WHERE Game = 4
 Predicted Query: SELECT  (High points) FROM 1-10812293-3 WHERE Game = 4
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Give the flight numbers of flights landing at APG.
 Ground Truth Query: SELECT  (FlightNo) FROM flight_2__flights WHERE DestAirport = APG
-Predicted Query: SELECT  (DestAirport) FROM flight_2__flights WHERE SourceAirport = apg
+Predicted Query: SELECT  (FlightNo) FROM flight_2__flights WHERE SourceAirport = apg
+sn:1; sc:1; sa:1;wn:1; wc:0; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What district does John Cooksey represent?
 Ground Truth Query: SELECT  (District) FROM 1-1341453-20 WHERE Incumbent = John Cooksey
 Predicted Query: SELECT  (District) FROM 1-1341453-20 WHERE Incumbent = john cooksey
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  7
-
 NL Question: What is the total amount of trees when district is leninsky?
 Ground Truth Query: SELECT  max(Total amount of trees) FROM 1-10342194-3 WHERE District = Leninsky
-Predicted Query: SELECT  count(Total amount of trees) FROM 1-10342194-3 WHERE District = leninsky
+Predicted Query: SELECT  (Total amount of trees) FROM 1-10342194-3 WHERE District = leninsky
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What are the age and hometown of teachers?
 Ground Truth Query: SELECT  (Age) , (Hometown) FROM course_teach__teacher
 Predicted Query: SELECT  (Age) , (Hometown) FROM course_teach__teacher
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average earnings of poker players?
 Ground Truth Query: SELECT  avg(Earnings) FROM poker_player__poker_player
 Predicted Query: SELECT  avg(Earnings) FROM poker_player__poker_player
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many teachers are there?
 Ground Truth Query: SELECT  count(*) FROM course_teach__teacher
 Predicted Query: SELECT  count(*) FROM course_teach__teacher
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Count the number of employees for each city.
 Ground Truth Query: SELECT  count(*) , (City) FROM employee_hire_evaluation__employee GROUPBY City
 Predicted Query: SELECT  count(*) , (City) FROM employee_hire_evaluation__employee GROUPBY City
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What was the interview score for Hawaii?
 Ground Truth Query: SELECT  (Interview) FROM 1-11884814-3 WHERE Country = Hawaii
 Predicted Query: SELECT  (Interview) FROM 1-11884814-3 WHERE Country = hawaii
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How much does the most expensive charge type costs?
 Ground Truth Query: SELECT  max(charge_amount) FROM dog_kennels__charges
 Predicted Query: SELECT  (charge_type) FROM dog_kennels__charges
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What school/club team is Trey Johnson on?
 Ground Truth Query: SELECT  (School/Club Team) FROM 1-10015132-9 WHERE Player = Trey Johnson
 Predicted Query: SELECT  (School/Club Team) FROM 1-10015132-9 WHERE Player = trey johnson
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  8
-
 NL Question: What is the number of cartoones written by Joseph Kuhr?
 Ground Truth Query: SELECT  count(*) FROM tvshow__cartoon WHERE Written_by = Joseph Kuhr
-Predicted Query: SELECT  count(*) FROM tvshow__cartoon WHERE Written_by = joseph kuhr
+Predicted Query: SELECT  count(Title) FROM tvshow__cartoon WHERE Written_by = joseph kuhr
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: When Embry-Riddle made it to the first semi finalist slot, list all the runners up.
 Ground Truth Query: SELECT  (Runner-Up) FROM 1-11214772-2 WHERE Semi-Finalist #1 = Embry-Riddle
 Predicted Query: SELECT  (Runner-Up) FROM 1-11214772-2 WHERE Semi-Finalist #1 = embry-riddle
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Return the average earnings across all poker players.
 Ground Truth Query: SELECT  avg(Earnings) FROM poker_player__poker_player
 Predicted Query: SELECT  avg(Earnings) FROM poker_player__poker_player
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the grade of each high schooler?
 Ground Truth Query: SELECT  (grade) FROM network_1__highschooler
 Predicted Query: SELECT  (grade) FROM network_1__highschooler
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: In 1980, how many cars were made?
 Ground Truth Query: SELECT  count(*) FROM car_1__cars_data WHERE Year = 1980.0
 Predicted Query: SELECT  count(*) FROM car_1__cars_data WHERE Year = 1980
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the mens singles of 2008?
 Ground Truth Query: SELECT  (Mens singles) FROM 1-12104319-1 WHERE Year = 2008
 Predicted Query: SELECT  (Mens singles) FROM 1-12104319-1 WHERE Year = 2008
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average age of all the dogs?
 Ground Truth Query: SELECT  avg(age) FROM dog_kennels__dogs
 Predicted Query: SELECT  avg(age) FROM dog_kennels__dogs
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  who is the runner(s)-up where 54 holes is tied for lead and margin is 5 strokes
 Ground Truth Query: SELECT  (Runner(s)-up) FROM 1-11570261-1 WHERE 54 holes = Tied for lead AND Margin = 5 strokes
 Predicted Query: SELECT  (Runner(s)-up) FROM 1-11570261-1 WHERE 54 holes = tied for lead AND Margin = 5 strokes
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  9
-
-NL Question: what's the u.s. open cup status for regular season of 4th, atlantic division
+NL Question: what's the u.s. open cup status for regular season of 4th, atlantic division 
 Ground Truth Query: SELECT  (U.S. Open Cup) FROM 1-1046170-5 WHERE Regular Season = 4th, Atlantic Division
 Predicted Query: SELECT  (U.S. Open Cup) FROM 1-1046170-5 WHERE Regular Season = 4th, atlantic division
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the womens singles of marcus ellis gabrielle white?
 Ground Truth Query: SELECT  (Womens singles) FROM 1-12104319-1 WHERE Mixed doubles = Marcus Ellis Gabrielle White
 Predicted Query: SELECT  (Womens singles) FROM 1-12104319-1 WHERE Mixed doubles = marcus ellis gabrielle white
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is Weekly Rank of TV series with Episode "A Love of a Lifetime"?
 Ground Truth Query: SELECT  (Weekly_Rank) FROM tvshow__tv_series WHERE Episode = A Love of a Lifetime
-Predicted Query: SELECT  (Weekly_Rank) FROM tvshow__tv_series WHERE Episode = love of a lifetime"
+Predicted Query: SELECT  (Weekly_Rank) FROM tvshow__tv_series WHERE Episode = of a lifetime"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: What are the total amount of numbers on the Toronto team in 2005-06?
 Ground Truth Query: SELECT  count(No.) FROM 1-10015132-9 WHERE Years in Toronto = 2005-06
-Predicted Query: SELECT  count(No.) FROM 1-10015132-9 WHERE Years in Toronto = 2005-06
+Predicted Query: SELECT  (No.) FROM 1-10015132-9 WHERE Years in Toronto = 2005-06
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many people are there of each nationality?
 Ground Truth Query: SELECT  (Nationality) , count(*) FROM poker_player__people GROUPBY Nationality
 Predicted Query: SELECT  count(*) , (Nationality) FROM poker_player__people GROUPBY Nationality
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average weight for each type of pet?
 Ground Truth Query: SELECT  avg(weight) , (PetType) FROM pets_1__pets GROUPBY PetType
-Predicted Query: SELECT  avg(pet_age) , avg(weight) FROM pets_1__pets
+Predicted Query: SELECT  count(*) , avg(weight) FROM pets_1__pets
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 NL Question:  what's the permanence of the body where penance is the undifferenced
 Ground Truth Query: SELECT  (permanence of the body) FROM 1-11609814-1 WHERE penance = the undifferenced
 Predicted Query: SELECT  (permanence of the body) FROM 1-11609814-1 WHERE penance = the undifferenced
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who is the manager whose rank is 16?
 Ground Truth Query: SELECT  (Manager) FROM 1-1218784-1 WHERE Rank = 16
 Predicted Query: SELECT  (Manager) FROM 1-1218784-1 WHERE Rank = 16
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  10
-
 NL Question: Return the name of the airport with code 'AKO'.
 Ground Truth Query: SELECT  (AirportName) FROM flight_2__airports WHERE AirportCode = AKO
 Predicted Query: SELECT  (AirportName) FROM flight_2__airports WHERE AirportCode = 'ako
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  what's the 54 holes where winning score is −19 (67-66-67-69=269)
 Ground Truth Query: SELECT  (54 holes) FROM 1-11570261-1 WHERE Winning score = −19 (67-66-67-69=269)
 Predicted Query: SELECT  (54 holes) FROM 1-11570261-1 WHERE Winning score = −19 (67-66-67-69=269)
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  what's the championship where winning score is −12 (74-66-65-71=276)
 Ground Truth Query: SELECT  (Championship) FROM 1-11570261-1 WHERE Winning score = −12 (74-66-65-71=276)
 Predicted Query: SELECT  (Championship) FROM 1-11570261-1 WHERE Winning score = −12 (74-66-65-71=276)
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many reports were the for the cleveland burke lakefront airport circut?
 Ground Truth Query: SELECT  count(Report) FROM 1-10707176-2 WHERE Circuit = Cleveland Burke Lakefront Airport
 Predicted Query: SELECT  count(Report) FROM 1-10707176-2 WHERE Circuit = cleveland burke lakefront airport
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are all the makers and models?
 Ground Truth Query: SELECT  (Maker) , (Model) FROM car_1__model_list
 Predicted Query: SELECT  (Maker) , (Model) FROM car_1__model_list
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Count the number of conductors.
 Ground Truth Query: SELECT  count(*) FROM orchestra__conductor
 Predicted Query: SELECT  count(*) FROM orchestra__conductor
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what records have a score of l 109–116 2 ot
 Ground Truth Query: SELECT  (Record) FROM 1-11964047-7 WHERE Score = L 109–116 2 OT
 Predicted Query: SELECT  (Record) FROM 1-11964047-7 WHERE Score = l 109–116 2 ot
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the English name given to the city of St. John's?
 Ground Truth Query: SELECT  (Capital ( exonym )) FROM 1-1008653-1 WHERE Capital ( endonym ) = St. John's
-Predicted Query: SELECT  (Capital ( exonym )) FROM 1-1008653-1 WHERE Capital ( endonym ) = st. john's
+Predicted Query: SELECT  (Capital ( exonym )) FROM 1-1008653-1 WHERE Official or native language(s) (alphabet/script) = st. john's
+sn:1; sc:1; sa:1;wn:1; wc:0; wo:1;wv:1; gb:1; lx:0
 
 Test batch number:  11
-
 NL Question: Which leagues have Raiders as their mascot?
 Ground Truth Query: SELECT  (League) FROM 1-11044765-1 WHERE Mascot = Raiders
 Predicted Query: SELECT  (League) FROM 1-11044765-1 WHERE Mascot = raiders
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the first and second line for all addresses?
 Ground Truth Query: SELECT  (line_1) , (line_2) FROM student_transcripts_tracking__addresses
-Predicted Query: SELECT  (line_1) , (line_3) FROM student_transcripts_tracking__addresses
+Predicted Query: SELECT  (line_1) , (line_2) FROM student_transcripts_tracking__addresses
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What was the vote tally on the episode aired May 5, 2005?
 Ground Truth Query: SELECT  (Vote) FROM 1-1272844-2 WHERE Air date = May 5, 2005
 Predicted Query: SELECT  (Vote) FROM 1-1272844-2 WHERE Air date = may 5, 2005
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are the average and maximum number of tickets bought in all visits?
 Ground Truth Query: SELECT  avg(Num_of_Ticket) , max(Num_of_Ticket) FROM museum_visit__visit
 Predicted Query: SELECT  count(*) , max(Num_of_Ticket) FROM museum_visit__visit
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How is the math course described?
 Ground Truth Query: SELECT  (course_description) FROM student_transcripts_tracking__courses WHERE course_name = math
 Predicted Query: SELECT  (course_description) FROM student_transcripts_tracking__courses WHERE course_name = math
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List the airport code and name in the city of Anthony.
 Ground Truth Query: SELECT  (AirportCode) , (AirportName) FROM flight_2__airports WHERE City = Anthony
 Predicted Query: SELECT  (AirportCode) , (AirportName) FROM flight_2__airports WHERE City = anthony
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What was the average for the country with the swimsuit score of 9.57?
 Ground Truth Query: SELECT  (Average) FROM 1-11884814-3 WHERE Swimsuit = 9.57
 Predicted Query: SELECT  (Average) FROM 1-11884814-3 WHERE Swimsuit = 9.57
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are the womens singles of naoko fukuman kurumi yonao?
 Ground Truth Query: SELECT  (Womens singles) FROM 1-12104319-1 WHERE Womens doubles = Naoko Fukuman Kurumi Yonao
 Predicted Query: SELECT  (Womens singles) FROM 1-12104319-1 WHERE Womens doubles = naoko fukuman kurumi yonao
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  12
-
 NL Question: Which Allied Force targetted Woensdrecht?
 Ground Truth Query: SELECT  (Allied forces) FROM 1-1160161-12 WHERE Target = Woensdrecht
 Predicted Query: SELECT  (Allied forces) FROM 1-1160161-12 WHERE Target = woensdrecht
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many figures are given for the region's total in 1947?
 Ground Truth Query: SELECT  count(Population (Region total)) FROM 1-12555835-1 WHERE Year = 1947
 Predicted Query: SELECT  count(Population (Region total)) FROM 1-12555835-1 WHERE Year = 1947
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What was the district when the reason for change was died January 1, 1974?
 Ground Truth Query: SELECT  (District) FROM 1-1134091-4 WHERE Reason for change = Died January 1, 1974
 Predicted Query: SELECT  (District) FROM 1-1134091-4 WHERE Reason for change = died january 1, 1974
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List each language and the number of TV Channels using it.
 Ground Truth Query: SELECT  (Language) , count(*) FROM tvshow__tv_channel GROUPBY Language
 Predicted Query: SELECT  count(*) , (Language) FROM tvshow__tv_channel GROUPBY Language
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: find the minimum and maximum number of products of all stores.
 Ground Truth Query: SELECT  min(Number_products) , max(Number_products) FROM employee_hire_evaluation__shop
-Predicted Query: SELECT  (Name) , min(Number_products) FROM employee_hire_evaluation__shop
+Predicted Query: SELECT  count(*) , max(Number_products) FROM employee_hire_evaluation__shop
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Give the city and country for the Alton airport.
 Ground Truth Query: SELECT  (City) , (Country) FROM flight_2__airports WHERE AirportName = Alton
-Predicted Query: SELECT  (Country) , (CountryAbbrev) FROM flight_2__airports WHERE AirportName = alton
+Predicted Query: SELECT  (City) , (Country) FROM flight_2__airports WHERE AirportName = alton
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many drivers won the Italian Grand Prix?
 Ground Truth Query: SELECT  count(Winning Driver) FROM 1-1132600-3 WHERE Grand Prix = Italian Grand Prix
 Predicted Query: SELECT  count(Winning Driver) FROM 1-1132600-3 WHERE Grand Prix = italian grand prix
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what are all the playoffs for regular season is 1st, atlantic division
 Ground Truth Query: SELECT  (Playoffs) FROM 1-1046170-5 WHERE Regular Season = 1st, Atlantic Division
-Predicted Query: SELECT  (Playoffs) FROM 1-1046170-5 WHERE Regular Season = 1st
+Predicted Query: SELECT  (Playoffs) FROM 1-1046170-5 WHERE Regular Season = 1st, atlantic division
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  13
-
 NL Question: How many times did incumbent ruben hinojosa get elected?
 Ground Truth Query: SELECT  count(Results) FROM 1-1341453-45 WHERE Incumbent = Ruben Hinojosa
 Predicted Query: SELECT  (First elected) FROM 1-1341453-45 WHERE Incumbent = ruben hinojosa
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many TV Channels use the English language?
 Ground Truth Query: SELECT  count(*) FROM tvshow__tv_channel WHERE Language = English
 Predicted Query: SELECT  count(*) FROM tvshow__tv_channel WHERE Language = english
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the description for the section named h?
 Ground Truth Query: SELECT  (section_description) FROM student_transcripts_tracking__sections WHERE section_name = h
 Predicted Query: SELECT  (section_description) FROM student_transcripts_tracking__sections WHERE section_name = h
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the latest year where glos & wilts is warminster?
 Ground Truth Query: SELECT  max(Year) FROM 1-12043148-2 WHERE Glos & Wilts = Warminster
 Predicted Query: SELECT  max(Year) FROM 1-12043148-2 WHERE Glos & Wilts = warminster
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What position does the player who played for butler cc (ks) play?
 Ground Truth Query: SELECT  (Position) FROM 1-10015132-11 WHERE School/Club Team = Butler CC (KS)
 Predicted Query: SELECT  (Position) FROM 1-10015132-11 WHERE School/Club Team = butler cc (ks)
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List the name, date and result of each battle.
 Ground Truth Query: SELECT  (name) , (date) FROM battle_death__battle
 Predicted Query: SELECT  (name) , (date) , (result) FROM battle_death__battle
+sn:0; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question:  who is the leading scorer where home is charlotte bobcats
 Ground Truth Query: SELECT  (Leading scorer) FROM 1-11964047-5 WHERE Home = Charlotte Bobcats
 Predicted Query: SELECT  (Leading scorer) FROM 1-11964047-5 WHERE Home = charlotte bobcats
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the enrollment for Foote Field?
 Ground Truth Query: SELECT  max(Enrollment) FROM 1-12896884-1 WHERE Football stadium = Foote Field
 Predicted Query: SELECT  (Enrollment) FROM 1-12896884-1 WHERE Football stadium = foote field
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 Test batch number:  14
-
 NL Question: What is the weekly rank for the episode "A Love of a Lifetime"?
 Ground Truth Query: SELECT  (Weekly_Rank) FROM tvshow__tv_series WHERE Episode = A Love of a Lifetime
-Predicted Query: SELECT  (Weekly_Rank) FROM tvshow__tv_series WHERE Episode = a love of a lifetime"
+Predicted Query: SELECT  (Weekly_Rank) FROM tvshow__tv_series WHERE Episode = of a lifetime"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: Who directed the episode "Great Sexpectations (2)"?
 Ground Truth Query: SELECT  (Director) FROM 1-10953197-5 WHERE Title = "Great Sexpectations (2)"
 Predicted Query: SELECT  (Director) FROM 1-10953197-5 WHERE Title = "great sexpectations (2)"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who is the player that wears number 42?
 Ground Truth Query: SELECT  (Player) FROM 1-10015132-11 WHERE No. = 42
 Predicted Query: SELECT  (Player) FROM 1-10015132-11 WHERE No. = 42
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the maximum accelerate for different number of cylinders?
 Ground Truth Query: SELECT  max(Accelerate) , (Cylinders) FROM car_1__cars_data GROUPBY Cylinders
-Predicted Query: SELECT  (Cylinders) , (Accelerate) FROM car_1__cars_data GROUPBY Cylinders
+Predicted Query: SELECT  max(Cylinders) , (Accelerate) FROM car_1__cars_data
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 NL Question: What is the content of TV Channel with serial name "Sky Radio"?
 Ground Truth Query: SELECT  (Content) FROM tvshow__tv_channel WHERE series_name = Sky Radio
 Predicted Query: SELECT  (Content) FROM tvshow__tv_channel WHERE series_name = radio"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: Count the number of poker players.
 Ground Truth Query: SELECT  count(*) FROM poker_player__poker_player
 Predicted Query: SELECT  count(*) FROM poker_player__poker_player
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many fastest laps were there for a rd that equals 10?
 Ground Truth Query: SELECT  count(Fastest Lap) FROM 1-10706879-3 WHERE Rd = 10
 Predicted Query: SELECT  count(Fastest Lap) FROM 1-10706879-3 WHERE Rd = 10
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Give the airline with abbreviation 'UAL'.
 Ground Truth Query: SELECT  (Airline) FROM flight_2__airlines WHERE Abbreviation = UAL
 Predicted Query: SELECT  (Airline) FROM flight_2__airlines WHERE Abbreviation = 'ual
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  15
-
 NL Question: How many visitors below age 30 are there?
 Ground Truth Query: SELECT  count(*) FROM museum_visit__visitor WHERE Age < 30.0
 Predicted Query: SELECT  count(*) FROM museum_visit__visitor WHERE Age < 30
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many goals were scored in the 2005-06 season?
 Ground Truth Query: SELECT  (Goals) FROM 1-1218784-1 WHERE Season = 2005-06
-Predicted Query: SELECT  min(Goals) FROM 1-1218784-1 WHERE Season = 2005-06
+Predicted Query: SELECT  (Goals) FROM 1-1218784-1 WHERE Season = 2005-06
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What rnds were there for the phoenix international raceway?
 Ground Truth Query: SELECT  (Rnd) FROM 1-10707176-2 WHERE Circuit = Phoenix International Raceway
 Predicted Query: SELECT  (Rnd) FROM 1-10707176-2 WHERE Circuit = phoenix international raceway
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the rank of manager Rob Mcdonald?
 Ground Truth Query: SELECT  count(Rank) FROM 1-1218784-1 WHERE Manager = Rob McDonald
 Predicted Query: SELECT  (Rank) FROM 1-1218784-1 WHERE Manager = rob mcdonald
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Show all template type codes and descriptions.
 Ground Truth Query: SELECT  (Template_Type_Code) , (Template_Type_Description) FROM cre_doc_template_mgt__ref_template_types
 Predicted Query: SELECT  (Template_Type_Code) , (Template_Type_Description) FROM cre_doc_template_mgt__ref_template_types
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: During the first phase portion of phase and having 16 clubs involved; what would you find for the winners from previous round?
 Ground Truth Query: SELECT  (Winners from previous round) FROM 1-1281200-1 WHERE Phase = First Phase AND Clubs involved = 16
-Predicted Query: SELECT  (Winners from previous round) FROM 1-1281200-1 WHERE Phase = first phase
+Predicted Query: SELECT  (Winners from previous round) FROM 1-1281200-1 WHERE Phase = first phase AND Clubs involved = 16
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Return the grade for the high schooler named Kyle.
 Ground Truth Query: SELECT  (grade) FROM network_1__highschooler WHERE name = Kyle
 Predicted Query: SELECT  (grade) FROM network_1__highschooler WHERE name = kyle
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What country submitted the movie the orphanage?
 Ground Truth Query: SELECT  (Submitting country) FROM 1-12842068-1 WHERE Film title used in nomination = The Orphanage
 Predicted Query: SELECT  (Submitting country) FROM 1-12842068-1 WHERE Film title used in nomination = the orphanage
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  16
-
 where-condition is not found in nlu_tt
 Test batch number:  17
-
 where-condition is not found in nlu_tt
 Test batch number:  18
-
 NL Question: What is the number of the city district of stadtteil where foreigners are 5.162?
 Ground Truth Query: SELECT  count(City district (Stadtteil)) FROM 1-10992-3 WHERE Foreign nationals = 5.162
-Predicted Query: SELECT  (City district (Stadtteil)) FROM 1-10992-3 WHERE Foreign nationals = 5.162
+Predicted Query: SELECT  count(City district (Stadtteil)) FROM 1-10992-3 WHERE Foreign nationals = 5.162
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the to par dated may 4, 2003?
 Ground Truth Query: SELECT  (To par) FROM 1-1121352-2 WHERE Date = May 4, 2003
 Predicted Query: SELECT  (To par) FROM 1-1121352-2 WHERE Date = may 4, 2003
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many countries exist?
 Ground Truth Query: SELECT  count(*) FROM car_1__countries
 Predicted Query: SELECT  count(*) FROM car_1__countries
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many friends does each student have?
 Ground Truth Query: SELECT  (student_id) , count(*) FROM network_1__friend GROUPBY student_id
 Predicted Query: SELECT  count(*) , (student_id) FROM network_1__friend
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 NL Question: List the dog name, age and weight of the dogs who have been abandoned? 1 stands for yes, and 0 stands for no.
 Ground Truth Query: SELECT  (name) , (age) , (weight) FROM dog_kennels__dogs WHERE abandoned_yn = 1.0
-Predicted Query: SELECT  (abandoned_yn) , (name) , (weight) FROM dog_kennels__dogs WHERE abandoned_yn = 1 AND age = 1
+Predicted Query: SELECT  (name) , (age) , (weight) FROM dog_kennels__dogs WHERE abandoned_yn = 0 AND age = 1
+sn:1; sc:1; sa:1;wn:0; wc:0; wo:0;wv:0; gb:1; lx:0
 
 NL Question: Show different hometown of teachers and the number of teachers from each hometown.
 Ground Truth Query: SELECT  (Hometown) , count(*) FROM course_teach__teacher GROUPBY Hometown
 Predicted Query: SELECT  count(*) , (Hometown) FROM course_teach__teacher GROUPBY Hometown
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the district when the total amount of trees is smaller than 150817.6878461314 and amount of old trees is 1,928 (1.89%)?
 Ground Truth Query: SELECT  (District) FROM 1-10342194-3 WHERE Total amount of trees < 150817.6878461314 AND Amount of old trees = 1,928 (1.89%)
 Predicted Query: SELECT  (District) FROM 1-10342194-3 WHERE Total amount of trees < 150817.6878461314 AND Amount of old trees = 1,928 (1.89%)
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the team located at philips arena 18,227?
 Ground Truth Query: SELECT  (Team) FROM 1-11961582-6 WHERE Location Attendance = Philips Arena 18,227
 Predicted Query: SELECT  (Team) FROM 1-11961582-6 WHERE Location Attendance = philips arena 18,227
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  19
-
 NL Question: The U.S. airdate of 8 august 2008 also had canadian airdates of what?
 Ground Truth Query: SELECT  (Canadian airdate) FROM 1-10935205-1 WHERE US airdate = 8 August 2008
 Predicted Query: SELECT  (Canadian airdate) FROM 1-10935205-1 WHERE US airdate = 8 august 2008
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What was the fastest lap time in the Escort Radar Warning 200?
 Ground Truth Query: SELECT  (Fastest Lap) FROM 1-10706961-2 WHERE Name = Escort Radar Warning 200
 Predicted Query: SELECT  (Fastest Lap) FROM 1-10706961-2 WHERE Name = escort radar warning 200
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many flights depart from 'APG'?
 Ground Truth Query: SELECT  count(*) FROM flight_2__flights WHERE SourceAirport = APG
-Predicted Query: SELECT  (FlightNo) FROM flight_2__flights WHERE DestAirport = 'apg
+Predicted Query: SELECT  count(*) FROM flight_2__flights WHERE DestAirport = 'apg
+sn:1; sc:1; sa:1;wn:1; wc:0; wo:1;wv:1; gb:1; lx:0
 
 NL Question:  what's the constancy where permanence of the body is meditation
 Ground Truth Query: SELECT  (constancy) FROM 1-11609814-1 WHERE permanence of the body = meditation
 Predicted Query: SELECT  (constancy) FROM 1-11609814-1 WHERE permanence of the body = meditation
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Name the tries against for 87 points
 Ground Truth Query: SELECT  (Tries against) FROM 1-12792876-4 WHERE Points = 87
 Predicted Query: SELECT  (Tries against) FROM 1-12792876-4 WHERE Points = 87
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what's the first epbeingode with final epbeingode being "rio"
 Ground Truth Query: SELECT  (First Episode) FROM 1-11210576-4 WHERE Final Episode = "Rio"
-Predicted Query: SELECT  (First Episode) FROM 1-11210576-4 WHERE Final Episode = "
+Predicted Query: SELECT  (First Episode) FROM 1-11210576-4 WHERE Final Episode = "rio"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which one of the songs was originally performed by Rickie Lee Jones?
 Ground Truth Query: SELECT  (Song choice) FROM 1-12310814-1 WHERE Original artist = Rickie Lee Jones
 Predicted Query: SELECT  (Song choice) FROM 1-12310814-1 WHERE Original artist = rickie lee jones
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What district was John Porter elected in?
 Ground Truth Query: SELECT  (District) FROM 1-1341453-15 WHERE Incumbent = John Porter
 Predicted Query: SELECT  (District) FROM 1-1341453-15 WHERE Incumbent = john porter
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  20
-
 NL Question: For each hometown, how many teachers are there?
 Ground Truth Query: SELECT  (Hometown) , count(*) FROM course_teach__teacher GROUPBY Hometown
 Predicted Query: SELECT  count(*) , (Hometown) FROM course_teach__teacher GROUPBY Hometown
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are flight numbers of flights arriving at Airport "APG"?
 Ground Truth Query: SELECT  (FlightNo) FROM flight_2__flights WHERE DestAirport = APG
 Predicted Query: SELECT  (FlightNo) FROM flight_2__flights WHERE SourceAirport = "
+sn:1; sc:1; sa:1;wn:1; wc:0; wo:1;wv:0; gb:1; lx:0
 
 NL Question: What is the average and maximum age for each pet type?
 Ground Truth Query: SELECT  avg(pet_age) , max(pet_age) , (PetType) FROM pets_1__pets GROUPBY PetType
-Predicted Query: SELECT  count(*) , (PetID) , max(pet_age) FROM pets_1__pets
+Predicted Query: SELECT  (PetType) , max(pet_age) , max(weight) FROM pets_1__pets
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 NL Question: What is the maximum number of final tables made among poker players with earnings less than 200000?
 Ground Truth Query: SELECT  max(Final_Table_Made) FROM poker_player__poker_player WHERE Earnings < 200000.0
-Predicted Query: SELECT  (Final_Table_Made) FROM poker_player__poker_player WHERE Earnings < ?
+Predicted Query: SELECT  max(Final_Table_Made) FROM poker_player__poker_player WHERE Earnings < 200000
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many strongs transliteration of the english spelling of the work jehojakin?
 Ground Truth Query: SELECT  count(Strongs Transliteration) FROM 1-1242447-1 WHERE English Spelling = Jehojakin
 Predicted Query: SELECT  count(Strongs Transliteration) FROM 1-1242447-1 WHERE English Spelling = jehojakin
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Name the losing bonus of 96 points
 Ground Truth Query: SELECT  (Losing bonus) FROM 1-12792876-4 WHERE Points = 96
 Predicted Query: SELECT  (Losing bonus) FROM 1-12792876-4 WHERE Points = 96
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the number for future stem for poztu?
 Ground Truth Query: SELECT  count(Future stem) FROM 1-12784134-24 WHERE Perfect stem = poztu
 Predicted Query: SELECT  (Future stem) FROM 1-12784134-24 WHERE Perfect stem = poztu
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What is the highest Rd that Tom Sneva had the pole position in?
 Ground Truth Query: SELECT  max(Rd) FROM 1-10706961-2 WHERE Pole Position = Tom Sneva
 Predicted Query: SELECT  max(Rd) FROM 1-10706961-2 WHERE Pole Position = tom sneva
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  21
-
 NL Question: Show the ID of the high schooler named Kyle.
 Ground Truth Query: SELECT  (ID) FROM network_1__highschooler WHERE name = Kyle
 Predicted Query: SELECT  (ID) FROM network_1__highschooler WHERE name = kyle
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average weight and year for each year?
 Ground Truth Query: SELECT  avg(Weight) , (Year) FROM car_1__cars_data GROUPBY Year
 Predicted Query: SELECT  avg(Weight) , (Year) FROM car_1__cars_data GROUPBY Year
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Show the number of high schoolers for each grade.
 Ground Truth Query: SELECT  (grade) , count(*) FROM network_1__highschooler GROUPBY grade
 Predicted Query: SELECT  count(*) , (grade) FROM network_1__highschooler GROUPBY grade
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What's the order number of the song originally performed by Rickie Lee Jones?
 Ground Truth Query: SELECT  (Order #) FROM 1-12310814-1 WHERE Original artist = Rickie Lee Jones
 Predicted Query: SELECT  (Order #) FROM 1-12310814-1 WHERE Original artist = rickie lee jones
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What was the lowest # of total votes?
 Ground Truth Query: SELECT  min(# of total votes) FROM 1-123462-2
 Predicted Query: SELECT  min(# of total votes) FROM 1-123462-2
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Provide me with the names of all the villages (German) that has 76.3% of Slovenes in 1951.
 Ground Truth Query: SELECT  (Village (German)) FROM 1-10798421-1 WHERE Percent of Slovenes 1951 = 76.3%
 Predicted Query: SELECT  (Village (German)) FROM 1-10798421-1 WHERE Percent of Slovenes 1951 = 76.3%
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who was the RF when the SP was vicente padilla?
 Ground Truth Query: SELECT  (Rightfielder) FROM 1-12142298-2 WHERE Starting Pitcher = Vicente Padilla
 Predicted Query: SELECT  (Rightfielder) FROM 1-12142298-2 WHERE Starting Pitcher = vicente padilla
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are the dog name, age and weight of the dogs that were abandoned? Note that 1 stands for yes, and 0 stands for no in the tables.
 Ground Truth Query: SELECT  (name) , (age) , (weight) FROM dog_kennels__dogs WHERE abandoned_yn = 1.0
-Predicted Query: SELECT  (name) , (age) , (weight) FROM dog_kennels__dogs WHERE abandoned_yn = 1 AND age = 1
+Predicted Query: SELECT  (name) , (age) , (weight) FROM dog_kennels__dogs WHERE abandoned_yn =  AND age = 0
+sn:1; sc:1; sa:1;wn:0; wc:0; wo:0;wv:0; gb:1; lx:0
 
 Test batch number:  22
-
 NL Question: What are the birth years and citizenships of the singers?
 Ground Truth Query: SELECT  (Birth_Year) , (Citizenship) FROM singer__singer
 Predicted Query: SELECT  (Birth_Year) , (Citizenship) FROM singer__singer
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the number of cars with more than 4 cylinders?
 Ground Truth Query: SELECT  count(*) FROM car_1__cars_data WHERE Cylinders > 4.0
 Predicted Query: SELECT  count(*) FROM car_1__cars_data WHERE Cylinders > 4
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the amount of trees, that require replacement when the district is motovilikhinsky?
 Ground Truth Query: SELECT  (Amount of trees, that require replacement) FROM 1-10342194-3 WHERE District = Motovilikhinsky
 Predicted Query: SELECT  (Amount of trees, that require replacement) FROM 1-10342194-3 WHERE District = motovilikhinsky
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what's the total number of species in the peruvian amazon with 8411 species in the world 
 Ground Truth Query: SELECT  count(Species in the Peruvian Amazon) FROM 1-11727969-1 WHERE Species in the world = 8411
-Predicted Query: SELECT  sum(Species in the Peruvian Amazon) FROM 1-11727969-1 WHERE Species in the world = 8411
+Predicted Query: SELECT  count(Species in the Peruvian Amazon) FROM 1-11727969-1 WHERE Species in the world = 8411
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List the maximum weight and type for each type of pet.
 Ground Truth Query: SELECT  max(weight) , (PetType) FROM pets_1__pets GROUPBY PetType
-Predicted Query: SELECT  (pet_age) , max(weight) FROM pets_1__pets
+Predicted Query: SELECT  (PetType) , max(weight) FROM pets_1__pets
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 NL Question: What was the smallest population figure for Mareeba?
 Ground Truth Query: SELECT  min(Population (Mareeba)) FROM 1-12555835-1
 Predicted Query: SELECT  min(Population (Mareeba)) FROM 1-12555835-1
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: The canadian airdate of 17 march 2008 had how many numbers in the season?
 Ground Truth Query: SELECT  count(No. in season) FROM 1-10935205-1 WHERE Canadian airdate = 17 March 2008
-Predicted Query: SELECT  (No. in season) FROM 1-10935205-1 WHERE Canadian airdate = 17 march 2008
+Predicted Query: SELECT  count(No. in season) FROM 1-10935205-1 WHERE Canadian airdate = 17 march 2008
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are the descriptions for all the math courses?
 Ground Truth Query: SELECT  (course_description) FROM student_transcripts_tracking__courses WHERE course_name = math
 Predicted Query: SELECT  (course_description) FROM student_transcripts_tracking__courses WHERE course_name = math
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  23
-
 NL Question: List each charge type and its amount.
 Ground Truth Query: SELECT  (charge_type) , (charge_amount) FROM dog_kennels__charges
 Predicted Query: SELECT  (charge_type) , (charge_amount) FROM dog_kennels__charges GROUPBY charge_type
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 NL Question: Find the number of pets whose weight is heavier than 10.
 Ground Truth Query: SELECT  count(*) FROM pets_1__pets WHERE weight > 10.0
 Predicted Query: SELECT  count(*) FROM pets_1__pets WHERE weight > 10
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average weight of cars each year?
 Ground Truth Query: SELECT  avg(Weight) , (Year) FROM car_1__cars_data GROUPBY Year
 Predicted Query: SELECT  avg(Weight) , (Year) FROM car_1__cars_data GROUPBY Year
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How much does each charge type costs? List both charge type and amount.
 Ground Truth Query: SELECT  (charge_type) , (charge_amount) FROM dog_kennels__charges
 Predicted Query: SELECT  (charge_type) , (charge_amount) FROM dog_kennels__charges GROUPBY charge_type
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 NL Question: How many likes correspond to each student id?
 Ground Truth Query: SELECT  (student_id) , count(*) FROM network_1__likes GROUPBY student_id
-Predicted Query: SELECT  count(*) , (liked_id) FROM network_1__likes GROUPBY student_id
+Predicted Query: SELECT  count(*) , (student_id) FROM network_1__likes
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
-NL Question: Give me the kickoff time of the game that was aired on CBS against the St. Louis Cardinals.
+NL Question: Give me the kickoff time of the game that was aired on CBS against the St. Louis Cardinals. 
 Ground Truth Query: SELECT  (Kickoff [a ]) FROM 1-11449311-2 WHERE TV = CBS AND Opponent = St. Louis Cardinals
 Predicted Query: SELECT  (Kickoff [a ]) FROM 1-11449311-2 WHERE Opponent = st. louis cardinals AND TV = cbs
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Show all template ids and number of documents using each template.
 Ground Truth Query: SELECT  (Template_ID) , count(*) FROM cre_doc_template_mgt__documents GROUPBY Template_ID
 Predicted Query: SELECT  count(*) , (Template_ID) FROM cre_doc_template_mgt__documents GROUPBY Template_ID
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many transcripts are listed?
 Ground Truth Query: SELECT  count(*) FROM student_transcripts_tracking__transcripts
 Predicted Query: SELECT  count(*) FROM student_transcripts_tracking__transcripts
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  24
-
 NL Question:  what's the championship where 54 holes is 1 shot lead and runner(s)-up is chris dimarco
 Ground Truth Query: SELECT  (Championship) FROM 1-11570261-1 WHERE 54 holes = 1 shot lead AND Runner(s)-up = Chris DiMarco
 Predicted Query: SELECT  (Championship) FROM 1-11570261-1 WHERE 54 holes = 1 shot lead AND Runner(s)-up = chris dimarco
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many documents do we have?
 Ground Truth Query: SELECT  count(*) FROM cre_doc_template_mgt__documents
 Predicted Query: SELECT  count(*) FROM cre_doc_template_mgt__documents
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the somerset for the  year 2009?
 Ground Truth Query: SELECT  (Somerset) FROM 1-12043148-2 WHERE Year = 2009
 Predicted Query: SELECT  (Somerset) FROM 1-12043148-2 WHERE Year = 2009
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the district when prevailing types, % is acer negundo — 30.22 tilia — 18.6 poplar — 15.23?
 Ground Truth Query: SELECT  (District) FROM 1-10342194-3 WHERE Prevailing types, % = Acer negundo — 30.22 Tilia — 18.6 Poplar — 15.23
 Predicted Query: SELECT  (District) FROM 1-10342194-3 WHERE Prevailing types, % = acer negundo — 30.22 tilia — 18.6 poplar — 15.23
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: The new entries this round was shown to be 12, in which phase would you find this?
 Ground Truth Query: SELECT  (Phase) FROM 1-1281200-1 WHERE New entries this round = 12
 Predicted Query: SELECT  (Phase) FROM 1-1281200-1 WHERE New entries this round = 12
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Name the minimum tiesplayed for 6 years
 Ground Truth Query: SELECT  min(Ties played) FROM 1-10295819-2 WHERE Years played = 6
 Predicted Query: SELECT  min(Ties played) FROM 1-10295819-2 WHERE Years played = 6
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the number of continents?
 Ground Truth Query: SELECT  count(*) FROM car_1__continents
 Predicted Query: SELECT  count(*) FROM car_1__continents
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What player played guard for toronto in 1996-97?
 Ground Truth Query: SELECT  (Player) FROM 1-10015132-11 WHERE Position = Guard AND Years in Toronto = 1996-97
 Predicted Query: SELECT  (Player) FROM 1-10015132-11 WHERE Position = guard AND Years in Toronto = 1996-97
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  25
-
 NL Question: What is the minimum weight of the car with 8 cylinders produced in 1974 ?
 Ground Truth Query: SELECT  min(Weight) FROM car_1__cars_data WHERE Cylinders = 8.0 AND Year = 1974.0
 Predicted Query: SELECT  min(Weight) FROM car_1__cars_data WHERE Cylinders = 8 AND Year = 1974
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is last date created of votes from the state 'CA'?
 Ground Truth Query: SELECT  max(created) FROM voter_1__votes WHERE state = CA
 Predicted Query: SELECT  (created) FROM voter_1__votes WHERE state = 'ca
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many airlines do we have?
 Ground Truth Query: SELECT  count(*) FROM flight_2__airlines
 Predicted Query: SELECT  count(*) FROM flight_2__airlines
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which round had Michael Schumacher in the pole position, David Coulthard with the fastest lap, and McLaren - Mercedes as the winning constructor?
 Ground Truth Query: SELECT  count(Round) FROM 1-1132600-3 WHERE Pole Position = Michael Schumacher AND Fastest Lap = David Coulthard AND Winning Constructor = McLaren - Mercedes
-Predicted Query: SELECT  (Round) FROM 1-1132600-3 WHERE Pole Position = michael schumacher AND Fastest Lap = david coulthard with the fastest lap, and mclaren - mercedes AND Winning Constructor = mclaren - mercedes
+Predicted Query: SELECT  (Round) FROM 1-1132600-3 WHERE Pole Position = michael schumacher AND Fastest Lap = david coulthard AND Winning Constructor = mclaren - mercedes
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Tell me the age of the oldest dog.
 Ground Truth Query: SELECT  max(age) FROM dog_kennels__dogs
-Predicted Query: SELECT  max(age) FROM dog_kennels__dogs
+Predicted Query: SELECT  min(age) FROM dog_kennels__dogs
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Who was the vacator when the date successor seated was august 21, 1973?
 Ground Truth Query: SELECT  (Vacator) FROM 1-1134091-4 WHERE Date successor seated = August 21, 1973
 Predicted Query: SELECT  (Vacator) FROM 1-1134091-4 WHERE Date successor seated = august 21, 1973
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are the maximum and minimum values of area codes?
 Ground Truth Query: SELECT  max(area_code) , min(area_code) FROM voter_1__area_code_state
-Predicted Query: SELECT  count(*) , max(area_code) FROM voter_1__area_code_state
+Predicted Query: SELECT  min(*) , max(area_code) FROM voter_1__area_code_state
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Who received the reward on the episode where the finish was "3rd voted out day 8"?
 Ground Truth Query: SELECT  (Reward) FROM 1-1272844-2 WHERE Finish = 3rd Voted Out Day 8
 Predicted Query: SELECT  (Reward) FROM 1-1272844-2 WHERE Finish = 3rd voted out day 8
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  26
-
 NL Question: What are the womens singles of imam sodikin irawan andi tandaputra?
 Ground Truth Query: SELECT  (Womens singles) FROM 1-12104319-1 WHERE Mens doubles = Imam Sodikin Irawan Andi Tandaputra
 Predicted Query: SELECT  (Womens singles) FROM 1-12104319-1 WHERE Mens doubles = imam sodikin irawan andi tandaputra
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: When was the date successor seated when the vacator was charles e. chamberlain (r)?
 Ground Truth Query: SELECT  (Date successor seated) FROM 1-1134091-4 WHERE Vacator = Charles E. Chamberlain (R)
 Predicted Query: SELECT  (Date successor seated) FROM 1-1134091-4 WHERE Vacator = charles e. chamberlain (r)
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many high schoolers are in each grade?
 Ground Truth Query: SELECT  (grade) , count(*) FROM network_1__highschooler GROUPBY grade
 Predicted Query: SELECT  count(*) , (grade) FROM network_1__highschooler GROUPBY grade
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: The episode titled "don't stop believin'" was what highest number of the season?
 Ground Truth Query: SELECT  max(No. in season) FROM 1-10935205-1 WHERE Title = "Don't Stop Believin'"
 Predicted Query: SELECT  max(No. in season) FROM 1-10935205-1 WHERE Title = "don't stop believin'"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many airlines are from USA?
 Ground Truth Query: SELECT  count(*) FROM flight_2__airlines WHERE Country = USA
 Predicted Query: SELECT  count(*) FROM flight_2__airlines WHERE Country = usa
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: The episode with production code 9abx02 was originally aired on what date?
 Ground Truth Query: SELECT  (Original air date) FROM 1-10088101-1 WHERE Production code = 9ABX02
 Predicted Query: SELECT  (Original air date) FROM 1-10088101-1 WHERE Production code = 9abx02
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many cars have more than 4 cylinders?
 Ground Truth Query: SELECT  count(*) FROM car_1__cars_data WHERE Cylinders > 4.0
 Predicted Query: SELECT  count(*) FROM car_1__cars_data WHERE Cylinders > 4
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many cartoons did each director create?
 Ground Truth Query: SELECT  count(*) , (Directed_by) FROM tvshow__cartoon GROUPBY Directed_by
 Predicted Query: SELECT  count(*) , (Directed_by) FROM tvshow__cartoon
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 Test batch number:  27
-
 NL Question:  what's the permanence of the body where purity is apprehension
 Ground Truth Query: SELECT  (permanence of the body) FROM 1-11609814-1 WHERE purity = apprehension
 Predicted Query: SELECT  (permanence of the body) FROM 1-11609814-1 WHERE purity = apprehension
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the total score when the score for floor exercise was 9.287?
 Ground Truth Query: SELECT  (Total) FROM 1-11542215-3 WHERE Floor Exercise = 9.287
-Predicted Query: SELECT  (Total) FROM 1-11542215-3 WHERE Floor Exercise = 9.287
+Predicted Query: SELECT  count(Total) FROM 1-11542215-3 WHERE Floor Exercise = 9.287
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What is the zip code for Port Chelsea?
 Ground Truth Query: SELECT  (zip_postcode) FROM student_transcripts_tracking__addresses WHERE city = Port Chelsea
 Predicted Query: SELECT  (zip_postcode) FROM student_transcripts_tracking__addresses WHERE city = port chelsea
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What's the total number of songs originally performed by Anna Nalick?
 Ground Truth Query: SELECT  count(Song choice) FROM 1-12310814-1 WHERE Original artist = Anna Nalick
 Predicted Query: SELECT  count(Order #) FROM 1-12310814-1 WHERE Original artist = anna nalick
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What is the name of the episode in which Jenn is eliminated?
 Ground Truth Query: SELECT  (Episode title) FROM 1-1272844-2 WHERE Eliminated = Jenn
 Predicted Query: SELECT  (Episode title) FROM 1-1272844-2 WHERE Eliminated = jenn
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What grade is Kyle in?
 Ground Truth Query: SELECT  (grade) FROM network_1__highschooler WHERE name = Kyle
 Predicted Query: SELECT  (grade) FROM network_1__highschooler WHERE name = kyle
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What was the score of the game on November 12?
 Ground Truth Query: SELECT  (Score) FROM 1-10812293-3 WHERE Date = November 12
 Predicted Query: SELECT  (Score) FROM 1-10812293-3 WHERE Date = november 12
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average transcript date?
 Ground Truth Query: SELECT  avg(transcript_date) FROM student_transcripts_tracking__transcripts
 Predicted Query: SELECT  avg(transcript_date) FROM student_transcripts_tracking__transcripts
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  28
-
 NL Question: Provide me with the name of all the village (German) that are part of the village (Slovenian) with sele borovnica.
 Ground Truth Query: SELECT  (Village (German)) FROM 1-10798421-1 WHERE Village (Slovenian) = Sele Borovnica
 Predicted Query: SELECT  (Village (German)) FROM 1-10798421-1 WHERE Village (Slovenian) = sele borovnica
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who scored the most points in Game 49?
 Ground Truth Query: SELECT  (High points) FROM 1-11960407-5 WHERE Game = 49
 Predicted Query: SELECT  (High points) FROM 1-11960407-5 WHERE Game = 49
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: On average, when were the transcripts printed?
 Ground Truth Query: SELECT  avg(transcript_date) FROM student_transcripts_tracking__transcripts
 Predicted Query: SELECT  (transcript_date) FROM student_transcripts_tracking__transcripts
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many ships ended up being 'Captured'?
 Ground Truth Query: SELECT  count(*) FROM battle_death__ship WHERE disposition_of_ship = Captured
-Predicted Query: SELECT  count(*) FROM battle_death__ship WHERE disposition_of_ship = 'captured
+Predicted Query: SELECT  count(*) FROM battle_death__ship
+sn:1; sc:1; sa:1;wn:0; wc:0; wo:0;wv:0; gb:1; lx:0
 
 NL Question: When did Jacques Chirac stop being a G8 leader?
 Ground Truth Query: SELECT  (Ended time as senior G8 leader) FROM 1-10026563-1 WHERE Person = Jacques Chirac
 Predicted Query: SELECT  (Began time as senior G8 leader) FROM 1-10026563-1 WHERE Person = jacques chirac
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Give me all the information about hiring.
 Ground Truth Query: SELECT  (*) FROM employee_hire_evaluation__hiring
 Predicted Query: SELECT  (*) FROM employee_hire_evaluation__hiring
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the year where glos & wilts is gloucester city winget?
 Ground Truth Query: SELECT  (Year) FROM 1-12043148-2 WHERE Glos & Wilts = Gloucester City Winget
 Predicted Query: SELECT  (Year) FROM 1-12043148-2 WHERE Glos & Wilts = gloucester city winget
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
-NL Question: Provide me with the name of all the village (German) that are part of the village (Slovenian) with sele srednji kot.
+NL Question: Provide me with the name of all the village (German) that are part of the village (Slovenian) with sele srednji kot. 
 Ground Truth Query: SELECT  (Village (German)) FROM 1-10798421-1 WHERE Village (Slovenian) = Sele Srednji Kot
 Predicted Query: SELECT  (Village (German)) FROM 1-10798421-1 WHERE Village (Slovenian) = sele srednji kot
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  29
-
 NL Question: How many candidates were elected first in 1980?
 Ground Truth Query: SELECT  count(Candidates) FROM 1-1341453-20 WHERE First elected = 1980
 Predicted Query: SELECT  count(Candidates) FROM 1-1341453-20 WHERE First elected = 1980
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many continents are there?
 Ground Truth Query: SELECT  count(*) FROM car_1__continents
 Predicted Query: SELECT  count(*) FROM car_1__continents
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  what's the aggregate where 1st leg is 3–2
 Ground Truth Query: SELECT  (Aggregate) FROM 1-1061075-1 WHERE 1st leg = 3–2
 Predicted Query: SELECT  (Aggregate) FROM 1-1061075-1 WHERE 1st leg = 3–2
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many flights have destination ATO?
 Ground Truth Query: SELECT  count(*) FROM flight_2__flights WHERE DestAirport = ATO
-Predicted Query: SELECT  count(*) FROM flight_2__flights WHERE SourceAirport = ato
+Predicted Query: SELECT  count(*) FROM flight_2__flights WHERE DestAirport = ato
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the episode number that has production code 8abx15?
 Ground Truth Query: SELECT  min(No. in series) FROM 1-10088101-1 WHERE Production code = 8ABX15
-Predicted Query: SELECT  (Title) FROM 1-10088101-1 WHERE Production code = 8abx15
+Predicted Query: SELECT  min(No. in set) FROM 1-10088101-1 WHERE Production code = 8abx15
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Name the losing bonus for 27
 Ground Truth Query: SELECT  (Losing bonus) FROM 1-12792876-4 WHERE Tries for = 27
 Predicted Query: SELECT  (Losing bonus) FROM 1-12792876-4 WHERE Tries for = 27
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Provide with the names of the village (German) that is part of village (Slovenian) with sele srednji kot.
 Ground Truth Query: SELECT  (Village (German)) FROM 1-10798421-1 WHERE Village (Slovenian) = Sele Srednji Kot
 Predicted Query: SELECT  (Village (German)) FROM 1-10798421-1 WHERE Village (Slovenian) = sele srednji kot
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who played 2nd base when nomar garciaparra was at 1st base?
 Ground Truth Query: SELECT  (Second Baseman) FROM 1-12142298-2 WHERE First Baseman = Nomar Garciaparra
 Predicted Query: SELECT  (Second Baseman) FROM 1-12142298-2 WHERE First Baseman = nomar garciaparra
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  30
-
 NL Question: Which school has the Raiders as their mascot?
 Ground Truth Query: SELECT  (School) FROM 1-11044765-1 WHERE Mascot = Raiders
 Predicted Query: SELECT  (School) FROM 1-11044765-1 WHERE Mascot = raiders
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many shops are there in each location?
 Ground Truth Query: SELECT  count(*) , (Location) FROM employee_hire_evaluation__shop GROUPBY Location
 Predicted Query: SELECT  count(*) , (Location) FROM employee_hire_evaluation__shop GROUPBY Location
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the total count of teachers?
 Ground Truth Query: SELECT  count(*) FROM course_teach__teacher
 Predicted Query: SELECT  count(*) FROM course_teach__teacher
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who are all of the players on the Westchester High School club team?
 Ground Truth Query: SELECT  (Player) FROM 1-10015132-9 WHERE School/Club Team = Westchester High School
 Predicted Query: SELECT  (Player) FROM 1-10015132-9 WHERE School/Club Team = westchester high school
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Show all countries and the number of singers in each country.
 Ground Truth Query: SELECT  (Country) , count(*) FROM concert_singer__singer GROUPBY Country
 Predicted Query: SELECT  count(*) , (Country) FROM concert_singer__singer GROUPBY Country
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Return the type code of the template type with the description "Book".
 Ground Truth Query: SELECT  (Template_Type_Code) FROM cre_doc_template_mgt__ref_template_types WHERE Template_Type_Description = Book
 Predicted Query: SELECT  (Template_Type_Code) FROM cre_doc_template_mgt__ref_template_types WHERE Template_Type_Description = "
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: Where is the margin of victory dated mar 28, 2004?
 Ground Truth Query: SELECT  (Margin of victory) FROM 1-1121352-2 WHERE Date = Mar 28, 2004
 Predicted Query: SELECT  (Margin of victory) FROM 1-1121352-2 WHERE Date = mar 28, 2004
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are the makers and models?
 Ground Truth Query: SELECT  (Maker) , (Model) FROM car_1__model_list
 Predicted Query: SELECT  (Maker) , (Model) FROM car_1__model_list
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  31
-
 NL Question: How many poker players are there?
 Ground Truth Query: SELECT  count(*) FROM poker_player__poker_player
 Predicted Query: SELECT  count(*) FROM poker_player__poker_player
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many winning drivers were there in the race that had a fastest lap time of 56.920?
 Ground Truth Query: SELECT  count(Winning driver) FROM 1-10706961-2 WHERE Fastest Lap = 56.920
 Predicted Query: SELECT  count(Winning driver) FROM 1-10706961-2 WHERE Fastest Lap = 56.920
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average number of injuries caused each time?
 Ground Truth Query: SELECT  avg(injured) FROM battle_death__death
 Predicted Query: SELECT  count(*) , avg(injured) FROM battle_death__death
+sn:0; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What is the election year when the # of candidates nominated was 262?
 Ground Truth Query: SELECT  count(Election) FROM 1-123462-2 WHERE # of candidates nominated = 262
 Predicted Query: SELECT  (Election) FROM 1-123462-2 WHERE # of candidates nominated = 262
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: For each citizenship, how many singers are from that country?
 Ground Truth Query: SELECT  (Citizenship) , count(*) FROM singer__singer GROUPBY Citizenship
 Predicted Query: SELECT  count(*) , (Citizenship) FROM singer__singer GROUPBY Citizenship
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the id and weight of every pet who is older than 1?
 Ground Truth Query: SELECT  (PetID) , (weight) FROM pets_1__pets WHERE pet_age > 1.0
 Predicted Query: SELECT  (pet_age) , (weight) FROM pets_1__pets WHERE pet_age > 1
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many employees are there?
 Ground Truth Query: SELECT  count(*) FROM employee_hire_evaluation__employee
 Predicted Query: SELECT  count(*) FROM employee_hire_evaluation__employee
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are the ids, version numbers, and type codes for each template?
 Ground Truth Query: SELECT  (Template_ID) , (Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates
-Predicted Query: SELECT  (Template_ID) , (Version_Number) , (Template_Type_Code) , (Template_Details) FROM cre_doc_template_mgt__templates
+Predicted Query: SELECT  (Template_ID) , (Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  32
-
 NL Question: What country submitted miehen työ?
 Ground Truth Query: SELECT  (Submitting country) FROM 1-12842068-1 WHERE Original title = Miehen työ
 Predicted Query: SELECT  (Submitting country) FROM 1-12842068-1 WHERE Original title = miehen työ
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the Package Option of TV Channel with serial name "Sky Radio"?
 Ground Truth Query: SELECT  (Package_Option) FROM tvshow__tv_channel WHERE series_name = Sky Radio
 Predicted Query: SELECT  (Package_Option) FROM tvshow__tv_channel WHERE series_name = radio"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: Return the lowest version number, along with its corresponding template type code.
 Ground Truth Query: SELECT  min(Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates
 Predicted Query: SELECT  min(Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the population where the area (sq. mi.) is area (sq. mi.)?
 Ground Truth Query: SELECT  (Population) FROM 1-12108-1 WHERE Area (sq. mi.) = Area (sq. mi.)
-Predicted Query: SELECT  min(Population) FROM 1-12108-1
+Predicted Query: SELECT  max(Population) FROM 1-12108-1
+sn:1; sc:1; sa:0;wn:0; wc:0; wo:0;wv:0; gb:1; lx:0
 
 NL Question: who many times is gloucestershire is painswick?
 Ground Truth Query: SELECT  count(Premier Two) FROM 1-12043148-2 WHERE Gloucestershire = Painswick
 Predicted Query: SELECT  count(Glos & Wilts) FROM 1-12043148-2 WHERE Gloucestershire = painswick
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What is the swimsuit score when the interview was 9.74?
 Ground Truth Query: SELECT  (Swimsuit) FROM 1-11884814-3 WHERE Interview = 9.74
 Predicted Query: SELECT  (Swimsuit) FROM 1-11884814-3 WHERE Interview = 9.74
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the maximum percentage grown 2000-2008 in burundi
 Ground Truth Query: SELECT  max(% growth (2000–2008)) FROM 1-10733530-3 WHERE Nation = Burundi
 Predicted Query: SELECT  max(% growth (2000–2008)) FROM 1-10733530-3 WHERE Nation = burundi
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what's the actor with character being judge joseph ratner
 Ground Truth Query: SELECT  (Actor) FROM 1-11210576-4 WHERE Character = Judge Joseph Ratner
 Predicted Query: SELECT  (Actor) FROM 1-11210576-4 WHERE Character = judge joseph ratner
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  33
-
 NL Question: What is the average and maximum capacities for all stadiums ?
 Ground Truth Query: SELECT  avg(Capacity) , max(Capacity) FROM concert_singer__stadium
 Predicted Query: SELECT  max(Capacity) , max(Average) FROM concert_singer__stadium
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many cartoons were written by "Joseph Kuhr"?
 Ground Truth Query: SELECT  count(*) FROM tvshow__cartoon WHERE Written_by = Joseph Kuhr
-Predicted Query: SELECT  count(Title) FROM tvshow__cartoon WHERE Written_by = kuhr"
+Predicted Query: SELECT  count(*) FROM tvshow__cartoon WHERE Written_by = kuhr"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: what are all the actor where first episode is "ambush"
 Ground Truth Query: SELECT  (Actor) FROM 1-11210576-4 WHERE First Episode = "Ambush"
 Predicted Query: SELECT  (Actor) FROM 1-11210576-4 WHERE First Episode = "ambush"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Return the template type description of the template type with the code AD.
 Ground Truth Query: SELECT  (Template_Type_Description) FROM cre_doc_template_mgt__ref_template_types WHERE Template_Type_Code = AD
 Predicted Query: SELECT  (Template_Type_Description) FROM cre_doc_template_mgt__ref_template_types WHERE Template_Type_Code = ad
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Find the maximum weight for each type of pet. List the maximum weight and pet type.
 Ground Truth Query: SELECT  max(weight) , (PetType) FROM pets_1__pets GROUPBY PetType
-Predicted Query: SELECT  max(PetType) , (pet_age) , max(weight) FROM pets_1__pets
+Predicted Query: SELECT  (PetType) , max(weight) FROM pets_1__pets
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 NL Question: Name the number of games on june 12
 Ground Truth Query: SELECT  count(Game) FROM 1-11965481-13 WHERE Date = June 12
-Predicted Query: SELECT  count(Location Attendance) FROM 1-11965481-13 WHERE Date = june 12
+Predicted Query: SELECT  count(Game) FROM 1-11965481-13 WHERE Date = june 12
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  what's the 1st leg where opponents is galatasaray
 Ground Truth Query: SELECT  (1st leg) FROM 1-1061075-1 WHERE Opponents = Galatasaray
 Predicted Query: SELECT  (1st leg) FROM 1-1061075-1 WHERE Opponents = galatasaray
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Name the points against for 51 points
 Ground Truth Query: SELECT  (Points against) FROM 1-12792876-4 WHERE Points = 51
 Predicted Query: SELECT  (Points against) FROM 1-12792876-4 WHERE Points = 51
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  34
-
 NL Question: What are the email, cell phone and home phone of each professional?
 Ground Truth Query: SELECT  (email_address) , (cell_number) , (home_phone) FROM dog_kennels__professionals
 Predicted Query: SELECT  (email_address) , (home_phone) , (cell_number) FROM dog_kennels__professionals
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the number of employees from each city?
 Ground Truth Query: SELECT  count(*) , (City) FROM employee_hire_evaluation__employee GROUPBY City
 Predicted Query: SELECT  count(*) , (City) FROM employee_hire_evaluation__employee GROUPBY City
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many times was the # of total votes 2582322?
 Ground Truth Query: SELECT  count(# of seats won) FROM 1-123462-2 WHERE # of total votes = 2582322
-Predicted Query: SELECT  count(*) FROM 1-123462-2 WHERE # of total votes = 2582322
+Predicted Query: SELECT  count(Election) FROM 1-123462-2 WHERE # of total votes = 2582322
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many paragraphs in total?
 Ground Truth Query: SELECT  count(*) FROM cre_doc_template_mgt__paragraphs
 Predicted Query: SELECT  count(*) FROM cre_doc_template_mgt__paragraphs
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Name the perfect stem for jo
 Ground Truth Query: SELECT  count(Perfect stem) FROM 1-12784134-24 WHERE Short stem = jo
 Predicted Query: SELECT  (Perfect stem) FROM 1-12784134-24 WHERE Short stem = jo
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Which routes have  "replaced by US 81" listed in their remarks section?
 Ground Truth Query: SELECT  (Route Name) FROM 1-11336756-6 WHERE Remarks = Replaced by US 81
-Predicted Query: SELECT  (Route Name) FROM 1-11336756-6 WHERE Route Name = replaced by us 81
+Predicted Query: SELECT  (Route Name) FROM 1-11336756-6 WHERE Remarks = replaced by us 81
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which Rd took place at the Indianapolis 500?
 Ground Truth Query: SELECT  (Rd) FROM 1-10706961-2 WHERE Name = Indianapolis 500
 Predicted Query: SELECT  (Rd) FROM 1-10706961-2 WHERE Name = indianapolis 500
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the english spelling of the word that has the strongs trasliteration of y e howram?
 Ground Truth Query: SELECT  (English Spelling) FROM 1-1242447-1 WHERE Strongs Transliteration = Y e howram
 Predicted Query: SELECT  (English Spelling) FROM 1-1242447-1 WHERE Strongs Transliteration = y e howram
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  35
-
 NL Question: Show different citizenships and the maximum net worth of singers of each citizenship.
 Ground Truth Query: SELECT  (Citizenship) , max(Net_Worth_Millions) FROM singer__singer GROUPBY Citizenship
 Predicted Query: SELECT  max(Net_Worth_Millions) , (Citizenship) FROM singer__singer GROUPBY Citizenship
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the toll for light vehicles at the plaza where the toll for heavy vehicles with 2 axles is r87.00?
 Ground Truth Query: SELECT  (Light vehicle) FROM 1-1211545-2 WHERE Heavy vehicle (2 axles) = R87.00
 Predicted Query: SELECT  (Light vehicle) FROM 1-1211545-2 WHERE Heavy vehicle (2 axles) = r87.00
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: What is the exit date for the Dutch Albums Top 100 Chart?
 Ground Truth Query: SELECT  (Date of Exit) FROM 1-1160304-2 WHERE Chart = Dutch Albums Top 100
 Predicted Query: SELECT  (Date of Exit) FROM 1-1160304-2 WHERE Chart = dutch albums top 100
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Return the version numbers and template type codes of templates with a version number greater than 5.
 Ground Truth Query: SELECT  (Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates WHERE Version_Number > 5.0
-Predicted Query: SELECT  (Template_ID) , (Template_Type_Code) FROM cre_doc_template_mgt__templates WHERE Version_Number > .
+Predicted Query: SELECT  (Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates WHERE Version_Number > 5
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Count the number of flights departing from 'APG'.
 Ground Truth Query: SELECT  count(*) FROM flight_2__flights WHERE SourceAirport = APG
 Predicted Query: SELECT  count(*) FROM flight_2__flights WHERE SourceAirport = 'apg
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which country had the swimsuit score 9.67?
 Ground Truth Query: SELECT  (Country) FROM 1-11884814-3 WHERE Swimsuit = 9.67
 Predicted Query: SELECT  (Country) FROM 1-11884814-3 WHERE Swimsuit = 9.67
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List the final tables made and the best finishes of poker players.
 Ground Truth Query: SELECT  (Final_Table_Made) , (Best_Finish) FROM poker_player__poker_player
 Predicted Query: SELECT  (Final_Table_Made) , (Best_Finish) FROM poker_player__poker_player
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What's the type of muzzle devices on the models with round hand guards?
 Ground Truth Query: SELECT  (Muzzle device) FROM 1-12834315-1 WHERE Hand guards = Round
 Predicted Query: SELECT  (Muzzle device) FROM 1-12834315-1 WHERE Hand guards = round
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  36
-
 NL Question: What is the number of the cars with horsepower more than 150?
 Ground Truth Query: SELECT  count(*) FROM car_1__cars_data WHERE Horsepower > 150.0
 Predicted Query: SELECT  count(*) FROM car_1__cars_data WHERE Horsepower > 150
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are the names of airports in Aberdeen?
 Ground Truth Query: SELECT  (AirportName) FROM flight_2__airports WHERE City = Aberdeen
 Predicted Query: SELECT  (AirportName) FROM flight_2__airports WHERE City = aberdeen
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How tall is the player jones, major major jones?
 Ground Truth Query: SELECT  (Height in Ft.) FROM 1-11734041-9 WHERE Player = Jones, Major Major Jones
 Predicted Query: SELECT  (Height in Ft.) FROM 1-11734041-9 WHERE Player = jones, major major jones
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many singers do we have?
 Ground Truth Query: SELECT  count(*) FROM concert_singer__singer
 Predicted Query: SELECT  count(*) FROM concert_singer__singer
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What was the title of the movie from lebanon?
 Ground Truth Query: SELECT  (Film title used in nomination) FROM 1-12842068-1 WHERE Submitting country = Lebanon
 Predicted Query: SELECT  (Original title) FROM 1-12842068-1 WHERE Submitting country = lebanon
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Count the number of templates of the type CV.
 Ground Truth Query: SELECT  count(*) FROM cre_doc_template_mgt__templates WHERE Template_Type_Code = CV
 Predicted Query: SELECT  count(*) FROM cre_doc_template_mgt__templates WHERE Template_Type_Code = cv
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Return the number of airlines in the USA.
 Ground Truth Query: SELECT  count(*) FROM flight_2__airlines WHERE Country = USA
 Predicted Query: SELECT  count(*) FROM flight_2__airlines WHERE Country = usa
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List all cartoon directed by "Ben Jones".
 Ground Truth Query: SELECT  (Title) FROM tvshow__cartoon WHERE Directed_by = Ben Jones
 Predicted Query: SELECT  (Directed_by) FROM tvshow__cartoon WHERE Directed_by = jones"
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 Test batch number:  37
-
 NL Question: What is the allied target code of the group that targetted ghent/sint-denijs-westrem?
 Ground Truth Query: SELECT  (Target Code (Allied)) FROM 1-1160161-12 WHERE Target = Ghent/Sint-Denijs-Westrem
 Predicted Query: SELECT  (Target Code (Allied)) FROM 1-1160161-12 WHERE Target = ghent/sint-denijs-westrem
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many singers are there?
 Ground Truth Query: SELECT  count(*) FROM singer__singer
 Predicted Query: SELECT  count(*) FROM singer__singer
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What date were the runner ups pat hurst juli inkster?
 Ground Truth Query: SELECT  (Date) FROM 1-1121352-2 WHERE Runner(s)-up = Pat Hurst Juli Inkster
 Predicted Query: SELECT  (Date) FROM 1-1121352-2 WHERE Runner(s)-up = pat hurst juli inkster
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who were the candidates in the election where Saxby Chambliss was the incumbent?
 Ground Truth Query: SELECT  (Candidates) FROM 1-1341453-12 WHERE Incumbent = Saxby Chambliss
 Predicted Query: SELECT  (Candidates) FROM 1-1341453-12 WHERE Incumbent = saxby chambliss
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many flights do we have?
 Ground Truth Query: SELECT  count(*) FROM flight_2__flights
 Predicted Query: SELECT  count(*) FROM flight_2__flights
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the toll for light vehicles at the plaza between bela bela and modimolle?
 Ground Truth Query: SELECT  (Light vehicle) FROM 1-1211545-2 WHERE Location = between Bela Bela and Modimolle
 Predicted Query: SELECT  (Light vehicle) FROM 1-1211545-2 WHERE Location = modimolle
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: What was the result of the Top 3 episode?
 Ground Truth Query: SELECT  (Result) FROM 1-12310814-1 WHERE Episode = Top 3
 Predicted Query: SELECT  (Result) FROM 1-12310814-1 WHERE Episode = top 3
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  what's the preliminaries where evening gown is 8.988
 Ground Truth Query: SELECT  (Preliminaries) FROM 1-12094609-1 WHERE Evening Gown = 8.988
 Predicted Query: SELECT  (Preliminaries) FROM 1-12094609-1 WHERE Evening Gown = 8.988
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  38
-
 NL Question: What are flight numbers of flights departing from Airport "APG"?
 Ground Truth Query: SELECT  (FlightNo) FROM flight_2__flights WHERE SourceAirport = APG
 Predicted Query: SELECT  (FlightNo) FROM flight_2__flights WHERE SourceAirport = "
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: Give the flight numbers of flights leaving from APG.
 Ground Truth Query: SELECT  (FlightNo) FROM flight_2__flights WHERE SourceAirport = APG
-Predicted Query: SELECT  (DestAirport) FROM flight_2__flights WHERE DestAirport = apg
+Predicted Query: SELECT  (FlightNo) FROM flight_2__flights WHERE SourceAirport = apg
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What position does Christian Leibl-Cote play?
 Ground Truth Query: SELECT  (Position) FROM 1-10975034-2 WHERE Player = Christian Leibl-Cote
 Predicted Query: SELECT  (Position) FROM 1-10975034-2 WHERE Player = christian leibl-cote
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List document IDs, document names, and document descriptions for all documents.
 Ground Truth Query: SELECT  (Document_ID) , (Document_Name) , (Document_Description) FROM cre_doc_template_mgt__documents
 Predicted Query: SELECT  (Document_ID) , (Document_Name) , (Document_Description) FROM cre_doc_template_mgt__documents
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What years did the player from LaSalle play for the Rockets?
 Ground Truth Query: SELECT  (Years for Rockets) FROM 1-11734041-2 WHERE School/Club Team/Country = LaSalle
 Predicted Query: SELECT  (Years for Rockets) FROM 1-11734041-2 WHERE School/Club Team/Country = lasalle
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the total number of date where visitor is new jersey nets
 Ground Truth Query: SELECT  count(Date) FROM 1-11964047-5 WHERE Visitor = New Jersey Nets
 Predicted Query: SELECT  count(Date) FROM 1-11964047-5 WHERE Visitor = new jersey nets
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  what's the preliminaries where state is south dakota
 Ground Truth Query: SELECT  (Preliminaries) FROM 1-12094609-1 WHERE State = South Dakota
 Predicted Query: SELECT  (Preliminaries) FROM 1-12094609-1 WHERE State = south dakota
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the total number of 2nd leg where aggregate is 7-2
 Ground Truth Query: SELECT  count(2nd leg) FROM 1-1061075-1 WHERE Aggregate = 7-2
 Predicted Query: SELECT  count(2nd leg) FROM 1-1061075-1 WHERE Aggregate = 7-2
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  39
-
 NL Question: What is the template type code for template type description "Book".
 Ground Truth Query: SELECT  (Template_Type_Code) FROM cre_doc_template_mgt__ref_template_types WHERE Template_Type_Description = Book
 Predicted Query: SELECT  (Template_Type_Code) FROM cre_doc_template_mgt__ref_template_types WHERE Template_Type_Description = "
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: What are the nationality of the players on the Fresno State school/club team?
 Ground Truth Query: SELECT  (Nationality) FROM 1-10015132-9 WHERE School/Club Team = Fresno State
 Predicted Query: SELECT  (Nationality) FROM 1-10015132-9 WHERE School/Club Team = fresno state
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  what's the score where record is 0–2
 Ground Truth Query: SELECT  (Score) FROM 1-11964047-5 WHERE Record = 0–2
 Predicted Query: SELECT  (Score) FROM 1-11964047-5 WHERE Record = 0–2
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the name of the plaza where the toll for heavy vehicles with 2 axles is r87.00?
 Ground Truth Query: SELECT  (Name) FROM 1-1211545-2 WHERE Heavy vehicle (2 axles) = R87.00
 Predicted Query: SELECT  (Name) FROM 1-1211545-2 WHERE Heavy vehicle (2 axles) = r87.00
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: How many persons had immunity in the episode when Wanda was eliminated?
 Ground Truth Query: SELECT  count(Immunity) FROM 1-1272844-2 WHERE Eliminated = Wanda
 Predicted Query: SELECT  count(Immunity) FROM 1-1272844-2 WHERE Eliminated = wanda
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the airport name for airport 'AKO'?
 Ground Truth Query: SELECT  (AirportName) FROM flight_2__airports WHERE AirportCode = AKO
 Predicted Query: SELECT  (AirportName) FROM flight_2__airports WHERE AirportCode = 'ako
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the glos & wilts where the bristol & somerset is lansdown?
 Ground Truth Query: SELECT  (Glos & Wilts) FROM 1-12043148-2 WHERE Bristol & Somerset = Lansdown
 Predicted Query: SELECT  (Glos & Wilts) FROM 1-12043148-2 WHERE Bristol & Somerset = lansdown
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Name the men's singles of marina yakusheva elena shimko
 Ground Truth Query: SELECT  (Mens singles) FROM 1-12104319-1 WHERE Womens doubles = Marina Yakusheva Elena Shimko
 Predicted Query: SELECT  (Mens singles) FROM 1-12104319-1 WHERE Womens doubles = marina yakusheva elena shimko
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  40
-
 NL Question: What are the arriving date and the departing date of all the dogs?
 Ground Truth Query: SELECT  (date_arrived) , (date_departed) FROM dog_kennels__dogs
 Predicted Query: SELECT  (date_arrived) , (date_departed) FROM dog_kennels__dogs
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the age of the oldest dog?
 Ground Truth Query: SELECT  max(age) FROM dog_kennels__dogs
-Predicted Query: SELECT  max(age) FROM dog_kennels__dogs
+Predicted Query: SELECT  min(age) FROM dog_kennels__dogs
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Who were the candidates in the district where Jerry Costello won?
 Ground Truth Query: SELECT  (Candidates) FROM 1-1341453-15 WHERE Incumbent = Jerry Costello
 Predicted Query: SELECT  (Candidates) FROM 1-1341453-15 WHERE Incumbent = jerry costello
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: The race tony bettenhausen 200 has what smallest rd?
 Ground Truth Query: SELECT  min(Rd) FROM 1-10706879-3 WHERE Name = Tony Bettenhausen 200
 Predicted Query: SELECT  min(Rd) FROM 1-10706879-3 WHERE Name = tony bettenhausen 200
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: For the episode(s) aired in the U.S. on 4 april 2008, what were the names?
 Ground Truth Query: SELECT  (Title) FROM 1-10935205-1 WHERE US airdate = 4 April 2008
 Predicted Query: SELECT  (Title) FROM 1-10935205-1 WHERE US airdate = 4 april 2008
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many millions of U.S. viewers watched the episode directed by Rob Bailey and written by Pam Veasey?
 Ground Truth Query: SELECT  (U.S. viewers (millions)) FROM 1-12570759-2 WHERE Directed by = Rob Bailey AND Written by = Pam Veasey
 Predicted Query: SELECT  (U.S. viewers (millions)) FROM 1-12570759-2 WHERE Directed by = rob bailey AND Written by = pam veasey
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
-NL Question: What are the Colt model numbers of the models named GAU-5A/A, with no bayonet lug, no case deflector and stock of 2nd generation?
+NL Question: What are the Colt model numbers of the models named GAU-5A/A, with no bayonet lug, no case deflector and stock of 2nd generation? 
 Ground Truth Query: SELECT  (Colt model no.) FROM 1-12834315-1 WHERE Bayonet Lug = No AND Stock = 2nd Generation AND Case deflector = No AND Name = GAU-5A/A
-Predicted Query: SELECT  (Colt model no.) FROM 1-12834315-1 WHERE Name = gau-5a/a AND Case deflector = 2nd generation AND Bayonet Lug = gau-5a/a, with no
+Predicted Query: SELECT  (Colt model no.) FROM 1-12834315-1 WHERE Name = gau-5a/a, with no AND Case deflector = 2nd generation AND Bayonet Lug = 
+sn:1; sc:1; sa:1;wn:0; wc:0; wo:0;wv:0; gb:1; lx:0
 
 NL Question: How many members arrived on the main island in week 4?
 Ground Truth Query: SELECT  count(Member) FROM 1-11764007-2 WHERE Week Arrived On Main Island = 4
 Predicted Query: SELECT  count(Member) FROM 1-11764007-2 WHERE Week Arrived On Main Island = 4
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  41
-
 NL Question: What official or native languages are spoken in the country whose capital city is Canberra?
 Ground Truth Query: SELECT  (Official or native language(s) (alphabet/script)) FROM 1-1008653-1 WHERE Capital ( exonym ) = Canberra
 Predicted Query: SELECT  (Official or native language(s) (alphabet/script)) FROM 1-1008653-1 WHERE Capital ( endonym ) = canberra
+sn:1; sc:1; sa:1;wn:1; wc:0; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many airports do we have?
 Ground Truth Query: SELECT  count(*) FROM flight_2__airports
 Predicted Query: SELECT  count(*) FROM flight_2__airports
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are the races that johnny rutherford has won?
 Ground Truth Query: SELECT  (Name) FROM 1-10706879-3 WHERE Winning driver = Johnny Rutherford
 Predicted Query: SELECT  (Rd) FROM 1-10706879-3 WHERE Winning driver = johnny rutherford
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many countries are listed?
 Ground Truth Query: SELECT  count(*) FROM car_1__countries
 Predicted Query: SELECT  count(*) FROM car_1__countries
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Where was the final game played in 2007
 Ground Truth Query: SELECT  (Location) FROM 1-11214772-2 WHERE Year = 2007
 Predicted Query: SELECT  (Location) FROM 1-11214772-2 WHERE Year = 2007
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the content of the series Sky Radio?
 Ground Truth Query: SELECT  (Content) FROM tvshow__tv_channel WHERE series_name = Sky Radio
 Predicted Query: SELECT  (Content) FROM tvshow__tv_channel WHERE series_name = sky radio
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List the email, cell phone and home phone of all the professionals.
 Ground Truth Query: SELECT  (email_address) , (cell_number) , (home_phone) FROM dog_kennels__professionals
 Predicted Query: SELECT  (email_address) , (home_phone) , (cell_number) FROM dog_kennels__professionals
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Count the number of paragraphs.
 Ground Truth Query: SELECT  count(*) FROM cre_doc_template_mgt__paragraphs
 Predicted Query: SELECT  count(*) FROM cre_doc_template_mgt__paragraphs
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  42
-
 NL Question: What are the ids, names, and descriptions for all documents?
 Ground Truth Query: SELECT  (Document_ID) , (Document_Name) , (Document_Description) FROM cre_doc_template_mgt__documents
 Predicted Query: SELECT  (Document_ID) , (Document_Name) , (Document_Description) FROM cre_doc_template_mgt__documents
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Show all the grades of the high schoolers.
 Ground Truth Query: SELECT  (grade) FROM network_1__highschooler
 Predicted Query: SELECT  (grade) FROM network_1__highschooler
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is maximum and minimum death toll caused each time?
 Ground Truth Query: SELECT  max(killed) , min(killed) FROM battle_death__death
-Predicted Query: SELECT  count(*) , min(killed) FROM battle_death__death
+Predicted Query: SELECT  (note) , min(killed) FROM battle_death__death
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What are the names of all high schoolers in grade 10?
 Ground Truth Query: SELECT  (name) FROM network_1__highschooler WHERE grade = 10.0
 Predicted Query: SELECT  (name) FROM network_1__highschooler WHERE grade = 10
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who had high assists when they played against San Antonio?
 Ground Truth Query: SELECT  (High assists) FROM 1-10812293-3 WHERE Team = San Antonio
 Predicted Query: SELECT  (High assists) FROM 1-10812293-3 WHERE Team = san antonio
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the document id, template id and description for document named "Robbin CV"?
 Ground Truth Query: SELECT  (Document_ID) , (Template_ID) , (Document_Description) FROM cre_doc_template_mgt__documents WHERE Document_Name = Robbin CV
 Predicted Query: SELECT  (Document_ID) , (Template_ID) , (Document_Description) FROM cre_doc_template_mgt__documents WHERE Document_Name = cv"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question:  what's the competition where 1st leg is 4-1 (h)
 Ground Truth Query: SELECT  (Competition) FROM 1-1061075-1 WHERE 1st leg = 4-1 (h)
 Predicted Query: SELECT  (Competition) FROM 1-1061075-1 WHERE 1st leg = 4-1 (h)
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many schools did player number 3 play at?
 Ground Truth Query: SELECT  count(School/Club Team) FROM 1-10015132-11 WHERE No. = 3
 Predicted Query: SELECT  count(School/Club Team) FROM 1-10015132-11 WHERE No. = 3
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  43
-
 NL Question: How many TV Channel using language English?
 Ground Truth Query: SELECT  count(*) FROM tvshow__tv_channel WHERE Language = English
 Predicted Query: SELECT  count(*) FROM tvshow__tv_channel WHERE Language = english
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Find all the result(s) with the record of 2-13.
 Ground Truth Query: SELECT  (Result) FROM 1-11449311-2 WHERE Record = 2-13
 Predicted Query: SELECT  (Result) FROM 1-11449311-2 WHERE Record = 2-13
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the original air date of the episode written by Karen Felix and Don Woodard?
 Ground Truth Query: SELECT  (Original air date) FROM 1-11630008-8 WHERE Written by = Karen Felix and Don Woodard
 Predicted Query: SELECT  (Original air date) FROM 1-11630008-8 WHERE Written by = karen felix and don woodard
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What the smallest version number and its template type code?
 Ground Truth Query: SELECT  min(Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates
 Predicted Query: SELECT  min(Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Show the student IDs and numbers of friends corresponding to each.
 Ground Truth Query: SELECT  (student_id) , count(*) FROM network_1__friend GROUPBY student_id
 Predicted Query: SELECT  (student_id) , (friend_id) FROM network_1__friend GROUPBY student_id
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What was the total number of weeks on peak for the Ireland Albums Top 75 chart?
 Ground Truth Query: SELECT  count(Weeks on Peak) FROM 1-1160304-2 WHERE Chart = Ireland Albums Top 75
 Predicted Query: SELECT  count(Weeks on Peak) FROM 1-1160304-2 WHERE Chart = ireland albums top 75
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What year did University of Saskatchewan have their first season?
 Ground Truth Query: SELECT  max(First season) FROM 1-12896884-1 WHERE Institution = University of Saskatchewan
 Predicted Query: SELECT  max(First season) FROM 1-12896884-1 WHERE Institution = university of saskatchewan
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the version number and template type code for the template with version number later than 5?
 Ground Truth Query: SELECT  (Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates WHERE Version_Number > 5.0
-Predicted Query: SELECT  (Template_ID) , (Template_Type_Code) FROM cre_doc_template_mgt__templates WHERE Version_Number > 5
+Predicted Query: SELECT  (Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates WHERE Version_Number > 5
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  44
-
 NL Question: What city and state are the miners located in?
 Ground Truth Query: SELECT  (Location) FROM 1-11044765-1 WHERE Mascot = Miners
-Predicted Query: SELECT  (School) , (Location) FROM 1-11044765-1 WHERE Mascot = miners
+Predicted Query: SELECT  (*) , (Location) FROM 1-11044765-1 WHERE Mascot = miners
+sn:0; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What are the opening year and staff number of the museum named Plaza Museum?
 Ground Truth Query: SELECT  (Num_of_Staff) , (Open_Year) FROM museum_visit__museum WHERE Name = Plaza Museum
 Predicted Query: SELECT  (Num_of_Staff) , (Open_Year) FROM museum_visit__museum WHERE Name = plaza museum
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the maximum apogee for samos f3-3?
 Ground Truth Query: SELECT  max(Apogee (km)) FROM 1-12141496-1 WHERE Name = SAMOS F3-3
 Predicted Query: SELECT  max(Apogee (km)) FROM 1-12141496-1 WHERE Name = samos f3-3
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List the scores of all games when Miami were listed as the first Semi finalist
 Ground Truth Query: SELECT  (Score) FROM 1-11214772-2 WHERE Semi-Finalist #1 = Miami
 Predicted Query: SELECT  (Score) FROM 1-11214772-2 WHERE Semi-Finalist #1 = miami
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what's the minimum species in the peruvian amazon with peru vs. world (percent) value of 7
 Ground Truth Query: SELECT  min(Species in the Peruvian Amazon) FROM 1-11727969-1 WHERE Peru Vs. world (Percent) = 7
 Predicted Query: SELECT  min(Species in the Peruvian Amazon) FROM 1-11727969-1 WHERE Peru Vs. world (Percent) = 7
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who was the pole position for the rnd equalling 12?
 Ground Truth Query: SELECT  (Pole position) FROM 1-10707176-2 WHERE Rnd = 12
 Predicted Query: SELECT  (Pole position) FROM 1-10707176-2 WHERE Rnd = 12
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Find the average weight for each pet type.
 Ground Truth Query: SELECT  avg(weight) , (PetType) FROM pets_1__pets GROUPBY PetType
-Predicted Query: SELECT  avg(PetType) , avg(weight) FROM pets_1__pets
+Predicted Query: SELECT  (PetType) , avg(weight) FROM pets_1__pets
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 NL Question: What is the maximum accelerate for all the different cylinders?
 Ground Truth Query: SELECT  max(Accelerate) , (Cylinders) FROM car_1__cars_data GROUPBY Cylinders
-Predicted Query: SELECT  (Cylinders) , (Accelerate) FROM car_1__cars_data GROUPBY Cylinders
+Predicted Query: SELECT  (Cylinders) , max(Accelerate) FROM car_1__cars_data
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 Test batch number:  45
-
 NL Question: How many courses in total are listed?
 Ground Truth Query: SELECT  count(*) FROM student_transcripts_tracking__courses
 Predicted Query: SELECT  count(*) FROM student_transcripts_tracking__courses
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What week was the member who arrived on the main island in week 6 sent to the third island?
 Ground Truth Query: SELECT  (Week Sent To Third Island) FROM 1-11764007-2 WHERE Week Arrived On Main Island = 6
 Predicted Query: SELECT  (Week Sent To Third Island) FROM 1-11764007-2 WHERE Week Arrived On Main Island = 6
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many episodes were watched by 12.72 million U.S. viewers?
 Ground Truth Query: SELECT  count(Written by) FROM 1-12570759-2 WHERE U.S. viewers (millions) = 12.72
 Predicted Query: SELECT  count(Title) FROM 1-12570759-2 WHERE U.S. viewers (millions) = 12.72
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What is all the information about hiring?
 Ground Truth Query: SELECT  (*) FROM employee_hire_evaluation__hiring
 Predicted Query: SELECT  (*) FROM employee_hire_evaluation__hiring
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List all airline names and their abbreviations in "USA".
 Ground Truth Query: SELECT  (Airline) , (Abbreviation) FROM flight_2__airlines WHERE Country = USA
-Predicted Query: SELECT  (Airline) , (Abbreviation) FROM flight_2__airlines WHERE Country = .
+Predicted Query: SELECT  (Airline) , (Abbreviation) FROM flight_2__airlines WHERE Country = ".
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: How many cars has over 6 cylinders?
 Ground Truth Query: SELECT  count(*) FROM car_1__cars_data WHERE Cylinders > 6.0
 Predicted Query: SELECT  count(*) FROM car_1__cars_data WHERE Cylinders > 6
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the date of the episode written by Michael Poryes?
 Ground Truth Query: SELECT  (Original air date) FROM 1-12030612-3 WHERE Written by = Michael Poryes
 Predicted Query: SELECT  (Original air date) FROM 1-12030612-3 WHERE Written by = michael poryes
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the perfect stem for pozten?
 Ground Truth Query: SELECT  (Perfect stem) FROM 1-12784134-24 WHERE Imperfect stem = pozten
-Predicted Query: SELECT  (Perfect stem) FROM 1-12784134-24 WHERE Imperfect stem = pozten
+Predicted Query: SELECT  (Perfect stem) FROM 1-12784134-24 WHERE Short stem = pozten
+sn:1; sc:1; sa:1;wn:1; wc:0; wo:1;wv:1; gb:1; lx:0
 
 Test batch number:  46
-
 NL Question: Name the series on june 5
 Ground Truth Query: SELECT  (Series) FROM 1-11965481-13 WHERE Date = June 5
 Predicted Query: SELECT  (Series) FROM 1-11965481-13 WHERE Date = june 5
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the English name of the country whose official native language is Dutch Papiamento?
 Ground Truth Query: SELECT  (Country ( exonym )) FROM 1-1008653-1 WHERE Official or native language(s) (alphabet/script) = Dutch Papiamento
-Predicted Query: SELECT  (Country ( endonym )) FROM 1-1008653-1 WHERE Official or native language(s) (alphabet/script) = dutch papiamento
+Predicted Query: SELECT  (Country ( exonym )) FROM 1-1008653-1 WHERE Official or native language(s) (alphabet/script) = dutch papiamento
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which junctions have "replaced by bsi-35" listed in their remarks section?
 Ground Truth Query: SELECT  (Junctions) FROM 1-11336756-6 WHERE Remarks = Replaced by BSI-35
 Predicted Query: SELECT  (Junctions) FROM 1-11336756-6 WHERE Remarks = replaced by bsi-35
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the total number of dates where the scorer is gordon : 32
 Ground Truth Query: SELECT  count(Date) FROM 1-11964047-7 WHERE Leading scorer = Gordon : 32
 Predicted Query: SELECT  count(Date) FROM 1-11964047-7 WHERE Leading scorer = gordon : 32
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who was the SS when jim lefebvre was at 2nd, willie davis at CF, and don drysdale was the SP.
 Ground Truth Query: SELECT  (Shortstop) FROM 1-12142298-2 WHERE Second Baseman = Jim Lefebvre AND Centerfielder = Willie Davis AND Starting Pitcher = Don Drysdale
-Predicted Query: SELECT  (Leftfielder) FROM 1-12142298-2 WHERE Second Baseman = jim lefebvre AND Third Baseman = jim lefebvre was at 2nd, willie davis AND Centerfielder = willie davis
+Predicted Query: SELECT  (Leftfielder) FROM 1-12142298-2 WHERE Second Baseman = jim lefebvre AND Third Baseman = jim lefebvre was at 2nd, willie davis AND Centerfielder = willie davis at cf, and don drysdale
+sn:1; sc:0; sa:1;wn:1; wc:0; wo:1;wv:0; gb:1; lx:0
 
 NL Question: what are all the addresses including line 1 and line 2?
 Ground Truth Query: SELECT  (line_1) , (line_2) FROM student_transcripts_tracking__addresses
 Predicted Query: SELECT  (line_1) , (line_2) FROM student_transcripts_tracking__addresses
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the date of entry for the UK Albums Top 75 chart?
 Ground Truth Query: SELECT  (Date of Entry) FROM 1-1160304-2 WHERE Chart = UK Albums Top 75
 Predicted Query: SELECT  (Date of Entry) FROM 1-1160304-2 WHERE Chart = uk albums top 75
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many innings had a total of 2 catches and 0 stumpings?
 Ground Truth Query: SELECT  count(Innings) FROM 1-13337302-16 WHERE Catches = 2 AND Stumpings = 0
-Predicted Query: SELECT  (Innings) FROM 1-13337302-16 WHERE Catches = 2 AND Stumpings > 0
+Predicted Query: SELECT  (Innings) FROM 1-13337302-16 WHERE Catches = 2 AND Stumpings = 0
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 Test batch number:  47
-
 NL Question: Which country does Airline "JetBlue Airways" belong to?
 Ground Truth Query: SELECT  (Country) FROM flight_2__airlines WHERE Airline = JetBlue Airways
 Predicted Query: SELECT  (Country) FROM flight_2__airlines WHERE Airline = jetblue airways"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who is the top scorer where gf is 41?
 Ground Truth Query: SELECT  (Top Scorer) FROM 1-1218784-1 WHERE GF = 41
 Predicted Query: SELECT  (Top Scorer) FROM 1-1218784-1 WHERE GF = 41
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who played SS when paul konerko played 1st base?
 Ground Truth Query: SELECT  (Shortstop) FROM 1-12142298-2 WHERE First Baseman = Paul Konerko
-Predicted Query: SELECT  (Leftfielder) FROM 1-12142298-2 WHERE First Baseman = paul konerko
+Predicted Query: SELECT  (First Baseman) FROM 1-12142298-2 WHERE First Baseman = paul konerko
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Please show the different record companies and the corresponding number of orchestras.
 Ground Truth Query: SELECT  (Record_Company) , count(*) FROM orchestra__orchestra GROUPBY Record_Company
-Predicted Query: SELECT  count(*) , (Record_Company) FROM orchestra__orchestra GROUPBY Record_Company
+Predicted Query: SELECT  count(*) , (Record_Company) FROM orchestra__orchestra
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 NL Question: What is the name of the plaza where the told for heavy vehicles with 2 axles is r20.50?
 Ground Truth Query: SELECT  (Name) FROM 1-1211545-2 WHERE Heavy vehicle (2 axles) = R20.50
 Predicted Query: SELECT  (Name) FROM 1-1211545-2 WHERE Heavy vehicle (2 axles) = r20.50
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What were the results for incumbent Jim McCrery?
 Ground Truth Query: SELECT  (Results) FROM 1-1341453-20 WHERE Incumbent = Jim McCrery
 Predicted Query: SELECT  (Results) FROM 1-1341453-20 WHERE Incumbent = jim mccrery
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  what's the title where original air date is january18,2009
 Ground Truth Query: SELECT  (Title) FROM 1-11589522-3 WHERE Original air date = January18,2009
-Predicted Query: SELECT  (Title) FROM 1-11589522-3 WHERE Original air date = january18
+Predicted Query: SELECT  (Title) FROM 1-11589522-3 WHERE Original air date = january18,2009
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the number of sikhs in Japan?
 Ground Truth Query: SELECT  (No. of Sikhs) FROM 1-11800185-1 WHERE Country = Japan
 Predicted Query: SELECT  (No. of Sikhs) FROM 1-11800185-1 WHERE Country = japan
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  48
-
 NL Question: What are the names and descriptions of all the sections?
 Ground Truth Query: SELECT  (section_name) , (section_description) FROM student_transcripts_tracking__sections
 Predicted Query: SELECT  (section_name) , (section_description) FROM student_transcripts_tracking__sections
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the average miles per gallon of all the cards with 4 cylinders?
 Ground Truth Query: SELECT  avg(MPG) FROM car_1__cars_data WHERE Cylinders = 4.0
 Predicted Query: SELECT  avg(Horsepower) FROM car_1__cars_data WHERE Cylinders = 4
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What is minimum and maximum share of TV series?
 Ground Truth Query: SELECT  max(Share) , min(Share) FROM tvshow__tv_series
-Predicted Query: SELECT  count(*) , min(Share) FROM tvshow__tv_series
+Predicted Query: SELECT  count(*) , max(Share) FROM tvshow__tv_series
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: When did the episode "A Love of a Lifetime" air?
 Ground Truth Query: SELECT  (Air_Date) FROM tvshow__tv_series WHERE Episode = A Love of a Lifetime
-Predicted Query: SELECT  (Air_Date) FROM tvshow__tv_series WHERE Episode = a love of a lifetime"
+Predicted Query: SELECT  (Air_Date) FROM tvshow__tv_series WHERE Episode = of a lifetime"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: What is the zip code of the address in the city Port Chelsea?
 Ground Truth Query: SELECT  (zip_postcode) FROM student_transcripts_tracking__addresses WHERE city = Port Chelsea
 Predicted Query: SELECT  (zip_postcode) FROM student_transcripts_tracking__addresses WHERE city = port chelsea
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which city and country is the Alton airport at?
 Ground Truth Query: SELECT  (City) , (Country) FROM flight_2__airports WHERE AirportName = Alton
 Predicted Query: SELECT  (City) , (Country) FROM flight_2__airports WHERE AirportName = alton airport
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: Return the number of flights.
 Ground Truth Query: SELECT  count(*) FROM flight_2__flights
 Predicted Query: SELECT  count(*) FROM flight_2__flights
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: which round is u.s. open cup division semifinals
 Ground Truth Query: SELECT  (U.S. Open Cup) FROM 1-1046170-5 WHERE Playoffs = Division Semifinals
-Predicted Query: SELECT  (U.S. Open Cup) FROM 1-1046170-5 WHERE U.S. Open Cup = division semifinals
+Predicted Query: SELECT  (Division) FROM 1-1046170-5 WHERE U.S. Open Cup = division semifinals
+sn:1; sc:0; sa:1;wn:1; wc:0; wo:1;wv:1; gb:1; lx:0
 
 Test batch number:  49
-
 where-condition is not found in nlu_tt
 Test batch number:  50
-
 where-condition is not found in nlu_tt
 Test batch number:  51
-
 NL Question: What was the report of the Belgian Grand Prix?
 Ground Truth Query: SELECT  (Report) FROM 1-1132600-3 WHERE Grand Prix = Belgian Grand Prix
 Predicted Query: SELECT  (Report) FROM 1-1132600-3 WHERE Grand Prix = belgian grand prix
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are all different template ids used for documents, and how many times were each of them used?
 Ground Truth Query: SELECT  (Template_ID) , count(*) FROM cre_doc_template_mgt__documents GROUPBY Template_ID
 Predicted Query: SELECT  count(*) , (Template_ID) FROM cre_doc_template_mgt__documents GROUPBY Template_ID
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the total number of average where evening gown is 8.988
 Ground Truth Query: SELECT  count(Average) FROM 1-12094609-1 WHERE Evening Gown = 8.988
 Predicted Query: SELECT  count(Average) FROM 1-12094609-1 WHERE Evening Gown = 8.988
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the short stem for garbitzen?
 Ground Truth Query: SELECT  (Short stem) FROM 1-12784134-24 WHERE Imperfect stem = garbitzen
 Predicted Query: SELECT  (Short stem) FROM 1-12784134-24 WHERE Imperfect stem = garbitzen
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: When looking at new entries this round and seeing 8; what number in total is there for clubs remaining?
 Ground Truth Query: SELECT  count(Clubs remaining) FROM 1-1281200-1 WHERE New entries this round = 8
 Predicted Query: SELECT  (Clubs remaining) FROM 1-1281200-1 WHERE New entries this round = 8
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many seasons had a rank of 16?
 Ground Truth Query: SELECT  count(Season) FROM 1-1218784-1 WHERE Rank = 16
 Predicted Query: SELECT  count(Season) FROM 1-1218784-1 WHERE Rank = 16
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which teams won when Bobby Rahal was their winning driver?
 Ground Truth Query: SELECT  (Winning team) FROM 1-10706961-2 WHERE Winning driver = Bobby Rahal
 Predicted Query: SELECT  (Winning team) FROM 1-10706961-2 WHERE Winning driver = bobby rahal
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  what's the competition where aggregate is 4–7
 Ground Truth Query: SELECT  (Competition) FROM 1-1061075-1 WHERE Aggregate = 4–7
 Predicted Query: SELECT  (Competition) FROM 1-1061075-1 WHERE Aggregate = 4–7
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  52
-
 NL Question: Find the average number of staff working for the museums that were open before 2009.
 Ground Truth Query: SELECT  avg(Num_of_Staff) FROM museum_visit__museum WHERE Open_Year < 2009.0
 Predicted Query: SELECT  avg(Num_of_Staff) FROM museum_visit__museum WHERE Open_Year < 2009
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Find the total amount of bonus given in all the evaluations.
 Ground Truth Query: SELECT  sum(Bonus) FROM employee_hire_evaluation__evaluation
 Predicted Query: SELECT  sum(Bonus) FROM employee_hire_evaluation__evaluation
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the total number of constancy where purity is falling
 Ground Truth Query: SELECT  count(constancy) FROM 1-11609814-1 WHERE purity = falling
 Predicted Query: SELECT  count(constancy) FROM 1-11609814-1 WHERE purity = falling
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is Kyle's id?
 Ground Truth Query: SELECT  (ID) FROM network_1__highschooler WHERE name = Kyle
 Predicted Query: SELECT  (ID) FROM network_1__highschooler WHERE name = kyle
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: For each citizenship, what is the maximum net worth?
 Ground Truth Query: SELECT  (Citizenship) , max(Net_Worth_Millions) FROM singer__singer GROUPBY Citizenship
 Predicted Query: SELECT  max(Net_Worth_Millions) , (Citizenship) FROM singer__singer GROUPBY Citizenship
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many alt names does 1964-011a have?
 Ground Truth Query: SELECT  count(Alt name) FROM 1-12141496-1 WHERE ID = 1964-011A
 Predicted Query: SELECT  count(Alt name) FROM 1-12141496-1 WHERE ID = 1964-011a
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which airline has abbreviation 'UAL'?
 Ground Truth Query: SELECT  (Airline) FROM flight_2__airlines WHERE Abbreviation = UAL
 Predicted Query: SELECT  (Airline) FROM flight_2__airlines WHERE Abbreviation = 'ual
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List the vote ids, phone numbers and states of all votes.
 Ground Truth Query: SELECT  (vote_id) , (phone_number) , (state) FROM voter_1__votes
 Predicted Query: SELECT  (vote_id) , (phone_number) , (state) FROM voter_1__votes
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  53
-
 NL Question: The U.S. airdate of 4 april 2008 had a production code of what?
 Ground Truth Query: SELECT  max(Production code) FROM 1-10935205-1 WHERE US airdate = 4 April 2008
 Predicted Query: SELECT  (Production code) FROM 1-10935205-1 WHERE US airdate = 4 april 2008
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: who are all the visitor with a record of 25–18
 Ground Truth Query: SELECT  (Visitor) FROM 1-11964047-7 WHERE Record = 25–18
 Predicted Query: SELECT  (Visitor) FROM 1-11964047-7 WHERE Record = 25–18
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What was the evening gown score when the swimsuit was 9.61?
 Ground Truth Query: SELECT  (Evening Gown) FROM 1-11884814-3 WHERE Swimsuit = 9.61
 Predicted Query: SELECT  (Evening Gown) FROM 1-11884814-3 WHERE Swimsuit = 9.61
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the local name given to the city of Canberra?
 Ground Truth Query: SELECT  (Capital ( endonym )) FROM 1-1008653-1 WHERE Capital ( exonym ) = Canberra
 Predicted Query: SELECT  (Country ( endonym )) FROM 1-1008653-1 WHERE Capital ( endonym ) = canberra
+sn:1; sc:0; sa:1;wn:1; wc:0; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What are the type codes and descriptions for all template types?
 Ground Truth Query: SELECT  (Template_Type_Code) , (Template_Type_Description) FROM cre_doc_template_mgt__ref_template_types
 Predicted Query: SELECT  (Template_Type_Code) , (Template_Type_Description) FROM cre_doc_template_mgt__ref_template_types
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What year was the election when the # of seats won was 65?
 Ground Truth Query: SELECT  (Election) FROM 1-123462-2 WHERE # of seats won = 65
 Predicted Query: SELECT  (Election) FROM 1-123462-2 WHERE # of seats won = 65
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Find the id and weight of all pets whose age is older than 1.
 Ground Truth Query: SELECT  (PetID) , (weight) FROM pets_1__pets WHERE pet_age > 1.0
-Predicted Query: SELECT  (pet_age) , (weight) FROM pets_1__pets WHERE pet_age > .
+Predicted Query: SELECT  (pet_age) , (weight) FROM pets_1__pets WHERE pet_age > 1
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What are the names and grades for each high schooler?
 Ground Truth Query: SELECT  (name) , (grade) FROM network_1__highschooler
 Predicted Query: SELECT  (name) , (grade) FROM network_1__highschooler
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  54
-
 NL Question: What is the total number of airlines?
 Ground Truth Query: SELECT  count(*) FROM flight_2__airlines
 Predicted Query: SELECT  count(*) FROM flight_2__airlines
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What season features writer Michael Poryes?
 Ground Truth Query: SELECT  (Season #) FROM 1-12030612-3 WHERE Written by = Michael Poryes
 Predicted Query: SELECT  min(Season #) FROM 1-12030612-3 WHERE Written by = michael poryes
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Who had the fastest lap in the Belgian Grand Prix?
 Ground Truth Query: SELECT  (Fastest Lap) FROM 1-1132600-3 WHERE Grand Prix = Belgian Grand Prix
 Predicted Query: SELECT  (Fastest Lap) FROM 1-1132600-3 WHERE Grand Prix = belgian grand prix
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What DS division has S. L. M. Haneefa as the divisional secretary?
 Ground Truth Query: SELECT  (DS Division) FROM 1-12485020-1 WHERE Divisional Secretary = S. L. M. Haneefa
 Predicted Query: SELECT  (DS Division) FROM 1-12485020-1 WHERE Divisional Secretary = s. l. m. haneefa
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the # of seats one for the election in 1974?
 Ground Truth Query: SELECT  (# of seats won) FROM 1-123462-2 WHERE Election = 1974
-Predicted Query: SELECT  count(# of seats won) FROM 1-123462-2 WHERE Election = 1974
+Predicted Query: SELECT  (# of seats won) FROM 1-123462-2 WHERE Election = 1974
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many junctions have "replaced by bsi-35" listed in their remarks section?
 Ground Truth Query: SELECT  count(Junctions) FROM 1-11336756-6 WHERE Remarks = Replaced by BSI-35
-Predicted Query: SELECT  (Junctions) FROM 1-11336756-6 WHERE Remarks = replaced by bsi-35
+Predicted Query: SELECT  count(Junctions) FROM 1-11336756-6 WHERE Remarks = replaced by bsi-35
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What's the original artist of the song performed in the top 3 episode?
 Ground Truth Query: SELECT  (Original artist) FROM 1-12310814-1 WHERE Episode = Top 3
 Predicted Query: SELECT  (Original artist) FROM 1-12310814-1 WHERE Episode = top 3
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Count the number of likes for each student id.
 Ground Truth Query: SELECT  (student_id) , count(*) FROM network_1__likes GROUPBY student_id
-Predicted Query: SELECT  count(*) , (liked_id) FROM network_1__likes
+Predicted Query: SELECT  count(*) , (student_id) FROM network_1__likes GROUPBY student_id
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  55
-
 NL Question: What is the strongs words compounded when the english spelling is jonadab?
 Ground Truth Query: SELECT  (Strongs Words Compounded) FROM 1-1242447-1 WHERE English Spelling = Jonadab
 Predicted Query: SELECT  (Strongs Words Compounded) FROM 1-1242447-1 WHERE English Spelling = jonadab
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the smallest weight of the car produced with 8 cylinders on 1974 ?
 Ground Truth Query: SELECT  min(Weight) FROM car_1__cars_data WHERE Cylinders = 8.0 AND Year = 1974.0
-Predicted Query: SELECT  min(Weight) FROM car_1__cars_data WHERE Cylinders = 8 cylinders on 1974 AND Year = 1974
+Predicted Query: SELECT  min(Weight) FROM car_1__cars_data WHERE Cylinders = 8 AND Year = 1974
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the inclination when the alt name is OPS-1584?
 Ground Truth Query: SELECT  (Inclination) FROM 1-12141496-1 WHERE Alt name = OPS-1584
 Predicted Query: SELECT  (Inclination) FROM 1-12141496-1 WHERE Alt name = ops-1584
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the percentage of growth in 2000-2008 in ethiopia?
 Ground Truth Query: SELECT  (% growth (2000–2008)) FROM 1-10733530-3 WHERE Nation = Ethiopia
 Predicted Query: SELECT  (% growth (2000–2008)) FROM 1-10733530-3 WHERE Nation = ethiopia
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are the Package Options of the TV Channels whose series names are Sky Radio?
 Ground Truth Query: SELECT  (Package_Option) FROM tvshow__tv_channel WHERE series_name = Sky Radio
 Predicted Query: SELECT  (Package_Option) FROM tvshow__tv_channel WHERE series_name = sky radio
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the total number of record where streak is l2 and leading scorer is roy : 23
 Ground Truth Query: SELECT  count(Record) FROM 1-11964047-5 WHERE Streak = L2 AND Leading scorer = Roy : 23
-Predicted Query: SELECT  count(Record) FROM 1-11964047-5 WHERE Leading scorer = roy AND Streak = l2
+Predicted Query: SELECT  count(Record) FROM 1-11964047-5 WHERE Leading scorer = roy : 23 AND Streak = l2
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: how many cars were produced in 1980?
 Ground Truth Query: SELECT  count(*) FROM car_1__cars_data WHERE Year = 1980.0
 Predicted Query: SELECT  count(*) FROM car_1__cars_data WHERE Year = 1980
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List the arrival date and the departure date for all the dogs.
 Ground Truth Query: SELECT  (date_arrived) , (date_departed) FROM dog_kennels__dogs
 Predicted Query: SELECT  (date_arrived) , (date_departed) FROM dog_kennels__dogs
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  56
-
 NL Question: Show template ids, version numbers, and template type codes for all templates.
 Ground Truth Query: SELECT  (Template_ID) , (Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates
 Predicted Query: SELECT  (Template_ID) , (Version_Number) , (Template_Type_Code) FROM cre_doc_template_mgt__templates
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What country is Jetblue Airways affiliated with?
 Ground Truth Query: SELECT  (Country) FROM flight_2__airlines WHERE Airline = JetBlue Airways
 Predicted Query: SELECT  (Country) FROM flight_2__airlines WHERE Airline = jetblue airways
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which player who played for the Rockets for the years 1986-92?
 Ground Truth Query: SELECT  (Player) FROM 1-11734041-9 WHERE Years for Rockets = 1986-92
 Predicted Query: SELECT  (Player) FROM 1-11734041-9 WHERE Years for Rockets = 1986-92
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many states are there?
 Ground Truth Query: SELECT  count(*) FROM voter_1__area_code_state
 Predicted Query: SELECT  count(*) FROM voter_1__area_code_state
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who was the successor when the vacator was chester e. holifield (d)?
 Ground Truth Query: SELECT  (Successor) FROM 1-1134091-4 WHERE Vacator = Chester E. Holifield (D)
 Predicted Query: SELECT  (Successor) FROM 1-1134091-4 WHERE Vacator = chester e. holifield (d)
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what's the minimum species in the peruvian amazon with taxonomy s fern ( pteridophyta )
 Ground Truth Query: SELECT  min(Species in the Peruvian Amazon) FROM 1-11727969-1 WHERE Taxonomy = s Fern ( Pteridophyta )
 Predicted Query: SELECT  min(Species in the Peruvian Amazon) FROM 1-11727969-1 WHERE Taxonomy = s fern ( pteridophyta )
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which visitors have a leading scorer of roy : 25
 Ground Truth Query: SELECT  (Visitor) FROM 1-11964047-7 WHERE Leading scorer = Roy : 25
 Predicted Query: SELECT  (Visitor) FROM 1-11964047-7 WHERE Leading scorer = roy : 25
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question:  what's the evening gown where state is south dakota
 Ground Truth Query: SELECT  (Evening Gown) FROM 1-12094609-1 WHERE State = South Dakota
 Predicted Query: SELECT  (Evening Gown) FROM 1-12094609-1 WHERE State = south dakota
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  57
-
 NL Question: what are all the records with a score is w 98–91
 Ground Truth Query: SELECT  (Record) FROM 1-11964047-7 WHERE Score = W 98–91
 Predicted Query: SELECT  (Record) FROM 1-11964047-7 WHERE Score = w 98–91
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Clubs involved is 8, what number would you find from winners from previous round?
 Ground Truth Query: SELECT  (Winners from previous round) FROM 1-1281200-1 WHERE Clubs involved = 8
-Predicted Query: SELECT  (Winners from previous round) FROM 1-1281200-1 WHERE Winners from previous round = 8
+Predicted Query: SELECT  (Winners from previous round) FROM 1-1281200-1 WHERE Clubs involved = 8
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Which team was the second semi finalist in 2007?
 Ground Truth Query: SELECT  (Semi-Finalist #2) FROM 1-11214772-2 WHERE Year = 2007
 Predicted Query: SELECT  (Semi-Finalist #2) FROM 1-11214772-2 WHERE Year = 2007
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the local name given to the capital of Anguilla?
 Ground Truth Query: SELECT  (Capital ( endonym )) FROM 1-1008653-1 WHERE Country ( endonym ) = Anguilla
-Predicted Query: SELECT  (Capital ( endonym )) FROM 1-1008653-1 WHERE Country ( exonym ) = anguilla
+Predicted Query: SELECT  (Capital ( exonym )) FROM 1-1008653-1 WHERE Country ( exonym ) = anguilla
+sn:1; sc:0; sa:1;wn:1; wc:0; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What is the number of carsw ith over 6 cylinders?
 Ground Truth Query: SELECT  count(*) FROM car_1__cars_data WHERE Cylinders > 6.0
 Predicted Query: SELECT  count(*) FROM car_1__cars_data WHERE Cylinders > 6
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What city and state is the Lancers mascot located?
 Ground Truth Query: SELECT  (Location) FROM 1-11044765-1 WHERE Mascot = Lancers
-Predicted Query: SELECT  (School) , (Location) FROM 1-11044765-1 WHERE Mascot = lancers
+Predicted Query: SELECT  (*) , (Location) FROM 1-11044765-1 WHERE Mascot = lancers
+sn:0; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many winning drivers in the kraco twin 125 (r2) race were there?
 Ground Truth Query: SELECT  count(Winning driver) FROM 1-10706879-3 WHERE Name = Kraco Twin 125 (R2)
 Predicted Query: SELECT  count(Winning driver) FROM 1-10706879-3 WHERE Name = kraco twin 125 (r2)
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
-NL Question: Provide me with the name of the village (German) where there is 96.9% Slovenes in 1951.
+NL Question: Provide me with the name of the village (German) where there is 96.9% Slovenes in 1951. 
 Ground Truth Query: SELECT  (Village (German)) FROM 1-10798421-1 WHERE Percent of Slovenes 1951 = 96.9%
 Predicted Query: SELECT  (Village (German)) FROM 1-10798421-1 WHERE Percent of Slovenes 1951 = 96.9%
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  58
-
 NL Question: Name the total number of percentage growth 2000-2008 of uganda?
 Ground Truth Query: SELECT  count(% growth (2000–2008)) FROM 1-10733530-3 WHERE Nation = Uganda
 Predicted Query: SELECT  count(% growth (2000–2008)) FROM 1-10733530-3 WHERE Nation = uganda
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Find the average and maximum age for each type of pet.
 Ground Truth Query: SELECT  avg(pet_age) , max(pet_age) , (PetType) FROM pets_1__pets GROUPBY PetType
-Predicted Query: SELECT  count(*) , max(pet_age) , max(weight) FROM pets_1__pets
+Predicted Query: SELECT  max(pet_age) , max(weight) FROM pets_1__pets
+sn:0; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:0; lx:0
 
 NL Question:  what's the evening gown where preliminaries is 8.977
 Ground Truth Query: SELECT  (Evening Gown) FROM 1-12094609-1 WHERE Preliminaries = 8.977
 Predicted Query: SELECT  (Evening Gown) FROM 1-12094609-1 WHERE Preliminaries = 8.977
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the name of the DS division where the divisional secretary is S. H. Muzammil?
 Ground Truth Query: SELECT  (DS Division) FROM 1-12485020-1 WHERE Divisional Secretary = S. H. Muzammil
 Predicted Query: SELECT  (DS Division) FROM 1-12485020-1 WHERE Divisional Secretary = s. h. muzammil
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many high schoolers are there?
 Ground Truth Query: SELECT  count(*) FROM network_1__highschooler
 Predicted Query: SELECT  count(*) FROM network_1__highschooler
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the total number of singers?
 Ground Truth Query: SELECT  count(*) FROM concert_singer__singer
 Predicted Query: SELECT  count(*) FROM concert_singer__singer
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What are the names and descriptions for all the sections?
 Ground Truth Query: SELECT  (section_name) , (section_description) FROM student_transcripts_tracking__sections
 Predicted Query: SELECT  (section_name) , (section_description) FROM student_transcripts_tracking__sections
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Who were the authors of series episode #25?
 Ground Truth Query: SELECT  (Written by) FROM 1-12030612-3 WHERE Series # = 25
 Predicted Query: SELECT  (Written by) FROM 1-12030612-3 WHERE Series # = 25
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  59
-
 NL Question: How many conductors are there?
 Ground Truth Query: SELECT  count(*) FROM orchestra__conductor
 Predicted Query: SELECT  count(*) FROM orchestra__conductor
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the height of the player who attended Hartford?
 Ground Truth Query: SELECT  (Height in Ft.) FROM 1-11734041-2 WHERE School/Club Team/Country = Hartford
 Predicted Query: SELECT  (Height in Ft.) FROM 1-11734041-2 WHERE School/Club Team/Country = hartford
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the number of the player who went to Southern University?
 Ground Truth Query: SELECT  (No.(s)) FROM 1-11734041-9 WHERE School/Club Team/Country = Southern University
 Predicted Query: SELECT  (No.(s)) FROM 1-11734041-9 WHERE School/Club Team/Country = southern university
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many teams were listed as runner up in 2005 and there the first semi finalist was Western Carolina?
 Ground Truth Query: SELECT  count(Runner-Up) FROM 1-11214772-2 WHERE Semi-Finalist #1 = Western Carolina AND Year = 2005
 Predicted Query: SELECT  count(Runner-Up) FROM 1-11214772-2 WHERE Year = 2005 AND Semi-Finalist #1 = western carolina
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: List the ranks of all dismissals with a value of 4
 Ground Truth Query: SELECT  (Rank) FROM 1-13337302-16 WHERE Dismissals = 4
 Predicted Query: SELECT  (Dismissals) FROM 1-13337302-16 WHERE Rank = 4
+sn:1; sc:0; sa:1;wn:1; wc:0; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many winning drivers were the for the rnd equalling 5?
 Ground Truth Query: SELECT  count(Winning driver) FROM 1-10707176-2 WHERE Rnd = 5
 Predicted Query: SELECT  count(Winning driver) FROM 1-10707176-2 WHERE Rnd = 5
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: From the round name of third round; what would the new entries this round that would be found?
 Ground Truth Query: SELECT  (New entries this round) FROM 1-1281200-1 WHERE Round = Third Round
 Predicted Query: SELECT  (New entries this round) FROM 1-1281200-1 WHERE Round = third round
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the charge amount of the most expensive charge type?
 Ground Truth Query: SELECT  max(charge_amount) FROM dog_kennels__charges
 Predicted Query: SELECT  max(charge_amount) FROM dog_kennels__charges
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  60
-
 NL Question: What are the minimum and maximum number of products across all the shops?
 Ground Truth Query: SELECT  min(Number_products) , max(Number_products) FROM employee_hire_evaluation__shop
-Predicted Query: SELECT  (Name) , min(Number_products) FROM employee_hire_evaluation__shop
+Predicted Query: SELECT  count(*) , max(Number_products) FROM employee_hire_evaluation__shop
+sn:1; sc:0; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Show the names and grades of each high schooler.
 Ground Truth Query: SELECT  (name) , (grade) FROM network_1__highschooler
 Predicted Query: SELECT  (name) , (grade) FROM network_1__highschooler
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: For each language, list the number of TV Channels that use it.
 Ground Truth Query: SELECT  (Language) , count(*) FROM tvshow__tv_channel GROUPBY Language
 Predicted Query: SELECT  count(*) , (Language) FROM tvshow__tv_channel GROUPBY Language
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the strongs transliteration of the hebrew word יוֹחָנָן?
 Ground Truth Query: SELECT  (Strongs Transliteration) FROM 1-1242447-1 WHERE Hebrew word = יוֹחָנָן
 Predicted Query: SELECT  (Strongs Transliteration) FROM 1-1242447-1 WHERE Hebrew word = יוֹחָנָן
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Show the names of all high schoolers in grade 10.
 Ground Truth Query: SELECT  (name) FROM network_1__highschooler WHERE grade = 10.0
 Predicted Query: SELECT  (name) FROM network_1__highschooler WHERE grade = 10
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Name the number of points for south korea
 Ground Truth Query: SELECT  count(Points) FROM 1-13282157-3 WHERE Country = South Korea
 Predicted Query: SELECT  (Points) FROM 1-13282157-3 WHERE Country = south korea
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: What week did the member who's original tribe was shark and who was sent to the third island on week 14 arrive on the main island?
 Ground Truth Query: SELECT  (Week Arrived On Main Island) FROM 1-11764007-2 WHERE Original Tribe = Shark AND Week Sent To Third Island = 14
-Predicted Query: SELECT  (Week Arrived On Main Island) FROM 1-11764007-2 WHERE Week Arrived On Main Island = 14 AND Week Sent To Third Island = 14
+Predicted Query: SELECT  (Week Arrived On Main Island) FROM 1-11764007-2 WHERE Week Sent To Third Island = 14 AND Original Tribe = shark
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Where was the tournament dated nov 3, 2002?
 Ground Truth Query: SELECT  (Tournament) FROM 1-1121352-2 WHERE Date = Nov 3, 2002
 Predicted Query: SELECT  (Tournament) FROM 1-1121352-2 WHERE Date = nov 3, 2002
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  61
-
 NL Question: How many dismissals did the player Peter McGlashan have?
 Ground Truth Query: SELECT  (Dismissals) FROM 1-13337302-16 WHERE Player = Peter McGlashan
-Predicted Query: SELECT  count(Dismissals) FROM 1-13337302-16 WHERE Player = peter mcglashan
+Predicted Query: SELECT  (Dismissals) FROM 1-13337302-16 WHERE Player = peter mcglashan
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the minimum year where winning score is −8 (71-63-69-69=272)
 Ground Truth Query: SELECT  min(Year) FROM 1-11570261-1 WHERE Winning score = −8 (71-63-69-69=272)
 Predicted Query: SELECT  min(Year) FROM 1-11570261-1 WHERE Winning score = −8 (71-63-69-69=272)
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what is the gdp ( bn ) where capital is capital?
 Ground Truth Query: SELECT  (GDP ( bn )) FROM 1-12108-1 WHERE Capital = Capital
 Predicted Query: SELECT  (GDP ( bn )) FROM 1-12108-1 WHERE Capital = capital
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Name the location on june 10
 Ground Truth Query: SELECT  (Location Attendance) FROM 1-11965481-13 WHERE Date = June 10
 Predicted Query: SELECT  (Location Attendance) FROM 1-11965481-13 WHERE Date = june 10
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the strongs # of the english spelling word jehojakin?
 Ground Truth Query: SELECT  (Strongs #) FROM 1-1242447-1 WHERE English Spelling = Jehojakin
 Predicted Query: SELECT  (Strongs #) FROM 1-1242447-1 WHERE English Spelling = jehojakin
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many endowments does Mosaic Stadium have?
 Ground Truth Query: SELECT  count(Endowment) FROM 1-12896884-1 WHERE Football stadium = Mosaic Stadium
 Predicted Query: SELECT  count(Endowment) FROM 1-12896884-1 WHERE Football stadium = mosaic stadium
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: what's the total number of final epbeingode count with first epbeingode being "l.a."
 Ground Truth Query: SELECT  count(Final Episode Count) FROM 1-11210576-4 WHERE First Episode = "L.A."
-Predicted Query: SELECT  count(Final Episode Count) FROM 1-11210576-4 WHERE First Episode = "l.a."
+Predicted Query: SELECT  (Final Episode Count) FROM 1-11210576-4 WHERE First Episode = "l.a."
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: The winning team of the race, los angeles times 500 is who?
 Ground Truth Query: SELECT  (Winning team) FROM 1-10706879-3 WHERE Name = Los Angeles Times 500
 Predicted Query: SELECT  (Winning team) FROM 1-10706879-3 WHERE Name = los angeles times 500
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Test batch number:  62
-
 where-condition is not found in nlu_tt
 Test batch number:  63
-
 NL Question: What is the toll for heavy vehicles with 3/4 axles at Verkeerdevlei toll plaza?
 Ground Truth Query: SELECT  (Heavy vehicle (3/4 axles)) FROM 1-1211545-2 WHERE Name = Verkeerdevlei Toll Plaza
 Predicted Query: SELECT  (Heavy vehicle (3/4 axles)) FROM 1-1211545-2 WHERE Name = verkeerdevlei toll plaza
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: How many termini are there that have "east west" listed in their direction section, "none" listed in their junction section, and have a route name of "sh 202"?
 Ground Truth Query: SELECT  count(Termini) FROM 1-11336756-6 WHERE Direction = East West AND Junctions = none AND Route Name = SH 202
 Predicted Query: SELECT  (Termini) FROM 1-11336756-6 WHERE Route Name = sh 202 AND Direction = east west AND Junctions = sh 202
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question:  what's the original air date where written by is iain morris & damon beesley
 Ground Truth Query: SELECT  (Original air date) FROM 1-11589522-3 WHERE Written by = Iain Morris & Damon Beesley
 Predicted Query: SELECT  (Original air date) FROM 1-11589522-3 WHERE Written by = iain morris & damon beesley
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Show different citizenship of singers and the number of singers of each citizenship.
 Ground Truth Query: SELECT  (Citizenship) , count(*) FROM singer__singer GROUPBY Citizenship
 Predicted Query: SELECT  count(*) , (Citizenship) FROM singer__singer GROUPBY Citizenship
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the amount of trees, that require replacement when district is leninsky?
 Ground Truth Query: SELECT  (Amount of trees, that require replacement) FROM 1-10342194-3 WHERE District = Leninsky
 Predicted Query: SELECT  (Amount of trees, that require replacement) FROM 1-10342194-3 WHERE District = leninsky
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: The canadian airdate of 11 february 2008 applied to what series number?
 Ground Truth Query: SELECT  count(No. in series) FROM 1-10935205-1 WHERE Canadian airdate = 11 February 2008
 Predicted Query: SELECT  (No. in series) FROM 1-10935205-1 WHERE Canadian airdate = 11 february 2008
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Return the average attendance across all shows.
 Ground Truth Query: SELECT  avg(Attendance) FROM orchestra__show
 Predicted Query: SELECT  avg(Attendance) FROM orchestra__show
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the air date of TV series with Episode "A Love of a Lifetime"?
 Ground Truth Query: SELECT  (Air_Date) FROM tvshow__tv_series WHERE Episode = A Love of a Lifetime
 Predicted Query: SELECT  (Air_Date) FROM tvshow__tv_series WHERE Episode = love of a lifetime"
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 Test batch number:  64
-
 where-condition is not found in nlu_tt
 Test batch number:  65
-
 NL Question: What unit of length is being used for the route with "replaced by us 81" in their remarks section?
 Ground Truth Query: SELECT  (Length) FROM 1-11336756-6 WHERE Remarks = Replaced by US 81
-Predicted Query: SELECT  (Length) FROM 1-11336756-6 WHERE Route Name = replaced by us 81
+Predicted Query: SELECT  sum(Length) FROM 1-11336756-6 WHERE Remarks = replaced by us 81
+sn:1; sc:1; sa:0;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: Describe the section h.
 Ground Truth Query: SELECT  (section_description) FROM student_transcripts_tracking__sections WHERE section_name = h
-Predicted Query: SELECT  (section_description) FROM student_transcripts_tracking__sections WHERE section_name = section
+Predicted Query: SELECT  (section_description) FROM student_transcripts_tracking__sections WHERE section_name = 
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:0; gb:1; lx:0
 
 NL Question: When did the Prime Minister of Italy take office?
 Ground Truth Query: SELECT  (Entered office as Head of State or Government) FROM 1-10026563-1 WHERE Office = Prime Minister of Italy
-Predicted Query: SELECT  (Office) FROM 1-10026563-1 WHERE Office = prime minister of italy
+Predicted Query: SELECT  (Began time as senior G8 leader) FROM 1-10026563-1 WHERE Office = prime minister of italy
+sn:1; sc:0; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:0
 
 NL Question: How many templates have template type code CV?
 Ground Truth Query: SELECT  count(*) FROM cre_doc_template_mgt__templates WHERE Template_Type_Code = CV
 Predicted Query: SELECT  count(*) FROM cre_doc_template_mgt__templates WHERE Template_Type_Code = cv
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: What is the strong words compounded when the strongs transliteration is yowyariyb?
 Ground Truth Query: SELECT  (Strongs Words Compounded) FROM 1-1242447-1 WHERE Strongs Transliteration = Yowyariyb
 Predicted Query: SELECT  (Strongs Words Compounded) FROM 1-1242447-1 WHERE Strongs Transliteration = yowyariyb
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 NL Question: Kaluvanchikudy is the main town in what DS division?
 Ground Truth Query: SELECT  (DS Division) FROM 1-12485020-1 WHERE Main Town = Kaluvanchikudy
-Predicted Query: SELECT  (DS Division) FROM 1-12485020-1 WHERE Main Town = kaluvanchikudy
+Predicted Query: SELECT  (DS Division) FROM 1-12485020-1
+sn:1; sc:1; sa:1;wn:0; wc:0; wo:0;wv:0; gb:1; lx:0
 
 NL Question: What is the rear sight in the Cole model no. 735?
 Ground Truth Query: SELECT  (Rear sight) FROM 1-12834315-1 WHERE Colt model no. = 735
 Predicted Query: SELECT  (Rear sight) FROM 1-12834315-1 WHERE Colt model no. = 735
+sn:1; sc:1; sa:1;wn:1; wc:1; wo:1;wv:1; gb:1; lx:1
 
 Number of count(*) examples: 81
-[ave_loss, acc_sn, acc_sc, acc_sa, acc_wn, acc_wc, acc_wo, acc_wvi, acc_wv, acc_lx, acc_x, acc_cnt_star_header, acc_cnt_star_pooled, acc_gb]
-[2.911384172006539, 0.9874739039665971, 0.8914405010438413, 0.8851774530271399, 0.9874739039665971, 0.9561586638830898, 0.9853862212943633, 0.918580375782881, 0.8580375782881002, 0.6931106471816284, 0.0, 0.9707724425887265, 0.9206680584551148, 0.9770354906054279]
+[2.01166875476877, 0.9895615866388309, 0.918580375782881, 0.9018789144050104, 0.9812108559498957, 0.9582463465553236, 0.9812108559498957, 0.9311064718162839, 0.9373695198329853, 0.7766179540709812, 0.0, 0.9770354906054279, 0.8789144050104384, 0.9707724425887265]
