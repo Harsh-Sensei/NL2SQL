@@ -547,7 +547,7 @@ class SCP(nn.Module):
         self.W_att = nn.Linear(hS + self.question_knowledge_dim, hS + self.header_knowledge_dim)
         self.W_c = nn.Linear(hS + self.question_knowledge_dim, hS)
         self.W_hs = nn.Linear(hS + self.header_knowledge_dim, hS)
-        self.sc_out = nn.Sequential(nn.Tanh(), nn.Linear(2 * hS, 1))
+        self.sc_out = nn.Sequential(nn.Tanh(), nn.Dropout(p=0.5), nn.Linear(2 * hS, 1))
 
         self.softmax_dim1 = nn.Softmax(dim=1)
         self.softmax_dim2 = nn.Softmax(dim=2)
@@ -643,6 +643,7 @@ class SAP_agg(nn.Module):
 
         # self.W_att = nn.Linear(hS, hS)
         self.sa_out = nn.Sequential(nn.Linear(hS, hS),
+                                    nn.Dropout(p=0.5),
                                     nn.Tanh(),
                                     nn.Linear(hS, n_agg_ops))  # Fixed number of aggregation operator.
 
@@ -702,6 +703,7 @@ class SAP(nn.Module):
 
         self.W_att = nn.Linear(hS + self.question_knowledge_dim, hS + self.header_knowledge_dim)
         self.sa_out = nn.Sequential(nn.Linear(hS + self.question_knowledge_dim, hS),
+                                    nn.Dropout(p=0.5),
                                     nn.Tanh(),
                                     nn.Linear(hS, n_agg_ops))  # Fixed number of aggregation operator.
 
@@ -802,6 +804,7 @@ class WNP(nn.Module):
 
         self.W_att_n = nn.Linear(hS + self.question_knowledge_dim, 1)
         self.wn_out = nn.Sequential(nn.Linear(hS + self.question_knowledge_dim, hS),
+                                    nn.Dropout(p=0.5),
                                     nn.Tanh(),
                                     nn.Linear(hS, self.mL_w + 1))  # max number (4 + 1)
 
@@ -926,7 +929,7 @@ class WCP(nn.Module):
         self.W_c = nn.Linear(hS + self.question_knowledge_dim, hS)
         self.W_hs = nn.Linear(hS + self.header_knowledge_dim, hS)
         self.W_out = nn.Sequential(
-            nn.Tanh(), nn.Linear(2 * hS, 1)
+            nn.Tanh(), nn.Dropout(p=0.5), nn.Linear(2 * hS, 1)
         )
 
         self.softmax_dim1 = nn.Softmax(dim=1)
@@ -1044,6 +1047,7 @@ class WOP(nn.Module):
         self.W_hs = nn.Linear(hS + self.header_knowledge_dim, hS)
         self.wo_out = nn.Sequential(
             nn.Linear(2 * hS, hS),
+            nn.Dropout(p=0.5),
             nn.Tanh(),
             nn.Linear(hS, n_cond_ops)
         )
@@ -1184,6 +1188,7 @@ class WVP_se(nn.Module):
         else:
             self.wv_out = nn.Sequential(
                 nn.Linear(4 * hS + self.question_knowledge_dim, hS),
+                nn.Dropout(p=0.5),
                 nn.Tanh(),
                 nn.Linear(hS, 2)
             )
@@ -1554,7 +1559,7 @@ class Decoder_s2s(nn.Module):
         self.W_s2s = nn.Linear(iS, hS)
         self.W_pnt = nn.Linear(hS, hS)
 
-        self.wv_out = nn.Sequential(nn.Tanh(), nn.Linear(hS, 1))
+        self.wv_out = nn.Sequential(nn.Tanh(),nn.Dropout(p=0.5), nn.Linear(hS, 1))
 
     def forward(self, wenc_s2s, l_input, cls_vec, pnt_start_tok, g_pnt_idxs=None, ):
 
@@ -1975,7 +1980,7 @@ class SGC_ext(nn.Module):
         self.GB_c = nn.Linear(hS + self.question_knowledge_dim, hS)
         self.GB_hs = nn.Linear(hS + self.header_knowledge_dim, hS)
         self.GB_out = nn.Sequential(
-            nn.Tanh(), nn.Linear(2 * hS, 1)
+            nn.Tanh(), nn.Dropout(p=0.5), nn.Linear(2 * hS, 1)
         )
 
         self.softmax_dim1 = nn.Softmax(dim=1)
@@ -2074,6 +2079,7 @@ class SAP_ext(nn.Module):
         self.Sel_hs = nn.Linear(hS + self.header_knowledge_dim, hS)
         self.sel_agg_out = nn.Sequential(
             nn.Linear(2 * hS, hS),
+            nn.Dropout(p=0.5),
             nn.Tanh(),
             nn.Linear(hS, n_agg_ops)
         )
@@ -2182,7 +2188,7 @@ class SCP_ext(nn.Module):
         self.Sel_c = nn.Linear(hS + self.question_knowledge_dim, hS)
         self.Sel_hs = nn.Linear(hS + self.header_knowledge_dim, hS)
         self.Sel_out = nn.Sequential(
-            nn.Tanh(), nn.Linear(2 * hS, 1)
+            nn.Tanh(), nn.Dropout(p=0.5), nn.Linear(2 * hS, 1)
         )
 
         self.softmax_dim1 = nn.Softmax(dim=1)
@@ -2284,6 +2290,7 @@ class SNC_ext(nn.Module):
         self.Sel_att_n = nn.Linear(hS + self.question_knowledge_dim, 1)
         self.sn_out = nn.Sequential(nn.Linear(hS + self.question_knowledge_dim, hS),
                                     nn.Tanh(),
+                                    nn.Dropout(p=0.5),
                                     nn.Linear(hS, self.mL_sel + 1))  # max number (4 + 1)
 
         self.softmax_dim1 = nn.Softmax(dim=1)

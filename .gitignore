@@ -12,3 +12,4 @@ lightning_log/*
 src/NL2SQL-Guo/data_and_model/spider/*
 *.txt
 !src/NL2SQL-Guo/results/mult_cntstar_grpby_queries_result.txt
+src/NL2SQL-Guo/runs/*
