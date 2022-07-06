@@ -994,13 +994,13 @@ if __name__ == '__main__':
                                                                path_model_bert=path_model_bert, path_model=path_model,
                                                                spider_data=True)
 
-    res = torch.load('./saved_models/spider_multsel_cntstar_grpby_best.pt', map_location='cpu')
-    model.load_state_dict(res['model'])
-    # res = torch.load('./saved_models/nonbert_multsel_cntstar_grpby_bS16_lr0.00002.pt', map_location='cpu')
+    # res = torch.load('./saved_models/spider_multsel_cntstar_grpby_best.pt', map_location='cpu')
     # model.load_state_dict(res['model'])
+    res = torch.load('./saved_models/nonbert_multsel_cntstar_grpby_bS16_lr0.00002.pt', map_location='cpu')
+    model.load_state_dict(res['model'])
 
-    # res = torch.load('./saved_models/bert_multsel_cntstar_grpby_bS16_lr0.00002.pt', map_location='cpu')
-    # model.load_state_dict(res['model_bert'])
+    res = torch.load('./saved_models/bert_multsel_cntstar_grpby_bS16_lr0.00002.pt', map_location='cpu')
+    model_bert.load_state_dict(res['model_bert'])
     # model.freeze_wiki_model(req_grad=False)
     ## 5. Get optimizers
     if args.do_train and not eval_bool:
