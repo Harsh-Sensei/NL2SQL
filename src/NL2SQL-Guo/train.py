@@ -30,7 +30,8 @@ torch.manual_seed(73)
 # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 device = torch.device("cpu")
 
-writer = SummaryWriter("runs/NL2SQL_bert_ft")
+writer = SummaryWriter("runs/NL2SQL_hparam_search_best")
+step = 0
 
 def construct_hyper_param(parser):
     parser.add_argument("--do_train", default=True)
@@ -537,19 +538,19 @@ def pretty_print_queries(nlu, g_sql, pred_sql, cnt_list):
     global step
     i = 0
     for ques, g_sql1, pred_sql1 in zip(nlu, g_sql, pred_sql):
-        try:
-            print("NL Question:", ques)
-            print("Ground Truth Query:", g_sql1)
-            print("Predicted Query:", pred_sql1)
-            cnt_res = f"sn:{cnt_list[0][i]}; sc:{cnt_list[1][i]}; sa:{cnt_list[2][i]};" \
-                f"wn:{cnt_list[3][i]}; wc:{cnt_list[4][i]}; wo:{cnt_list[5][i]};" \
-                f"wv:{cnt_list[6][i]}; gb:{cnt_list[7][i]}; lx:{cnt_list[8][i]}"
-            print(cnt_res)
-            writer.add_text("result_details/queries_ft", "\n".join([ques, g_sql1, pred_sql1, cnt_res]), global_step=step)
-            step += 1
-            i += 1
-        except Exception as e:
-            print(e)
+        print("NL Question:", ques)
+        print("Ground Truth Query:", g_sql1)
+        print("Predicted Query:", pred_sql1)
+        cnt_res = f"sn:{cnt_list[0][i]}; sc:{cnt_list[1][i]}; sa:{cnt_list[2][i]};" \
+            f"wn:{cnt_list[3][i]}; wc:{cnt_list[4][i]}; wo:{cnt_list[5][i]};" \
+            f"wv:{cnt_list[6][i]}; gb:{cnt_list[7][i]}; lx:{cnt_list[8][i]}"
+        print(cnt_res)
+        writer.add_text("result_details/queries_ft", f"NL Question: {ques}", global_step=step)
+        writer.add_text("result_details/queries_ft", f"Ground Truth Query: {g_sql1}", global_step=step)
+        writer.add_text("result_details/queries_ft", f"Predicted Query: {pred_sql1}", global_step=step)
+        writer.add_text("result_details/queries_ft", f"Details : {cnt_res}", global_step=step)
+        step += 1
+        i += 1
     return None
 
 def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
@@ -733,7 +734,7 @@ def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
             #               pr_sn, pr_sc, pr_sa, pr_wn, pr_wc, pr_wo, pr_wv_str, pr_gb, pr_sql_q, pr_ans,
             #               cnt_list1, current_cnt, cnt_star_headers, cnt_star_pooled)
 
-            pretty_print_queries(nlu, g_sql_q, pr_sql_q)
+            pretty_print_queries(nlu, g_sql_q, pr_sql_q, cnt_list1)
 
     ave_loss /= cnt
     acc_sn = cnt_sn / cnt
@@ -992,8 +993,14 @@ if __name__ == '__main__':
         model, model_bert, tokenizer, bert_config = get_models(args, BERT_PT_PATH, trained=True,
                                                                path_model_bert=path_model_bert, path_model=path_model,
                                                                spider_data=True)
-    res = torch.load('./saved_models/spider_multsel_cntstar_grpby.pt', map_location='cpu')
+
+    res = torch.load('./saved_models/spider_multsel_cntstar_grpby_best.pt', map_location='cpu')
     model.load_state_dict(res['model'])
+    # res = torch.load('./saved_models/nonbert_multsel_cntstar_grpby_bS16_lr0.00002.pt', map_location='cpu')
+    # model.load_state_dict(res['model'])
+
+    # res = torch.load('./saved_models/bert_multsel_cntstar_grpby_bS16_lr0.00002.pt', map_location='cpu')
+    # model.load_state_dict(res['model_bert'])
     # model.freeze_wiki_model(req_grad=False)
     ## 5. Get optimizers
     if args.do_train and not eval_bool:
