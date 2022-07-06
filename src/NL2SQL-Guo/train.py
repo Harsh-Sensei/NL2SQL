@@ -23,11 +23,14 @@ from sqlova.utils.utils import load_jsonl
 from sqlova.model.nl2sql.wikisql_models import *
 from sqlnet.dbengine import DBEngine
 from colorama import Fore, Back, Style
+from torch.utils.tensorboard import SummaryWriter
 
 torch.manual_seed(73)
 
 # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 device = torch.device("cpu")
+
+writer = SummaryWriter("runs/NL2SQL_bert_ft")
 
 def construct_hyper_param(parser):
     parser.add_argument("--do_train", default=True)
@@ -528,12 +531,25 @@ def eval_count_star(g_sc, pr_sc, pr_sa, prob_count_star, threshold=0.6):
     return cnt_star_header_list, cnt_star_pool_list, cnt_star_num
 
 
-def pretty_print_queries(nlu, g_sql, pred_sql):
+def pretty_print_queries(nlu, g_sql, pred_sql, cnt_list):
+    # cnt_list1 = [cnt_sn1_list, cnt_sc1_list, cnt_sa1_list, cnt_wn1_list, cnt_wc1_list, cnt_wo1_list, cnt_wv1_list,
+    #              cnt_gb1_list, cnt_lx1_list, cnt_x1_list]
+    global step
+    i = 0
     for ques, g_sql1, pred_sql1 in zip(nlu, g_sql, pred_sql):
-        print("NL Question:", ques)
-        print("Ground Truth Query:", g_sql1)
-        print("Predicted Query:", pred_sql1)
-        print("")
+        try:
+            print("NL Question:", ques)
+            print("Ground Truth Query:", g_sql1)
+            print("Predicted Query:", pred_sql1)
+            cnt_res = f"sn:{cnt_list[0][i]}; sc:{cnt_list[1][i]}; sa:{cnt_list[2][i]};" \
+                f"wn:{cnt_list[3][i]}; wc:{cnt_list[4][i]}; wo:{cnt_list[5][i]};" \
+                f"wv:{cnt_list[6][i]}; gb:{cnt_list[7][i]}; lx:{cnt_list[8][i]}"
+            print(cnt_res)
+            writer.add_text("result_details/queries_ft", "\n".join([ques, g_sql1, pred_sql1, cnt_res]), global_step=step)
+            step += 1
+            i += 1
+        except Exception as e:
+            print(e)
     return None
 
 def test(data_loader, data_table, model, model_bert, bert_config, tokenizer,
