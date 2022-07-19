@@ -39,9 +39,13 @@ The merged WikiSQL and Spider datasets and required scripts are available [here]
 The above dataset must be present in `/src/NL2SQL-Guo/data_and_model`. That is, finally directory must be as follows:
 ```
 data_and_model  
-|  
-├───easy_spider                                                                                               │    └───knowledge_queries                                                                                    ....                                                                                                                      ├───spider                                                                                                              │   └───database                                                                                                          │       ├───academic                                                                                                      │       ├───activity_1                                                                                                    │       ├───aircraft                                                                                                      │       ├───allergy_1
- ....                                                                                                                                                                                                                                                 ├───spider_groupby                                                                                                      │   └───knowledge_queries                                                                                               └───spider_grpby_orderby 
+    |-easy_spider  
+        |-knowledge_queries  
+        ...
+    |-medium_spider  
+        |-knowledge_queries  
+        ...
+...
 ```
 
 
@@ -65,14 +69,12 @@ Notice the major difference in `COUNT(*) (pool method)` after fine tuning BERT.
 
 
 ## How to use?
-### Training 
+### Training
+**If you have a good GPU or want to just evaluate the model then `gpu` branch is the recommended one. For other branches, slight code modifications might be required to run `train.py`**  
 Clone the repo and choose the required branch. `master` branch includes only the following extensions: 
 1. SELECT multiple columns(that is, SELECT number, SELECT cols, SELECT agg)
 2. COUNT(*)  
-
 On the other hand, `groupby` branch also inlcudes GROUP BY syntax.  
-
-**If you have a good GPU or want to just evaluate the model then `gpu` branch is the recommended one**
 
 The [train.py](NL2SQL-Guo/train.py) script already has default parameters set to train the entire model along with fine tuning of BERT. The parameters can be provided in case the default behaviour is not required. Th dataset needs to be in proper format for training purposes, the query data as well as table data.  
  Training by default also requires pre-trained models(bert as well as non-bert model), and instructions for downloading them can be found [here](NL2SQL-Guo/README.md)  
@@ -92,6 +94,16 @@ saved_models
     |- bert_multsel_cntstar_grpby_bS16_lr0.00002.pt 
     |- nonbert_multsel_cntstar_grpby_bS16_lr0.00002.pt
 ```
+After setting up the above structure for datasets and trained models follow the below instructions:  
+For just training with default parameters:
+```
+python train.py --do_eval 0
+```
+For just evaluating the provided trained models
+```
+python train.py --do_train 0
+```
+For any other modifications(like changing batch size, fine tuning BERT, etc., modify `construct_hyper_param` function in `train.py`)
 
 ## Limitations
 1. MAX number of SELECT col = 4
