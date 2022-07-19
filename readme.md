@@ -31,7 +31,22 @@ Since WikiSQL dataset does not have queries of the new syntax, [Spider](https://
         <td> 81</td>
         <td>40</td>
     </tr>
-</table>
+</table>  
+
+For training or evaluating the model read the below instructions:
+The merged WikiSQL and Spider datasets and required scripts are available [here](https://drive.google.com/file/d/14mfRe2Jx1_dG19bhWjVu1SiQaF_o3Zfd/view?usp=sharing)
+
+The above dataset must be present in `/src/NL2SQL-Guo/data_and_model`. That is, finally directory must be as follows:
+```
+data_and_model  
+    |-easy_spider  
+        |-knowledge_queries  
+        ...
+    |-medium_spider  
+        |-knowledge_queries  
+        ...
+...
+```
 
 
 ## Results
@@ -54,24 +69,41 @@ Notice the major difference in `COUNT(*) (pool method)` after fine tuning BERT.
 
 
 ## How to use?
-### Training 
+### Training
+**If you have a good GPU or want to just evaluate the model then `gpu` branch is the recommended one. For other branches, slight code modifications might be required to run `train.py`**  
 Clone the repo and choose the required branch. `master` branch includes only the following extensions: 
 1. SELECT multiple columns(that is, SELECT number, SELECT cols, SELECT agg)
 2. COUNT(*)  
-
 On the other hand, `groupby` branch also inlcudes GROUP BY syntax.  
 
-The [train.py](NL2SQL-Guo/train.py) script already has default parameters set to train the entire model along with fine tuning of BERT. The parameters can be provided in case the default behaviour is not required. Th datast needs to be in proper format for training purposes, the query data as well as table data.
-### Evaluation
-`test` function can be used for evaluation purposes. For printing all the predicted queries `testing` branch can be used. Note that the result is also stored for accessing through tensorboard.
-
+The [train.py](NL2SQL-Guo/train.py) script already has default parameters set to train the entire model along with fine tuning of BERT. The parameters can be provided in case the default behaviour is not required. Th dataset needs to be in proper format for training purposes, the query data as well as table data.  
+ Training by default also requires pre-trained models(bert as well as non-bert model), and instructions for downloading them can be found [here](NL2SQL-Guo/README.md)  
+Also by default, BERT is not fine-tuned while training, and the required arguments(defined in `train.py`) need to be changed for modifications from default behaviour.
 ## Released Models
-The models are trained on single NVIDIA GeForce GTX 1080 Ti GPU, training for 50 epochs lasted for ~2hrs. Below are some of the pre-trained models:
+The models are trained on single NVIDIA GeForce RTX 6000 GPU(~24 GB), training for 50 epochs lasted for ~2hrs. Below are some of the pre-trained models:
 | Model Name | Link |
 | ---------- | ---- |
 | spider_multsel_cntstar_grpby_best.pt | [Link](https://drive.google.com/file/d/1VBdcTImJTYwDvHCB8aMckgCEYtLJ80mN/view?usp=sharing) |
 | (non)bert_multsel_cntstar_grpby_bS16_lr0.00002.pt | [Link](https://drive.google.com/drive/folders/1_ep8leWhJ_mpbHuh-D2Gu7OeOv3VKBjh?usp=sharing) |
 
+For using the above models, store the models in `saved_models`  directory at the same level as `train.py`. So the directory structure would look as follows:
+```
+train.py
+|
+saved_models
+    |- bert_multsel_cntstar_grpby_bS16_lr0.00002.pt 
+    |- nonbert_multsel_cntstar_grpby_bS16_lr0.00002.pt
+```
+After setting up the above structure for datasets and trained models follow the below instructions:  
+For just training with default parameters:
+```
+python train.py --do_eval 0
+```
+For just evaluating the provided trained models
+```
+python train.py --do_train 0
+```
+For any other modifications(like changing batch size, fine tuning BERT, etc., modify `construct_hyper_param` function in `train.py`)
 
 ## Limitations
 1. MAX number of SELECT col = 4
