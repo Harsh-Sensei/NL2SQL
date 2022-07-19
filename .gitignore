@@ -9,8 +9,10 @@ lightning_log/*
 *.json
 *.jsonl
 *.db
+*.zip
 src/NL2SQL-Guo/data_and_model/spider/*
 *.txt
 !src/NL2SQL-Guo/results/mult_cntstar_grpby_queries_result.txt
 !src/NL2SQL-Guo/results/ft_mult_cntstar_grpby_queries_result.txt
 src/NL2SQL-Guo/runs
+last_meet_photo.png

@@ -21,8 +21,8 @@ from .utils import json_default_type_checker
 from .wikisql_formatter import get_squad_style_ans
 
 
-# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-device = torch.device("cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# device = torch.device("cpu")
 
 # Load data -----------------------------------------------------------------------------------------------
 def load_wikisql(path_wikisql, toy_model, toy_size, bert=False, no_w2i=False, no_hs_tok=False, aug=False):
